@@ -32,11 +32,16 @@
           transparent 90px
         ),
         linear-gradient(120deg, #3a0075, #12001f);
-      animation: bgmove 12s linear infinite;
+      animation: bgmove 10s linear infinite;
       display: flex;
       justify-content: center;
       align-items: center;
       color: white;
+    }
+
+    @keyframes bgmove {
+      from { background-position: 0 0; }
+      to { background-position: 900px 900px; }
     }
 
     body::before {
@@ -48,17 +53,40 @@
         rgba(180,80,255,0.35),
         transparent 45%
       );
-      transition: background 0.1s;
       pointer-events: none;
     }
 
-    @keyframes bgmove {
-      from { background-position: 0 0; }
-      to { background-position: 800px 800px; }
+    /* TRIPPY LETTERS */
+    .letter-field {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .letter {
+      position: absolute;
+      font-size: 18vw;
+      font-weight: 900;
+      color: rgba(200,120,255,0.25);
+      text-shadow:
+        0 0 40px rgba(255,200,255,0.8),
+        0 0 120px rgba(180,80,255,0.6);
+      animation: float 6s ease-in-out infinite;
+      transform-origin: center;
+      user-select: none;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-40px) rotate(4deg); }
+      100% { transform: translateY(0) rotate(0deg); }
     }
 
     .view {
-      position: absolute;
+      position: relative;
+      z-index: 5;
       text-align: center;
       opacity: 0;
       transform: scale(0.95);
@@ -89,13 +117,11 @@
     }
 
     @keyframes glitch {
-      0% { text-shadow: none; }
       50% {
         text-shadow:
           3px 0 #ff00ff,
           -3px 0 #00ffff;
       }
-      100% { text-shadow: none; }
     }
 
     .btn {
@@ -110,65 +136,14 @@
       letter-spacing: 0.3em;
       cursor: pointer;
       box-shadow: 0 0 40px rgba(255,200,0,0.7);
-      transition: transform 0.25s ease;
-    }
-
-    .btn:hover {
-      transform: scale(1.08) rotate(-1deg);
     }
 
     .updates-grid {
       display: flex;
       gap: 2.5rem;
-      align-items: center;
       justify-content: center;
       flex-wrap: wrap;
       margin-bottom: 2.5rem;
-    }
-
-    .video-card {
-      max-width: 320px;
-      text-align: center;
-    }
-
-    .video-link {
-      display: block;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 0 40px rgba(200,120,255,0.6);
-      transition: transform 0.35s ease;
-    }
-
-    .video-link:hover {
-      transform: translateY(-8px) scale(1.04) rotate(-1deg);
-    }
-
-    .video-link img {
-      width: 100%;
-      display: block;
-    }
-
-    .caption {
-      margin-top: 0.75rem;
-      font-size: 0.9rem;
-      letter-spacing: 0.12em;
-      color: #ffd8ff;
-      transition: transform 0.3s ease;
-    }
-
-    .video-card:hover .caption {
-      transform: translateY(-4px);
-    }
-
-    .info-box {
-      max-width: 260px;
-      padding: 1.5rem;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(200,120,255,0.5);
-      box-shadow: 0 0 35px rgba(200,120,255,0.4);
-      font-size: 1rem;
-      color: #fff2a8;
     }
 
     .email-box {
@@ -194,63 +169,74 @@
       color: white;
       text-align: center;
       outline: none;
+      z-index: 10;
     }
   </style>
 </head>
 <body>
 
-  <!-- HOME -->
-  <div id="home" class="view active">
-    <img src="wizshtlogo_trans.png" class="logo" alt="Wizard Shit logo">
-    <div class="glitch">WIZARD SHIT</div>
-    <button class="btn" onclick="enterSite()">ENTER</button>
-  </div>
+<div class="letter-field" id="letterField"></div>
 
-  <!-- UPDATES -->
-  <div id="updates" class="view">
-    <div class="glitch">UPDATES</div>
+<!-- HOME -->
+<div id="home" class="view active">
+  <img src="wizshtlogo_trans.png" class="logo">
+  <div class="glitch">WIZARD SHIT</div>
+  <button class="btn" onclick="enterSite()">ENTER</button>
+</div>
 
-    <div class="updates-grid">
-      <div class="video-card">
-        <a class="video-link" href="https://www.youtube.com/watch?v=H6cNCTofnrs" target="_blank">
-          <img src="https://img.youtube.com/vi/H6cNCTofnrs/hqdefault.jpg">
-        </a>
-        <div class="caption">Christmas In Wizard City</div>
-      </div>
+<!-- UPDATES -->
+<div id="updates" class="view">
+  <div class="glitch">UPDATES</div>
 
-      <div class="info-box">
-        Merchandise coming soon!
-      </div>
-    </div>
+  <form class="email-box" action="https://formspree.io/f/mrelgwzp" method="POST">
+    <label>ENTER EMAIL FOR FUTURE UPDATES</label>
+    <input id="emailInput" type="email" name="email" placeholder="your@email.com" required>
+    <button class="btn" type="submit">SUBMIT</button>
+  </form>
 
-    <form class="email-box" action="https://formspree.io/f/mrelgwzp" method="POST">
-      <label>ENTER EMAIL FOR FUTURE UPDATES</label>
-      <input type="email" name="email" placeholder="your@email.com" required>
-      <button class="btn" type="submit">SUBMIT</button>
-    </form>
+  <button class="btn" onclick="goBack()">BACK</button>
+</div>
 
-    <button class="btn" onclick="goBack()">BACK</button>
-  </div>
+<script>
+  const home = document.getElementById('home');
+  const updates = document.getElementById('updates');
+  const field = document.getElementById('letterField');
+  const input = document.getElementById('emailInput');
 
-  <script>
-    const home = document.getElementById('home');
-    const updates = document.getElementById('updates');
+  function enterSite() {
+    home.classList.remove('active');
+    updates.classList.add('active');
+  }
 
-    function enterSite() {
-      home.classList.remove('active');
-      updates.classList.add('active');
-    }
+  function goBack() {
+    updates.classList.remove('active');
+    home.classList.add('active');
+  }
 
-    function goBack() {
-      updates.classList.remove('active');
-      home.classList.add('active');
-    }
+  document.addEventListener('mousemove', e => {
+    document.body.style.setProperty('--mx', e.clientX + 'px');
+    document.body.style.setProperty('--my', e.clientY + 'px');
+  });
 
-    document.addEventListener('mousemove', e => {
-      document.body.style.setProperty('--mx', e.clientX + 'px');
-      document.body.style.setProperty('--my', e.clientY + 'px');
+  input.addEventListener('input', () => {
+    field.innerHTML = "";
+
+    [...input.value].slice(-6).forEach((char, i) => {
+      if (char === "@") char = "✦";
+
+      const el = document.createElement("div");
+      el.className = "letter";
+      el.textContent = char;
+
+      el.style.left = Math.random() * 80 + "%";
+      el.style.top = Math.random() * 70 + "%";
+      el.style.animationDelay = `${i * 0.2}s`;
+      el.style.transform = `rotate(${Math.random()*10-5}deg)`;
+
+      field.appendChild(el);
     });
-  </script>
+  });
+</script>
 
 </body>
 </html>
