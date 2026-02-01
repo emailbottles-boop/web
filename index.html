@@ -37,20 +37,6 @@
       to { background-position: 600px 600px; }
     }
 
-    /* FLOATING RUNES */
-    .rune {
-      position: absolute;
-      font-size: 18px;
-      opacity: 0.15;
-      animation: float 18s linear infinite;
-    }
-
-    @keyframes float {
-      from { transform: translateY(110vh) rotate(0deg); }
-      to { transform: translateY(-20vh) rotate(360deg); }
-    }
-
-    /* VIEW SYSTEM */
     .view {
       position: absolute;
       text-align: center;
@@ -66,19 +52,18 @@
       pointer-events: auto;
     }
 
-    /* LOGO (safe to swap anytime) */
     .logo {
       max-width: 300px;
       margin-bottom: 2rem;
       filter: drop-shadow(0 0 25px rgba(200,120,255,0.7));
     }
 
-    /* GLITCH TEXT */
     .glitch {
       font-size: 1.8rem;
       letter-spacing: 0.35em;
       color: #d08bff;
       animation: glitch 2.5s infinite;
+      margin-bottom: 1.5rem;
     }
 
     @keyframes glitch {
@@ -90,7 +75,6 @@
       }
     }
 
-    /* BUTTON */
     .btn {
       margin-top: 2rem;
       padding: 0.9rem 2.4rem;
@@ -98,71 +82,152 @@
       color: black;
       border: none;
       border-radius: 999px;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 800;
       letter-spacing: 0.3em;
       cursor: pointer;
       box-shadow: 0 0 40px rgba(255,200,0,0.6);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 60px rgba(255,200,0,0.9);
+    /* UPDATES */
+    .updates-grid {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
     }
 
-    .btn:active {
-      transform: scale(0.97);
+    .video-card {
+      max-width: 320px;
+      text-align: center;
     }
 
-    p {
-      opacity: 0.85;
-      margin-top: 1rem;
+    .video-link {
+      display: block;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(200,120,255,0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .video-link:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 0 45px rgba(255,200,255,0.9);
+    }
+
+    .video-link img {
+      width: 100%;
+      display: block;
+    }
+
+    .caption {
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      color: #ffccff;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .video-card:hover .caption {
+      color: #fff6a5;
+      text-shadow: 0 0 12px rgba(255,220,120,0.8);
+    }
+
+    .info-box {
+      max-width: 260px;
+      padding: 1.5rem;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(200,120,255,0.4);
+      box-shadow: 0 0 25px rgba(200,120,255,0.3);
+      font-size: 1rem;
+      color: #ffeb8a;
+    }
+
+    /* EMAIL CAPTURE */
+    .email-box {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .email-box label {
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      color: #d8aaff;
+    }
+
+    .email-box input {
+      padding: 0.75rem 1.1rem;
+      width: 270px;
+      border-radius: 999px;
+      border: 1px solid rgba(200,120,255,0.5);
+      background: rgba(0,0,0,0.45);
+      color: white;
+      text-align: center;
+      outline: none;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .email-box input:focus {
+      box-shadow: 0 0 18px rgba(200,120,255,0.8);
+    }
+
+    .email-box input::placeholder {
+      color: rgba(255,255,255,0.4);
     }
   </style>
 </head>
 <body>
 
-  <!-- RUNES -->
-  <div class="rune" style="left:10%; animation-delay:0s;">ᚠ</div>
-  <div class="rune" style="left:30%; animation-delay:3s;">ᚢ</div>
-  <div class="rune" style="left:50%; animation-delay:6s;">ᚦ</div>
-  <div class="rune" style="left:70%; animation-delay:9s;">ᚨ</div>
-  <div class="rune" style="left:90%; animation-delay:12s;">ᚱ</div>
-
-  <!-- HOME VIEW -->
+  <!-- HOME -->
   <div id="home" class="view active">
-
-    <!-- 🔁 CHANGE LOGO FILE HERE WHENEVER YOU WANT -->
     <img src="capture.png" alt="Wizard Shit logo" class="logo">
-
     <div class="glitch">WIZARD SHIT</div>
     <button class="btn" onclick="enter()">ENTER</button>
   </div>
 
-  <!-- UPDATES VIEW -->
+  <!-- UPDATES -->
   <div id="updates" class="view">
-    <div class="glitch">FUTURE UPDATES</div>
-    <p>Signals detected. Transmission pending.</p>
+    <div class="glitch">UPDATES</div>
+
+    <div class="updates-grid">
+      <div class="video-card">
+        <a
+          class="video-link"
+          href="https://www.youtube.com/watch?v=H6cNCTofnrs"
+          target="_blank"
+          rel="noopener"
+        >
+          <img src="https://img.youtube.com/vi/H6cNCTofnrs/hqdefault.jpg" alt="YouTube thumbnail">
+        </a>
+        <div class="caption">christmas at wizard shit</div>
+      </div>
+
+      <div class="info-box">
+        Merchandise coming soon!
+      </div>
+    </div>
+
+    <div class="email-box">
+      <label>ENTER EMAIL FOR FUTURE UPDATES</label>
+      <input type="email" placeholder="your@email.com">
+    </div>
+
     <button class="btn" onclick="back()">BACK</button>
   </div>
 
-  <!-- CLICK SOUND -->
-  <audio id="click">
-    <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=">
-  </audio>
-
   <script>
-    const click = document.getElementById('click');
-
     function enter() {
-      click.play();
       home.classList.remove('active');
       updates.classList.add('active');
     }
 
     function back() {
-      click.play();
       updates.classList.remove('active');
       home.classList.add('active');
     }
@@ -170,3 +235,7 @@
 
 </body>
 </html>
+
+
+</html>
+
