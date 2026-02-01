@@ -1,111 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wizard</title>
+<script>
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+document.body.classList.add(isMobile ? "mobile" : "desktop");
 
-<style>
-html, body {
-  margin: 0;
-  height: 100%;
-  overflow: hidden;
-  background: #07000f;
-  font-family: system-ui, sans-serif;
-  color: white;
+/* SAFE ELEMENT LOOKUPS */
+const home = document.getElementById("home");
+const updates = document.getElementById("updates");
+const plushy = document.getElementById("plushy");
+const cryptoField = document.getElementById("cryptoField");
+const emailInput = document.getElementById("emailInput");
+
+const enterBtn = document.getElementById("enterBtn");
+const plushyBtn = document.getElementById("plushyBtn");
+const backFromUpdates = document.getElementById("backFromUpdates");
+const backFromPlushy = document.getElementById("backFromPlushy");
+
+/* ALWAYS SHOW HOME FIRST */
+home.classList.remove("hidden");
+updates.classList.add("hidden");
+plushy.classList.add("hidden");
+
+/* SAFE PAGE SWITCH */
+function swap(hide, show) {
+  if (!hide || !show) return;
+  hide.classList.add("hidden");
+  show.classList.remove("hidden");
+  if (cryptoField) cryptoField.innerHTML = "";
 }
 
-/* ===== DEVICE MODES ===== */
-body.mobile {
-  --bg-strength: 0.02;
-  --letter-max: 4;
-  --letter-size: 18vw;
-  --letter-life: 4200ms;
-}
-body.desktop {
-  --bg-strength: 0.08;
-  --letter-max: 7;
-  --letter-size: 32vw;
-  --letter-life: 9000ms;
+/* BUTTON EVENTS */
+if (enterBtn) {
+  enterBtn.addEventListener("click", () => swap(home, updates));
 }
 
-/* ===== BACKGROUND ===== */
-body::before {
-  content: "";
-  position: fixed;
-  inset: -120%;
-  background:
-    repeating-linear-gradient(
-      60deg,
-      rgba(255,220,120,0.12) 0px,
-      rgba(255,220,120,0.12) 1px,
-      transparent 1px,
-      transparent 60px
-    ),
-    repeating-linear-gradient(
-      -60deg,
-      rgba(180,0,255,0.2) 0px,
-      rgba(180,0,255,0.2) 1px,
-      transparent 1px,
-      transparent 90px
-    );
-  transform: translate(
-    calc(var(--mx, 0px) * -1 * var(--bg-strength)),
-    calc(var(--my, 0px) * -1 * var(--bg-strength))
-  );
-  pointer-events: none;
+if (plushyBtn) {
+  plushyBtn.addEventListener("click", () => swap(home, plushy));
 }
 
-/* ===== NEON EDGES ===== */
-.edge {
-  position: fixed;
-  inset: 0;
-  border-left: 2px solid rgba(255,220,120,0.45);
-  border-right: 2px solid rgba(180,0,255,0.45);
-  pointer-events: none;
+if (backFromUpdates) {
+  backFromUpdates.addEventListener("click", () => swap(updates, home));
 }
 
-/* ===== CRYPTO LETTER FIELD ===== */
-#cryptoField {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 2;
+if (backFromPlushy) {
+  backFromPlushy.addEventListener("click", () => swap(plushy, home));
 }
 
-.crypto {
-  position: absolute;
-  font-weight: 900;
-  opacity: 0.85;
-  color: rgba(230,160,255,0.4);
-  text-shadow:
-    0 0 30px rgba(255,220,255,0.9),
-    0 0 90px rgba(180,80,255,0.8);
-  animation: drift var(--letter-life) ease-out forwards;
+/* BACKGROUND PARALLAX (DESKTOP ONLY) */
+if (!isMobile) {
+  document.addEventListener("mousemove", e => {
+    document.body.style.setProperty("--mx", e.clientX + "px");
+    document.body.style.setProperty("--my", e.clientY + "px");
+  });
 }
 
-@keyframes drift {
-  from { transform: translateY(40px) scale(1); opacity: 1; }
-  to { transform: translateY(-180px) scale(1.3); opacity: 0; }
-}
+/* CRYPTO LETTERS — EVEN DISTRIBUTION */
+if (emailInput) {
+  emailInput.addEventListener("input", e => {
+    const char = e.data;
+    if (!char || !/[a-zA-Z@._-]/.test(char)) return;
+    if (cryptoField.children.length > 28) return;
 
-/* ===== SCREENS ===== */
-.screen {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 2.2rem;
-  text-align: center;
-}
-.hidden { display: none; }
+    const el = document.createElement("div");
+    el.className = "crypto";
+    el.textContent = char.toUpperCase();
 
-/* ===== LOGO ===== */
-.logo {
-  width: 340px;
-  max-width: 85vw;
-  filter: drop-shadow(0 0 70px rgba(200,120,255,0.9));
-  transition
+    /* EVEN SCREEN DISTRIBUTION */
+    const x = Math.random();
+    const y = Math.random();
+    el.style.left = `${x * 100}vw`;
+    el.style.top = `${y * 100}vh`;
+
+    el.style.fontSize = (Math.random() * 26 + 18) + "vw";
+    el.style.transform = `rotate(${Math.random() > 0.5 ? 180 : 0}deg)`;
+
+    cryptoField.appendChild(el);
+    setTimeout(() => el.remove(), 8000);
+  });
+}
+</script>
