@@ -12,7 +12,6 @@
       height: 100%;
       margin: 0;
       font-family: system-ui, sans-serif;
-      overflow: hidden;
     }
 
     body {
@@ -62,8 +61,8 @@
       font-size: 1.8rem;
       letter-spacing: 0.35em;
       color: #d08bff;
-      animation: glitch 2.5s infinite;
       margin-bottom: 1.5rem;
+      animation: glitch 2.5s infinite;
     }
 
     @keyframes glitch {
@@ -107,4 +106,112 @@
       display: block;
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 0 30px rgba(
+      box-shadow: 0 0 30px rgba(200,120,255,0.5);
+      transition: transform 0.3s ease;
+    }
+
+    .video-link:hover {
+      transform: translateY(-6px) scale(1.02);
+    }
+
+    .video-link img {
+      width: 100%;
+      display: block;
+    }
+
+    .caption {
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      color: #ffccff;
+    }
+
+    .info-box {
+      max-width: 260px;
+      padding: 1.5rem;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(200,120,255,0.4);
+      box-shadow: 0 0 25px rgba(200,120,255,0.3);
+      font-size: 1rem;
+      color: #ffeb8a;
+    }
+
+    .email-box {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .email-box label {
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      color: #d8aaff;
+    }
+
+    .email-box input {
+      padding: 0.75rem 1.1rem;
+      width: 270px;
+      border-radius: 999px;
+      border: 1px solid rgba(200,120,255,0.5);
+      background: rgba(0,0,0,0.45);
+      color: white;
+      text-align: center;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HOME -->
+  <div id="home" class="view active">
+    <img src="wizshtlogo_trans.png" alt="Wizard Shit logo" class="logo">
+    <div class="glitch">WIZARD SHIT</div>
+    <button class="btn" onclick="enterSite()">ENTER</button>
+  </div>
+
+  <!-- UPDATES -->
+  <div id="updates" class="view">
+    <div class="glitch">UPDATES</div>
+
+    <div class="updates-grid">
+      <div class="video-card">
+        <a class="video-link" href="https://www.youtube.com/watch?v=H6cNCTofnrs" target="_blank">
+          <img src="https://img.youtube.com/vi/H6cNCTofnrs/hqdefault.jpg">
+        </a>
+        <div class="caption">Christmas In Wizard City</div>
+      </div>
+
+      <div class="info-box">
+        Merchandise coming soon!
+      </div>
+    </div>
+
+    <form class="email-box" action="https://formspree.io/f/mrelgwzp" method="POST">
+      <label>ENTER EMAIL FOR FUTURE UPDATES</label>
+      <input type="email" name="email" placeholder="your@email.com" required>
+      <button class="btn" type="submit">SUBMIT</button>
+    </form>
+
+    <button class="btn" onclick="goBack()">BACK</button>
+  </div>
+
+  <script>
+    const home = document.getElementById('home');
+    const updates = document.getElementById('updates');
+
+    function enterSite() {
+      home.classList.remove('active');
+      updates.classList.add('active');
+    }
+
+    function goBack() {
+      updates.classList.remove('active');
+      home.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
