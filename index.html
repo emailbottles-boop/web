@@ -76,13 +76,13 @@
     }
 
     .btn {
-      margin-top: 2rem;
+      margin-top: 1.5rem;
       padding: 0.9rem 2.4rem;
       background: linear-gradient(135deg, purple, #ffcc00);
       color: black;
       border: none;
       border-radius: 999px;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 800;
       letter-spacing: 0.3em;
       cursor: pointer;
@@ -152,7 +152,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.9rem;
+      gap: 0.8rem;
     }
 
     .email-box label {
@@ -170,7 +170,6 @@
       color: white;
       text-align: center;
       outline: none;
-      transition: box-shadow 0.3s ease;
     }
 
     .email-box input:focus {
@@ -213,10 +212,21 @@
       </div>
     </div>
 
-    <div class="email-box">
+    <!-- FORM -->
+    <form
+      class="email-box"
+      action="https://formspree.io/f/mrelgwzp"
+      method="POST"
+    >
       <label>ENTER EMAIL FOR FUTURE UPDATES</label>
-      <input type="email" placeholder="your@email.com">
-    </div>
+      <input
+        type="email"
+        name="email"
+        placeholder="your@email.com"
+        required
+      >
+      <button class="btn" type="submit">SUBMIT</button>
+    </form>
 
     <button class="btn" onclick="back()">BACK</button>
   </div>
@@ -235,7 +245,3 @@
 
 </body>
 </html>
-
-
-</html>
-
