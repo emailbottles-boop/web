@@ -1,185 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wizard Shit</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wizard Shit</title>
 
-  <style>
-    * { box-sizing: border-box; }
+<style>
+* { box-sizing: border-box; }
 
-    html, body {
-      height: 100%;
-      margin: 0;
-      font-family: system-ui, sans-serif;
-      overflow: hidden;
-    }
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: system-ui, sans-serif;
+}
 
-    body {
-      background:
-        repeating-linear-gradient(
-          60deg,
-          rgba(255,255,255,0.05) 0px,
-          rgba(255,255,255,0.05) 1px,
-          transparent 1px,
-          transparent 70px
-        ),
-        repeating-linear-gradient(
-          -60deg,
-          rgba(200,120,255,0.04) 0px,
-          rgba(200,120,255,0.04) 1px,
-          transparent 1px,
-          transparent 90px
-        ),
-        linear-gradient(120deg, #3a0075, #12001f);
-      animation: bgmove 10s linear infinite;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-    }
+/* === BACKGROUND === */
+body {
+  background:
+    repeating-linear-gradient(
+      60deg,
+      rgba(255,255,255,0.05) 0px,
+      rgba(255,255,255,0.05) 1px,
+      transparent 1px,
+      transparent 70px
+    ),
+    repeating-linear-gradient(
+      -60deg,
+      rgba(200,120,255,0.04) 0px,
+      rgba(200,120,255,0.04) 1px,
+      transparent 1px,
+      transparent 90px
+    ),
+    linear-gradient(120deg, #3a0075, #12001f);
+  animation: bgmove 9s linear infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
 
-    @keyframes bgmove {
-      from { background-position: 0 0; }
-      to { background-position: 900px 900px; }
-    }
+@keyframes bgmove {
+  from { background-position: 0 0; }
+  to { background-position: 1000px 1000px; }
+}
 
-    body::before {
-      content: "";
-      position: absolute;
-      inset: -50%;
-      background: radial-gradient(
-        circle at var(--mx, 50%) var(--my, 50%),
-        rgba(180,80,255,0.35),
-        transparent 45%
-      );
-      pointer-events: none;
-    }
+/* mouse glow */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 50%),
+    rgba(180,80,255,0.35),
+    transparent 45%
+  );
+  pointer-events: none;
+}
 
-    /* TRIPPY LETTERS */
-    .letter-field {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 1;
-    }
+/* === TRIPPY LETTERS === */
+#letterField {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
 
-    .letter {
-      position: absolute;
-      font-size: 18vw;
-      font-weight: 900;
-      color: rgba(200,120,255,0.25);
-      text-shadow:
-        0 0 40px rgba(255,200,255,0.8),
-        0 0 120px rgba(180,80,255,0.6);
-      animation: float 6s ease-in-out infinite;
-      transform-origin: center;
-      user-select: none;
-    }
+.letter {
+  position: absolute;
+  font-size: 18vw;
+  font-weight: 900;
+  color: rgba(200,120,255,0.25);
+  text-shadow:
+    0 0 40px rgba(255,200,255,0.8),
+    0 0 120px rgba(180,80,255,0.6);
+  animation: float 6s ease-in-out infinite;
+}
 
-    @keyframes float {
-      0% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-40px) rotate(4deg); }
-      100% { transform: translateY(0) rotate(0deg); }
-    }
+@keyframes float {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-40px) rotate(5deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
 
-    .view {
-      position: relative;
-      z-index: 5;
-      text-align: center;
-      opacity: 0;
-      transform: scale(0.95);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-      pointer-events: none;
-    }
+/* === VIEWS === */
+.view {
+  position: absolute;
+  z-index: 5;
+  text-align: center;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: 0.7s ease;
+  pointer-events: none;
+}
 
-    .view.active {
-      opacity: 1;
-      transform: scale(1);
-      pointer-events: auto;
-    }
+.view.active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
 
-    .logo {
-      max-width: 340px;
-      margin-bottom: 2rem;
-      filter:
-        drop-shadow(0 0 40px rgba(200,120,255,0.9))
-        drop-shadow(0 0 80px rgba(255,200,0,0.4));
-    }
+/* === UI === */
+.logo {
+  max-width: 340px;
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 0 50px rgba(200,120,255,0.9));
+}
 
-    .glitch {
-      font-size: 1.8rem;
-      letter-spacing: 0.35em;
-      color: #e2b6ff;
-      margin-bottom: 1.5rem;
-      animation: glitch 1.8s infinite;
-    }
+.glitch {
+  font-size: 1.8rem;
+  letter-spacing: 0.35em;
+  color: #e2b6ff;
+  margin-bottom: 1.5rem;
+  animation: glitch 1.8s infinite;
+}
 
-    @keyframes glitch {
-      50% {
-        text-shadow:
-          3px 0 #ff00ff,
-          -3px 0 #00ffff;
-      }
-    }
+@keyframes glitch {
+  50% {
+    text-shadow:
+      3px 0 #ff00ff,
+      -3px 0 #00ffff;
+  }
+}
 
-    .btn {
-      margin-top: 1.5rem;
-      padding: 0.9rem 2.4rem;
-      background: linear-gradient(135deg, #ffdd55, #b100ff);
-      color: black;
-      border: none;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 800;
-      letter-spacing: 0.3em;
-      cursor: pointer;
-      box-shadow: 0 0 40px rgba(255,200,0,0.7);
-    }
+.btn {
+  margin-top: 1.5rem;
+  padding: 0.9rem 2.4rem;
+  background: linear-gradient(135deg, #ffdd55, #b100ff);
+  color: black;
+  border: none;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  cursor: pointer;
+  box-shadow: 0 0 40px rgba(255,200,0,0.7);
+}
 
-    .updates-grid {
-      display: flex;
-      gap: 2.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 2.5rem;
-    }
+/* email */
+.email-box {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
 
-    .email-box {
-      margin-top: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.8rem;
-    }
+.email-box label {
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  color: #e6b6ff;
+}
 
-    .email-box label {
-      font-size: 0.75rem;
-      letter-spacing: 0.25em;
-      color: #e6b6ff;
-    }
-
-    .email-box input {
-      padding: 0.75rem 1.1rem;
-      width: 270px;
-      border-radius: 999px;
-      border: 1px solid rgba(200,120,255,0.6);
-      background: rgba(0,0,0,0.45);
-      color: white;
-      text-align: center;
-      outline: none;
-      z-index: 10;
-    }
-  </style>
+.email-box input {
+  padding: 0.75rem 1.1rem;
+  width: 270px;
+  border-radius: 999px;
+  border: 1px solid rgba(200,120,255,0.6);
+  background: rgba(0,0,0,0.45);
+  color: white;
+  text-align: center;
+  outline: none;
+}
+</style>
 </head>
+
 <body>
 
-<div class="letter-field" id="letterField"></div>
+<div id="letterField"></div>
 
 <!-- HOME -->
 <div id="home" class="view active">
-  <img src="wizshtlogo_trans.png" class="logo">
+  <img src="wizshtlogo_trans.png" class="logo" alt="Wizard Shit logo">
   <div class="glitch">WIZARD SHIT</div>
   <button class="btn" onclick="enterSite()">ENTER</button>
 </div>
@@ -198,44 +190,45 @@
 </div>
 
 <script>
-  const home = document.getElementById('home');
-  const updates = document.getElementById('updates');
-  const field = document.getElementById('letterField');
-  const input = document.getElementById('emailInput');
+const home = document.getElementById("home");
+const updates = document.getElementById("updates");
+const field = document.getElementById("letterField");
 
-  function enterSite() {
-    home.classList.remove('active');
-    updates.classList.add('active');
-  }
+function enterSite() {
+  home.classList.remove("active");
+  updates.classList.add("active");
+}
 
-  function goBack() {
-    updates.classList.remove('active');
-    home.classList.add('active');
-  }
+function goBack() {
+  updates.classList.remove("active");
+  home.classList.add("active");
+  field.innerHTML = "";
+}
 
-  document.addEventListener('mousemove', e => {
-    document.body.style.setProperty('--mx', e.clientX + 'px');
-    document.body.style.setProperty('--my', e.clientY + 'px');
+document.addEventListener("mousemove", e => {
+  document.body.style.setProperty("--mx", e.clientX + "px");
+  document.body.style.setProperty("--my", e.clientY + "px");
+});
+
+document.getElementById("emailInput").addEventListener("input", e => {
+  field.innerHTML = "";
+
+  [...e.target.value].slice(-6).forEach(char => {
+    if (char === "@") char = "✦";
+    if (char === ".") char = "●";
+
+    const el = document.createElement("div");
+    el.className = "letter";
+    el.textContent = char;
+
+    el.style.left = Math.random() * 80 + "%";
+    el.style.top = Math.random() * 70 + "%";
+    el.style.transform =
+      `rotate(${Math.random()*12-6}deg) scale(${1+Math.random()*0.6})`;
+
+    field.appendChild(el);
   });
-
-  input.addEventListener('input', () => {
-    field.innerHTML = "";
-
-    [...input.value].slice(-6).forEach((char, i) => {
-      if (char === "@") char = "✦";
-
-      const el = document.createElement("div");
-      el.className = "letter";
-      el.textContent = char;
-
-      el.style.left = Math.random() * 80 + "%";
-      el.style.top = Math.random() * 70 + "%";
-      el.style.animationDelay = `${i * 0.2}s`;
-      el.style.transform = `rotate(${Math.random()*10-5}deg)`;
-
-      field.appendChild(el);
-    });
-  });
+});
 </script>
 
 </body>
