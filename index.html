@@ -12,146 +12,208 @@ html, body {
   overflow: hidden;
   font-family: system-ui, sans-serif;
   background: #0a0014;
+  color: white;
 }
 
-/* ===== EDGE NEON LINES ===== */
+/* ===== INTERACTIVE BACKGROUND ===== */
 body::before,
 body::after {
   content: "";
   position: fixed;
-  inset: 0;
+  inset: -50%;
   pointer-events: none;
 }
 
 body::before {
   background:
-    linear-gradient(90deg,
-      rgba(255,230,120,0.6),
-      transparent 15%,
-      transparent 85%,
-      rgba(180,0,255,0.6)
-    ),
-    linear-gradient(180deg,
-      rgba(180,0,255,0.5),
-      transparent 15%,
-      transparent 85%,
-      rgba(255,230,120,0.5)
-    );
-  mix-blend-mode: screen;
-}
-
-body::after {
-  background:
     repeating-linear-gradient(
       60deg,
-      rgba(255,230,120,0.15) 0px,
-      rgba(255,230,120,0.15) 1px,
+      rgba(255,220,120,0.08) 0px,
+      rgba(255,220,120,0.08) 1px,
       transparent 1px,
-      transparent 90px
+      transparent 110px
     ),
     repeating-linear-gradient(
       -60deg,
-      rgba(180,0,255,0.18) 0px,
-      rgba(180,0,255,0.18) 1px,
+      rgba(180,0,255,0.1) 0px,
+      rgba(180,0,255,0.1) 1px,
       transparent 1px,
-      transparent 120px
+      transparent 140px
     );
   transform: translate(
-    calc(var(--mx, 0px) * -0.025),
-    calc(var(--my, 0px) * -0.025)
+    calc(var(--mx, 0px) * -0.04),
+    calc(var(--my, 0px) * -0.04)
   );
 }
 
-/* ===== CENTER CONTENT ===== */
+body::after {
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 50%),
+    rgba(180,80,255,0.35),
+    transparent 40%
+  );
+}
+
+/* ===== EDGE LINES (THINNER) ===== */
+.edge {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.edge::before,
+.edge::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.edge::before {
+  border-left: 2px solid rgba(255,220,120,0.6);
+  border-right: 2px solid rgba(180,0,255,0.6);
+}
+
+.edge::after {
+  border-top: 2px solid rgba(180,0,255,0.5);
+  border-bottom: 2px solid rgba(255,220,120,0.5);
+}
+
+/* ===== SCREENS ===== */
 .screen {
-  position: relative;
-  z-index: 10;
-  height: 100%;
+  position: absolute;
+  inset: 0;
+  z-index: 5;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2.8rem;
+  gap: 2.5rem;
   text-align: center;
+}
+
+.hidden {
+  display: none;
 }
 
 /* ===== LOGO ===== */
 .logo {
-  width: 360px;
+  width: 340px;
   max-width: 85vw;
-  filter: drop-shadow(0 0 70px rgba(200,120,255,1));
+  filter: drop-shadow(0 0 60px rgba(200,120,255,1));
   transition: transform 0.12s ease-out;
   will-change: transform;
 }
 
-/* ===== ENTER BUTTON ===== */
+/* ===== BUTTON ===== */
 .btn {
-  min-width: 260px;
-  padding: 1.2rem 3rem;
+  min-width: 240px;
+  padding: 1.1rem 2.8rem;
   background: linear-gradient(135deg, #ffe066, #b000ff);
   color: black;
   border: none;
   border-radius: 999px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 900;
-  letter-spacing: 0.4em;
+  letter-spacing: 0.35em;
   cursor: pointer;
   box-shadow:
-    0 0 50px rgba(255,220,120,1),
-    0 0 120px rgba(180,0,255,0.8);
-  transition:
-    transform 0.12s ease,
-    box-shadow 0.12s ease;
+    0 0 45px rgba(255,220,120,0.9),
+    0 0 100px rgba(180,0,255,0.7);
 }
 
-.btn:hover {
-  transform: scale(1.08);
+/* ===== UPDATES ===== */
+.updates {
+  gap: 2rem;
 }
 
-.btn:active {
-  transform: scale(0.96);
-  box-shadow: 0 0 25px rgba(255,220,120,0.6);
+.video-card {
+  max-width: 280px;
 }
 
-/* ===== HIDDEN SECTION ===== */
-#next {
-  position: absolute;
-  inset: 0;
-  background: #0a0014;
-  display: none;
-  justify-content: center;
-  align-items: center;
+.video-card img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 0 35px rgba(200,120,255,0.7);
+}
+
+.caption {
+  margin-top: 0.7rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
   color: #ffdfff;
-  font-size: 1.2rem;
+}
+
+.merch {
+  padding: 1.3rem;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(200,120,255,0.4);
+  box-shadow: 0 0 30px rgba(200,120,255,0.5);
+  color: #fff2a8;
+  font-size: 0.85rem;
+}
+
+/* ===== EMAIL ===== */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-top: 1.2rem;
+}
+
+form label {
+  font-size: 0.7rem;
   letter-spacing: 0.25em;
+  color: #e6b6ff;
+}
+
+form input {
+  width: 260px;
+  padding: 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(200,120,255,0.6);
+  background: rgba(0,0,0,0.45);
+  color: white;
+  text-align: center;
 }
 </style>
 </head>
 
 <body>
 
-<div class="screen" id="home">
-  <img
-    src="wizshtlogo_trans.png"
-    alt="Logo"
-    class="logo"
-    id="logo"
-  />
+<div class="edge"></div>
 
-  <button class="btn" id="enterBtn">
-    ENTER
-  </button>
+<!-- HOME -->
+<div class="screen" id="home">
+  <img src="wizshtlogo_trans.png" class="logo" id="logo">
+  <button class="btn" id="enterBtn">ENTER</button>
 </div>
 
-<div id="next">
-  UPDATES COMING SOON
+<!-- UPDATES -->
+<div class="screen updates hidden" id="updates">
+  <div class="video-card">
+    <a href="https://www.youtube.com/watch?v=H6cNCTofnrs" target="_blank">
+      <img src="https://img.youtube.com/vi/H6cNCTofnrs/hqdefault.jpg">
+    </a>
+    <div class="caption">Christmas In Wizard City</div>
+  </div>
+
+  <div class="merch">Merchandise coming soon!</div>
+
+  <form action="https://formspree.io/f/mrelgwzp" method="POST">
+    <label>ENTER EMAIL FOR FUTURE UPDATES</label>
+    <input type="email" name="email" required>
+    <button class="btn" type="submit">SUBMIT</button>
+  </form>
+
+  <button class="btn" id="backBtn">BACK</button>
 </div>
 
 <script>
 const logo = document.getElementById("logo");
 const btn = document.getElementById("enterBtn");
 const home = document.getElementById("home");
-const next = document.getElementById("next");
+const updates = document.getElementById("updates");
 
 document.addEventListener("mousemove", e => {
   const mx = e.clientX;
@@ -161,27 +223,25 @@ document.addEventListener("mousemove", e => {
   document.body.style.setProperty("--my", my + "px");
 
   [logo, btn].forEach(el => {
-    const rect = el.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
+    const r = el.getBoundingClientRect();
+    const dx = mx - (r.left + r.width / 2);
+    const dy = my - (r.top + r.height / 2);
+    const d = Math.sqrt(dx*dx + dy*dy);
 
-    const dx = mx - cx;
-    const dy = my - cy;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-
-    const influence = Math.max(0, 1 - distance / 280);
-
-    el.style.transform = `
-      scale(${1 + influence * 0.35}, ${1 + influence * 0.2})
-    `;
+    const i = Math.max(0, 1 - d / 300);
+    el.style.transform = `scale(${1 + i * 0.3}, ${1 + i * 0.18})`;
   });
 });
 
-/* ENTER BUTTON ACTION */
-btn.addEventListener("click", () => {
-  home.style.display = "none";
-  next.style.display = "flex";
-});
+btn.onclick = () => {
+  home.classList.add("hidden");
+  updates.classList.remove("hidden");
+};
+
+document.getElementById("backBtn").onclick = () => {
+  updates.classList.add("hidden");
+  home.classList.remove("hidden");
+};
 </script>
 
 </body>
