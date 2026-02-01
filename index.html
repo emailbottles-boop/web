@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wizard Site</title>
 
 <style>
@@ -11,11 +11,11 @@ html, body {
   height: 100%;
   overflow: hidden;
   font-family: system-ui, sans-serif;
-  background: #0a0014;
+  background: #090012;
   color: white;
 }
 
-/* ===== INTERACTIVE BACKGROUND ===== */
+/* ===== MULTI-LAYER TRIPPY BACKGROUND ===== */
 body::before,
 body::after {
   content: "";
@@ -28,79 +28,65 @@ body::before {
   background:
     repeating-linear-gradient(
       60deg,
-      rgba(255,220,120,0.08) 0px,
-      rgba(255,220,120,0.08) 1px,
+      rgba(255,220,120,0.12) 0px,
+      rgba(255,220,120,0.12) 1px,
       transparent 1px,
-      transparent 110px
+      transparent 90px
     ),
     repeating-linear-gradient(
       -60deg,
-      rgba(180,0,255,0.1) 0px,
-      rgba(180,0,255,0.1) 1px,
+      rgba(180,0,255,0.15) 0px,
+      rgba(180,0,255,0.15) 1px,
       transparent 1px,
-      transparent 140px
+      transparent 120px
     );
   transform: translate(
-    calc(var(--mx, 0px) * -0.04),
-    calc(var(--my, 0px) * -0.04)
+    calc(var(--mx, 0px) * -0.05),
+    calc(var(--my, 0px) * -0.05)
   );
 }
 
 body::after {
   background: radial-gradient(
     circle at var(--mx, 50%) var(--my, 50%),
-    rgba(180,80,255,0.35),
+    rgba(180,80,255,0.45),
     transparent 40%
   );
 }
 
-/* ===== EDGE LINES ===== */
+/* ===== EDGE ENERGY ===== */
 .edge {
   position: fixed;
   inset: 0;
   pointer-events: none;
-}
-
-.edge::before,
-.edge::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-}
-
-.edge::before {
   border-left: 2px solid rgba(255,220,120,0.5);
   border-right: 2px solid rgba(180,0,255,0.5);
-}
-
-.edge::after {
   border-top: 2px solid rgba(180,0,255,0.4);
   border-bottom: 2px solid rgba(255,220,120,0.4);
 }
 
-/* ===== FLOATING LETTERS (UPDATES PAGE ONLY) ===== */
-#glyphs {
+/* ===== FLOATING TYPE (EMAIL REACTIVE) ===== */
+#letterField {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 2;
 }
 
-.glyph {
+.letter {
   position: absolute;
-  font-size: 18vw;
+  font-size: 16vw;
   font-weight: 900;
-  color: rgba(200,120,255,0.18);
+  color: rgba(200,120,255,0.25);
   text-shadow:
-    0 0 40px rgba(255,200,255,0.6),
-    0 0 120px rgba(180,80,255,0.4);
-  animation: drift 10s ease-in-out infinite;
+    0 0 40px rgba(255,200,255,0.9),
+    0 0 120px rgba(180,80,255,0.7);
+  animation: float 7s ease-in-out forwards;
 }
 
-@keyframes drift {
-  0%   { transform: translateY(0) rotate(0deg); }
-  50%  { transform: translateY(-40px) rotate(6deg); }
-  100% { transform: translateY(0) rotate(0deg); }
+@keyframes float {
+  0% { transform: translateY(20px) rotate(0deg); opacity: 0.8; }
+  100% { transform: translateY(-80px) rotate(8deg); opacity: 0; }
 }
 
 /* ===== SCREENS ===== */
@@ -116,37 +102,35 @@ body::after {
   text-align: center;
 }
 
-.hidden {
-  display: none;
-}
+.hidden { display: none; }
 
 /* ===== LOGO ===== */
 .logo {
-  width: 340px;
+  width: 360px;
   max-width: 85vw;
-  filter: drop-shadow(0 0 60px rgba(200,120,255,1));
+  filter: drop-shadow(0 0 70px rgba(200,120,255,1));
   transition: transform 0.12s ease-out;
   will-change: transform;
 }
 
 /* ===== BUTTON ===== */
 .btn {
-  min-width: 240px;
-  padding: 1.1rem 2.8rem;
+  min-width: 260px;
+  padding: 1.2rem 3rem;
   background: linear-gradient(135deg, #ffe066, #b000ff);
   color: black;
   border: none;
   border-radius: 999px;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 900;
-  letter-spacing: 0.35em;
+  letter-spacing: 0.4em;
   cursor: pointer;
   box-shadow:
-    0 0 45px rgba(255,220,120,0.9),
-    0 0 100px rgba(180,0,255,0.7);
+    0 0 50px rgba(255,220,120,1),
+    0 0 120px rgba(180,0,255,0.8);
 }
 
-/* ===== UPDATES CONTENT ===== */
+/* ===== UPDATES ===== */
 .video-card {
   max-width: 280px;
 }
@@ -174,12 +158,12 @@ body::after {
   font-size: 0.85rem;
 }
 
-/* ===== EMAIL FORM (SPACED) ===== */
+/* ===== EMAIL FORM ===== */
 form {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
-  margin-top: 1.5rem;
+  gap: 1.4rem;
+  margin-top: 1.6rem;
 }
 
 form label {
@@ -190,7 +174,7 @@ form label {
 
 form input {
   width: 260px;
-  padding: 0.75rem;
+  padding: 0.8rem;
   border-radius: 999px;
   border: 1px solid rgba(200,120,255,0.6);
   background: rgba(0,0,0,0.45);
@@ -203,7 +187,7 @@ form input {
 <body>
 
 <div class="edge"></div>
-<div id="glyphs"></div>
+<div id="letterField"></div>
 
 <!-- HOME -->
 <div class="screen" id="home">
@@ -224,7 +208,7 @@ form input {
 
   <form action="https://formspree.io/f/mrelgwzp" method="POST">
     <label>ENTER EMAIL FOR FUTURE UPDATES</label>
-    <input type="email" name="email" required>
+    <input id="emailInput" type="email" name="email" required>
     <button class="btn" type="submit">SUBMIT</button>
   </form>
 
@@ -236,7 +220,8 @@ const logo = document.getElementById("logo");
 const btn = document.getElementById("enterBtn");
 const home = document.getElementById("home");
 const updates = document.getElementById("updates");
-const glyphs = document.getElementById("glyphs");
+const field = document.getElementById("letterField");
+const emailInput = document.getElementById("emailInput");
 
 document.addEventListener("mousemove", e => {
   const mx = e.clientX;
@@ -247,37 +232,36 @@ document.addEventListener("mousemove", e => {
   [logo, btn].forEach(el => {
     const r = el.getBoundingClientRect();
     const d = Math.hypot(mx - (r.left + r.width/2), my - (r.top + r.height/2));
-    const i = Math.max(0, 1 - d / 300);
-    el.style.transform = `scale(${1 + i * 0.3}, ${1 + i * 0.18})`;
+    const i = Math.max(0, 1 - d / 280);
+    el.style.transform = `scale(${1 + i * 0.35}, ${1 + i * 0.2})`;
   });
 });
 
-/* glyphs only on updates */
 btn.onclick = () => {
   home.classList.add("hidden");
   updates.classList.remove("hidden");
-  spawnGlyphs();
 };
 
 document.getElementById("backBtn").onclick = () => {
   updates.classList.add("hidden");
   home.classList.remove("hidden");
-  glyphs.innerHTML = "";
+  field.innerHTML = "";
 };
 
-function spawnGlyphs() {
-  glyphs.innerHTML = "";
-  const chars = ["✦","☽","✶","⌁","⟁","✷","✹"];
-
-  for (let i = 0; i < 6; i++) {
-    const g = document.createElement("div");
-    g.className = "glyph";
-    g.textContent = chars[Math.floor(Math.random() * chars.length)];
-    g.style.left = Math.random() * 80 + "%";
-    g.style.top = Math.random() * 70 + "%";
-    glyphs.appendChild(g);
-  }
-}
+/* EMAIL REACTIVE MAGIC */
+emailInput.addEventListener("input", e => {
+  const chars = [...e.target.value].slice(-2);
+  chars.forEach(c => {
+    const el = document.createElement("div");
+    el.className = "letter";
+    el.textContent = c === "@" ? "✦" : c === "." ? "●" : c;
+    el.style.left = Math.random() * 80 + "%";
+    el.style.top = Math.random() * 70 + "%";
+    el.style.transform = `rotate(${Math.random()*10-5}deg)`;
+    field.appendChild(el);
+    setTimeout(() => el.remove(), 7000);
+  });
+});
 </script>
 
 </body>
