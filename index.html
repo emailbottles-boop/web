@@ -15,45 +15,57 @@ html, body {
   color: white;
 }
 
-/* ===== TRIPPY BACKGROUND ===== */
+/* ===== DEVICE MODES ===== */
+body.mobile {
+  --bg-strength: 0.02;
+  --letter-max: 4;
+  --letter-size: 16vw;
+  --letter-life: 4200ms;
+}
+body.desktop {
+  --bg-strength: 0.07;
+  --letter-max: 7;
+  --letter-size: 32vw;
+  --letter-life: 9000ms;
+}
+
+/* ===== BACKGROUND ===== */
 body::before {
   content: "";
   position: fixed;
-  inset: -100%;
+  inset: -120%;
   background:
     repeating-linear-gradient(
       60deg,
-      rgba(255,220,120,0.18) 0px,
-      rgba(255,220,120,0.18) 1px,
+      rgba(255,220,120,0.15) 0px,
+      rgba(255,220,120,0.15) 1px,
       transparent 1px,
-      transparent 60px
+      transparent 70px
     ),
     repeating-linear-gradient(
       -60deg,
-      rgba(180,0,255,0.22) 0px,
-      rgba(180,0,255,0.22) 1px,
+      rgba(180,0,255,0.2) 0px,
+      rgba(180,0,255,0.2) 1px,
       transparent 1px,
-      transparent 90px
+      transparent 100px
     );
   transform: translate(
-    calc(var(--mx, 0px) * -0.08),
-    calc(var(--my, 0px) * -0.08)
+    calc(var(--mx, 0px) * -1 * var(--bg-strength)),
+    calc(var(--my, 0px) * -1 * var(--bg-strength))
   );
   pointer-events: none;
 }
 
-/* ===== NEON EDGE ENERGY ===== */
+/* ===== NEON EDGES ===== */
 .edge {
   position: fixed;
   inset: 0;
-  border-left: 2px solid rgba(255,220,120,0.7);
-  border-right: 2px solid rgba(180,0,255,0.7);
-  border-top: 2px solid rgba(180,0,255,0.5);
-  border-bottom: 2px solid rgba(255,220,120,0.5);
+  border-left: 2px solid rgba(255,220,120,0.5);
+  border-right: 2px solid rgba(180,0,255,0.5);
   pointer-events: none;
 }
 
-/* ===== CRYPTO LETTER FIELD ===== */
+/* ===== CRYPTO FIELD ===== */
 #cryptoField {
   position: fixed;
   inset: 0;
@@ -64,22 +76,22 @@ body::before {
 .crypto {
   position: absolute;
   font-weight: 900;
-  opacity: 0.9;
-  color: rgba(230,160,255,0.45);
+  opacity: 0.85;
+  color: rgba(230,160,255,0.4);
   text-shadow:
-    0 0 40px rgba(255,220,255,1),
-    0 0 120px rgba(180,80,255,0.9),
-    0 0 220px rgba(255,220,120,0.7);
-  animation: drift 10s ease-out forwards;
+    0 0 30px rgba(255,220,255,0.9),
+    0 0 90px rgba(180,80,255,0.8),
+    0 0 140px rgba(255,220,120,0.6);
+  animation: drift var(--letter-life) ease-out forwards;
 }
 
 @keyframes drift {
   from {
-    transform: translateY(80px) scale(1);
+    transform: translateY(40px) scale(1);
     opacity: 1;
   }
   to {
-    transform: translateY(-340px) scale(1.6);
+    transform: translateY(-180px) scale(1.3);
     opacity: 0;
   }
 }
@@ -93,76 +105,62 @@ body::before {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2.4rem;
+  gap: 2.2rem;
   text-align: center;
 }
-
 .hidden { display: none; }
 
 /* ===== LOGO ===== */
 .logo {
-  width: 360px;
+  width: 340px;
   max-width: 85vw;
-  filter: drop-shadow(0 0 90px rgba(200,120,255,1));
+  filter: drop-shadow(0 0 70px rgba(200,120,255,0.9));
   transition: transform 0.15s ease-out;
 }
 
 /* ===== BUTTON ===== */
 .btn {
-  min-width: 260px;
-  padding: 1.2rem 3rem;
+  min-width: 240px;
+  padding: 1.1rem 2.8rem;
   background: linear-gradient(135deg, #ffe066, #b000ff);
   color: black;
   border: none;
   border-radius: 999px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 900;
-  letter-spacing: 0.4em;
+  letter-spacing: 0.35em;
   cursor: pointer;
-  box-shadow:
-    0 0 60px rgba(255,220,120,1),
-    0 0 140px rgba(180,0,255,0.9);
 }
 
 /* ===== UPDATES ===== */
 .video-card img {
-  width: 280px;
-  border-radius: 16px;
-  box-shadow: 0 0 50px rgba(200,120,255,0.9);
+  width: 260px;
+  border-radius: 14px;
 }
 
 .caption {
-  margin-top: 0.6rem;
-  font-size: 0.8rem;
-  letter-spacing: 0.25em;
-  color: #ffdfff;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
 }
 
 .merch {
-  padding: 1.3rem;
-  border-radius: 16px;
+  padding: 1.1rem;
+  border-radius: 14px;
   background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(200,120,255,0.4);
   color: #fff2a8;
 }
 
-/* ===== EMAIL FORM ===== */
+/* ===== EMAIL ===== */
 form {
   display: flex;
   flex-direction: column;
-  gap: 1.8rem;
-  margin-top: 1.6rem;
-}
-
-form label {
-  font-size: 0.7rem;
-  letter-spacing: 0.3em;
-  color: #e6b6ff;
+  gap: 1.5rem;
 }
 
 form input {
-  width: 260px;
-  padding: 0.9rem;
+  width: 250px;
+  padding: 0.85rem;
   border-radius: 999px;
   border: 1px solid rgba(200,120,255,0.6);
   background: rgba(0,0,0,0.45);
@@ -177,13 +175,11 @@ form input {
 <div class="edge"></div>
 <div id="cryptoField"></div>
 
-<!-- HOME -->
 <div class="screen" id="home">
   <img src="wizshtlogo_trans.png" class="logo" id="logo">
   <button class="btn" id="enterBtn">ENTER</button>
 </div>
 
-<!-- UPDATES -->
 <div class="screen hidden" id="updates">
   <div class="video-card">
     <a href="https://www.youtube.com/watch?v=H6cNCTofnrs" target="_blank">
@@ -195,8 +191,7 @@ form input {
   <div class="merch">Merchandise coming soon!</div>
 
   <form action="https://formspree.io/f/mrelgwzp" method="POST">
-    <label>ENTER EMAIL FOR FUTURE UPDATES</label>
-    <input id="emailInput" type="email" name="email" required>
+    <input id="emailInput" type="email" name="email" placeholder="EMAIL FOR UPDATES" required>
     <button class="btn" type="submit">SUBMIT</button>
   </form>
 
@@ -204,63 +199,65 @@ form input {
 </div>
 
 <script>
-const logo = document.getElementById("logo");
-const enterBtn = document.getElementById("enterBtn");
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+document.body.classList.add(isMobile ? "mobile" : "desktop");
+
 const home = document.getElementById("home");
 const updates = document.getElementById("updates");
+const enterBtn = document.getElementById("enterBtn");
+const backBtn = document.getElementById("backBtn");
 const cryptoField = document.getElementById("cryptoField");
 const emailInput = document.getElementById("emailInput");
+const logo = document.getElementById("logo");
 
-/* Mouse-reactive background + logo */
-document.addEventListener("mousemove", e => {
-  document.body.style.setProperty("--mx", e.clientX + "px");
-  document.body.style.setProperty("--my", e.clientY + "px");
+/* Mouse effects ONLY on desktop */
+if (!isMobile) {
+  document.addEventListener("mousemove", e => {
+    document.body.style.setProperty("--mx", e.clientX + "px");
+    document.body.style.setProperty("--my", e.clientY + "px");
 
-  const r = logo.getBoundingClientRect();
-  const d = Math.hypot(
-    e.clientX - (r.left + r.width / 2),
-    e.clientY - (r.top + r.height / 2)
-  );
-  const i = Math.max(0, 1 - d / 320);
-  logo.style.transform = `scale(${1 + i * 0.35})`;
-});
+    const r = logo.getBoundingClientRect();
+    const d = Math.hypot(
+      e.clientX - (r.left + r.width / 2),
+      e.clientY - (r.top + r.height / 2)
+    );
+    const i = Math.max(0, 1 - d / 320);
+    logo.style.transform = `scale(${1 + i * 0.3})`;
+  });
+}
 
 /* Page switching */
 enterBtn.onclick = () => {
   home.classList.add("hidden");
   updates.classList.remove("hidden");
 };
-
-document.getElementById("backBtn").onclick = () => {
+backBtn.onclick = () => {
   updates.classList.add("hidden");
   home.classList.remove("hidden");
   cryptoField.innerHTML = "";
 };
 
-/* ===== GIANT LETTER SPAWN ===== */
+/* SAFE LETTER SPAWN */
 emailInput.addEventListener("keydown", e => {
   if (e.key.length !== 1 || !/[a-zA-Z@._-]/.test(e.key)) return;
+  if (cryptoField.children.length > 18) return;
 
-  const count = 4 + Math.floor(Math.random() * 4); // 4–7 per key
+  const count = Math.min(
+    parseInt(getComputedStyle(document.body).getPropertyValue("--letter-max")),
+    3
+  );
 
   for (let i = 0; i < count; i++) {
     const el = document.createElement("div");
     el.className = "crypto";
     el.textContent = e.key.toUpperCase();
-
     el.style.left = Math.random() * 100 + "vw";
     el.style.top = Math.random() * 100 + "vh";
-
-    el.style.fontSize = (16 + Math.random() * 30) + "vw";
-
-    const rotation = Math.random() < 0.35
-      ? 180 + Math.random() * 90
-      : Math.random() * 360 - 180;
-
-    el.style.transform = `rotate(${rotation}deg)`;
-
+    el.style.fontSize =
+      Math.random() * parseFloat(getComputedStyle(document.body).getPropertyValue("--letter-size")) + "vw";
+    el.style.transform = `rotate(${Math.random() < 0.3 ? 180 : Math.random() * 360}deg)`;
     cryptoField.appendChild(el);
-    setTimeout(() => el.remove(), 10000);
+    setTimeout(() => el.remove(), parseInt(getComputedStyle(document.body).getPropertyValue("--letter-life")));
   }
 });
 </script>
