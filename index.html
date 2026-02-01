@@ -1,77 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wizard Shit</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wizard Site</title>
 
 <style>
 html, body {
   margin: 0;
   height: 100%;
-  background: linear-gradient(120deg, #3a0075, #12001f);
-  font-family: system-ui, sans-serif;
   overflow: hidden;
-  color: white;
+  font-family: system-ui, sans-serif;
+  background: #0b0015;
 }
 
-/* background glow */
-body::before {
+/* ===== TRIPPY NEON BACKGROUND ===== */
+body::before,
+body::after {
   content: "";
   position: fixed;
   inset: -50%;
-  background: radial-gradient(
-    circle at var(--mx, 50%) var(--my, 50%),
-    rgba(180,80,255,0.4),
-    transparent 45%
-  );
   pointer-events: none;
 }
 
-/* center layout */
+body::before {
+  background:
+    repeating-linear-gradient(
+      60deg,
+      rgba(200,120,255,0.15) 0px,
+      rgba(200,120,255,0.15) 1px,
+      transparent 1px,
+      transparent 80px
+    ),
+    repeating-linear-gradient(
+      -60deg,
+      rgba(0,255,255,0.12) 0px,
+      rgba(0,255,255,0.12) 1px,
+      transparent 1px,
+      transparent 120px
+    );
+  transform: translate(
+    calc(var(--mx, 0px) * -0.02),
+    calc(var(--my, 0px) * -0.02)
+  );
+}
+
+body::after {
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 50%),
+    rgba(180,80,255,0.45),
+    transparent 45%
+  );
+}
+
+/* ===== CENTER LAYOUT ===== */
 .screen {
+  position: relative;
+  z-index: 5;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 2.2rem;
 }
 
-/* logo */
+/* ===== LOGO ===== */
 .logo {
-  max-width: 340px;
-  filter: drop-shadow(0 0 40px rgba(200,120,255,0.9));
-}
-
-/* title */
-.title {
-  display: flex;
-  gap: 0.3em;
-  font-size: 2rem;
-  letter-spacing: 0.35em;
-  color: #e2b6ff;
-  cursor: default;
-}
-
-.title span {
-  display: inline-block;
-  transition: transform 0.15s ease-out;
+  width: 340px;
+  max-width: 80vw;
+  filter: drop-shadow(0 0 60px rgba(200,120,255,0.9));
+  transition: transform 0.12s ease-out;
   will-change: transform;
 }
 
-/* button */
+/* ===== BUTTON ===== */
 .btn {
-  padding: 0.9rem 2.4rem;
-  background: linear-gradient(135deg, #ffdd55, #b100ff);
+  padding: 0.9rem 2.6rem;
+  background: linear-gradient(135deg, #ffe066, #b300ff);
   color: black;
   border: none;
   border-radius: 999px;
   font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.3em;
+  font-weight: 900;
+  letter-spacing: 0.35em;
   cursor: pointer;
-  box-shadow: 0 0 40px rgba(255,200,0,0.7);
+  box-shadow: 0 0 45px rgba(255,220,100,0.9);
+  transition: transform 0.12s ease-out;
+  will-change: transform;
 }
 </style>
 </head>
@@ -79,19 +95,21 @@ body::before {
 <body>
 
 <div class="screen">
-  <img src="wizshtlogo_trans.png" class="logo" alt="Wizard Shit logo">
+  <img
+    src="wizshtlogo_trans.png"
+    alt="Logo"
+    class="logo"
+    id="logo"
+  />
 
-  <div class="title" id="title">
-    <span>W</span><span>I</span><span>Z</span><span>A</span><span>R</span><span>D</span>
-    <span>&nbsp;</span>
-    <span>S</span><span>H</span><span>I</span><span>T</span>
-  </div>
-
-  <button class="btn">ENTER</button>
+  <button class="btn" id="enterBtn">
+    ENTER
+  </button>
 </div>
 
 <script>
-const letters = document.querySelectorAll(".title span");
+const logo = document.getElementById("logo");
+const btn = document.getElementById("enterBtn");
 
 document.addEventListener("mousemove", e => {
   const mx = e.clientX;
@@ -100,29 +118,27 @@ document.addEventListener("mousemove", e => {
   document.body.style.setProperty("--mx", mx + "px");
   document.body.style.setProperty("--my", my + "px");
 
-  letters.forEach(letter => {
-    const rect = letter.getBoundingClientRect();
-    const lx = rect.left + rect.width / 2;
-    const ly = rect.top + rect.height / 2;
+  [logo, btn].forEach(el => {
+    const rect = el.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
 
-    const dx = mx - lx;
-    const dy = my - ly;
+    const dx = mx - cx;
+    const dy = my - cy;
     const distance = Math.sqrt(dx * dx + dy * dy);
 
-    // control how strong the effect is
-    const influence = Math.max(0, 1 - distance / 220);
+    const influence = Math.max(0, 1 - distance / 260);
 
-    const scaleX = 1 + influence * 0.6;
-    const scaleY = 1 + influence * 0.25;
+    const scaleX = 1 + influence * 0.35;
+    const scaleY = 1 + influence * 0.18;
 
-    letter.style.transform = `scale(${scaleX}, ${scaleY})`;
+    el.style.transform = `scale(${scaleX}, ${scaleY})`;
   });
 });
 
 document.addEventListener("mouseleave", () => {
-  letters.forEach(letter => {
-    letter.style.transform = "scale(1,1)";
-  });
+  logo.style.transform = "scale(1)";
+  btn.style.transform = "scale(1)";
 });
 </script>
 
