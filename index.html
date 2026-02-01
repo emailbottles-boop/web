@@ -8,46 +8,59 @@
   <meta name="description" content="Official site prototype for the TV show." />
 
   <style>
-    body {
+    html, body {
+      height: 100%;
       margin: 0;
       font-family: system-ui, sans-serif;
     }
 
-    .site-header {
+    /* PAGE WRAPPER */
+    .page {
+      min-height: 100vh;
       background: yellow;
-      border-left: 12px solid purple;
-      padding: 2rem 1rem;
+      border-left: 14px solid purple;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* HEADER / LOGO */
+    .site-header {
+      padding: 2.5rem 1rem 1.5rem;
       text-align: center;
     }
 
     .logo {
-      max-width: 280px;
+      max-width: 300px;
       width: 100%;
       height: auto;
     }
 
+    /* MAIN CONTENT */
     .site-main {
-      padding: 2rem;
       text-align: center;
+      padding: 2rem;
     }
 
     .updates-text {
       color: purple;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: bold;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
     }
   </style>
 </head>
 <body>
 
-  <header class="site-header">
-    <img src="capture.png" alt="Wiz@rd Shit logo" class="logo">
-  </header>
+  <div class="page">
+    <header class="site-header">
+      <img src="capture.png" alt="Wiz@rd Shit logo" class="logo">
+    </header>
 
-  <main class="site-main">
-    <p class="updates-text">Future updates</p>
-  </main>
+    <main class="site-main">
+      <p class="updates-text">Future updates</p>
+    </main>
+  </div>
 
 </body>
 </html>
