@@ -45,7 +45,6 @@ body {
   to { background-position: 1000px 1000px; }
 }
 
-/* mouse glow */
 body::before {
   content: "";
   position: fixed;
@@ -137,6 +136,53 @@ body::before {
   box-shadow: 0 0 40px rgba(255,200,0,0.7);
 }
 
+/* === UPDATES GRID === */
+.updates-grid {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.video-card {
+  max-width: 320px;
+}
+
+.video-link {
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(200,120,255,0.6);
+  transition: transform 0.3s ease;
+}
+
+.video-link:hover {
+  transform: scale(1.04);
+}
+
+.video-link img {
+  width: 100%;
+  display: block;
+}
+
+.caption {
+  margin-top: 0.75rem;
+  letter-spacing: 0.12em;
+  color: #ffd8ff;
+}
+
+.info-box {
+  max-width: 260px;
+  padding: 1.5rem;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(200,120,255,0.5);
+  box-shadow: 0 0 35px rgba(200,120,255,0.4);
+  color: #fff2a8;
+}
+
 /* email */
 .email-box {
   margin-top: 2rem;
@@ -171,7 +217,7 @@ body::before {
 
 <!-- HOME -->
 <div id="home" class="view active">
-  <img src="wizshtlogo_trans.png" class="logo" alt="Wizard Shit logo">
+  <img src="wizshtlogo_trans.png" class="logo">
   <div class="glitch">WIZARD SHIT</div>
   <button class="btn" onclick="enterSite()">ENTER</button>
 </div>
@@ -180,9 +226,22 @@ body::before {
 <div id="updates" class="view">
   <div class="glitch">UPDATES</div>
 
+  <div class="updates-grid">
+    <div class="video-card">
+      <a class="video-link" href="https://www.youtube.com/watch?v=H6cNCTofnrs" target="_blank">
+        <img src="https://img.youtube.com/vi/H6cNCTofnrs/hqdefault.jpg">
+      </a>
+      <div class="caption">Christmas In Wizard City</div>
+    </div>
+
+    <div class="info-box">
+      Merchandise coming soon!
+    </div>
+  </div>
+
   <form class="email-box" action="https://formspree.io/f/mrelgwzp" method="POST">
     <label>ENTER EMAIL FOR FUTURE UPDATES</label>
-    <input id="emailInput" type="email" name="email" placeholder="your@email.com" required>
+    <input id="emailInput" type="email" name="email" required>
     <button class="btn" type="submit">SUBMIT</button>
   </form>
 
