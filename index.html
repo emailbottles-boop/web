@@ -3,109 +3,170 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>TV Show Title</title>
+  <title>Wizard Shit</title>
 
   <style>
+    * { box-sizing: border-box; }
+
     html, body {
       height: 100%;
       margin: 0;
       font-family: system-ui, sans-serif;
+      overflow: hidden;
     }
 
-    /* SCI-FI BACKGROUND */
     body {
       background:
-        linear-gradient(120deg, rgba(128,0,255,0.25), transparent 60%),
         repeating-linear-gradient(
-          60deg,
-          rgba(255,255,0,0.15),
-          rgba(255,255,0,0.15) 1px,
+          135deg,
+          rgba(255,255,255,0.035) 0px,
+          rgba(255,255,255,0.035) 1px,
           transparent 1px,
-          transparent 40px
+          transparent 80px
         ),
-        repeating-linear-gradient(
-          -60deg,
-          rgba(128,0,255,0.15),
-          rgba(128,0,255,0.15) 1px,
-          transparent 1px,
-          transparent 40px
-        ),
-        #0b0b14;
+        radial-gradient(circle at top, #2b0055, #05000c 70%);
+      animation: bgmove 30s linear infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       color: white;
     }
 
-    /* PAGE WRAPPER */
-    .page {
-      min-height: 100vh;
-      border-left: 16px solid purple;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    @keyframes bgmove {
+      from { background-position: 0 0; }
+      to { background-position: 600px 600px; }
     }
 
-    /* HEADER */
-    .site-header {
-      padding: 3rem 1rem 2rem;
+    /* FLOATING RUNES */
+    .rune {
+      position: absolute;
+      font-size: 18px;
+      opacity: 0.15;
+      animation: float 18s linear infinite;
+    }
+
+    @keyframes float {
+      from { transform: translateY(110vh) rotate(0deg); }
+      to { transform: translateY(-20vh) rotate(360deg); }
+    }
+
+    /* VIEW SYSTEM */
+    .view {
+      position: absolute;
       text-align: center;
-    }
-
-    .logo {
-      max-width: 300px;
-      width: 100%;
-      height: auto;
-      filter: drop-shadow(0 0 12px rgba(255,255,0,0.6));
-    }
-
-    /* MAIN */
-    .site-main {
-      text-align: center;
-      padding: 2rem;
-    }
-
-    .updates-text {
-      color: #c77dff;
-      font-size: 1.7rem;
-      font-weight: bold;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      text-shadow: 0 0 10px rgba(199,125,255,0.6);
-    }
-
-    /* subtle animation */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background:
-        repeating-linear-gradient(
-          90deg,
-          rgba(255,255,255,0.03),
-          rgba(255,255,255,0.03) 1px,
-          transparent 1px,
-          transparent 80px
-        );
-      animation: drift 20s linear infinite;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.7s ease, transform 0.7s ease;
       pointer-events: none;
     }
 
-    @keyframes drift {
-      from { transform: translateX(0); }
-      to { transform: translateX(80px); }
+    .view.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    /* LOGO (safe to swap anytime) */
+    .logo {
+      max-width: 300px;
+      margin-bottom: 2rem;
+      filter: drop-shadow(0 0 25px rgba(200,120,255,0.7));
+    }
+
+    /* GLITCH TEXT */
+    .glitch {
+      font-size: 1.8rem;
+      letter-spacing: 0.35em;
+      color: #d08bff;
+      animation: glitch 2.5s infinite;
+    }
+
+    @keyframes glitch {
+      0%, 100% { text-shadow: none; }
+      50% {
+        text-shadow:
+          2px 0 #ff00ff,
+          -2px 0 #00ffff;
+      }
+    }
+
+    /* BUTTON */
+    .btn {
+      margin-top: 2rem;
+      padding: 0.9rem 2.4rem;
+      background: linear-gradient(135deg, purple, #ffcc00);
+      color: black;
+      border: none;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.3em;
+      cursor: pointer;
+      box-shadow: 0 0 40px rgba(255,200,0,0.6);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 60px rgba(255,200,0,0.9);
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    p {
+      opacity: 0.85;
+      margin-top: 1rem;
     }
   </style>
 </head>
 <body>
 
-  <div class="page">
-    <header class="site-header">
-      <img src="capture.png" alt="Wiz@rd Shit logo" class="logo">
-    </header>
+  <!-- RUNES -->
+  <div class="rune" style="left:10%; animation-delay:0s;">ᚠ</div>
+  <div class="rune" style="left:30%; animation-delay:3s;">ᚢ</div>
+  <div class="rune" style="left:50%; animation-delay:6s;">ᚦ</div>
+  <div class="rune" style="left:70%; animation-delay:9s;">ᚨ</div>
+  <div class="rune" style="left:90%; animation-delay:12s;">ᚱ</div>
 
-    <main class="site-main">
-      <p class="updates-text">Future Updates</p>
-    </main>
+  <!-- HOME VIEW -->
+  <div id="home" class="view active">
+
+    <!-- 🔁 CHANGE LOGO FILE HERE WHENEVER YOU WANT -->
+    <img src="capture.png" alt="Wizard Shit logo" class="logo">
+
+    <div class="glitch">WIZARD SHIT</div>
+    <button class="btn" onclick="enter()">ENTER</button>
   </div>
+
+  <!-- UPDATES VIEW -->
+  <div id="updates" class="view">
+    <div class="glitch">FUTURE UPDATES</div>
+    <p>Signals detected. Transmission pending.</p>
+    <button class="btn" onclick="back()">BACK</button>
+  </div>
+
+  <!-- CLICK SOUND -->
+  <audio id="click">
+    <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=">
+  </audio>
+
+  <script>
+    const click = document.getElementById('click');
+
+    function enter() {
+      click.play();
+      home.classList.remove('active');
+      updates.classList.add('active');
+    }
+
+    function back() {
+      click.play();
+      updates.classList.remove('active');
+      home.classList.add('active');
+    }
+  </script>
 
 </body>
 </html>
