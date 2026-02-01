@@ -1,210 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wizard City</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow-x: hidden;
-  background: radial-gradient(circle at var(--mx,50%) var(--my,50%), #3b0066, #120018);
-  font-family: Arial, sans-serif;
-  color: #d6b3ff;
-}
+  <title>TV Show Title</title>
+  <meta name="description" content="Official site prototype for the TV show." />
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background:
-    repeating-linear-gradient(45deg, rgba(255,255,0,0.05) 0 2px, transparent 2px 20px),
-    repeating-linear-gradient(-45deg, rgba(160,0,255,0.05) 0 2px, transparent 2px 25px);
-  pointer-events: none;
-  z-index: 0;
-}
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: system-ui, sans-serif;
+    }
 
-section {
-  position: relative;
-  z-index: 1;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 40px 20px;
-}
+    /* PAGE WRAPPER */
+    .page {
+      min-height: 100vh;
+      background: yellow;
+      border-left: 14px solid purple;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-.logo {
-  width: 260px;
-  max-width: 70vw;
-  transition: transform 0.2s ease;
-}
+    /* HEADER / LOGO */
+    .site-header {
+      padding: 2.5rem 1rem 1.5rem;
+      text-align: center;
+    }
 
-button {
-  margin-top: 40px;
-  padding: 18px 40px;
-  font-size: 18px;
-  border-radius: 40px;
-  border: none;
-  cursor: pointer;
-  background: linear-gradient(90deg, #ffe600, #b300ff);
-  color: #000;
-}
+    .logo {
+      max-width: 300px;
+      width: 100%;
+      height: auto;
+    }
 
-button:hover {
-  transform: scale(1.05);
-}
+    /* MAIN CONTENT */
+    .site-main {
+      text-align: center;
+      padding: 2rem;
+    }
 
-.hidden {
-  display: none;
-}
-
-input {
-  padding: 14px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: none;
-  width: 260px;
-  margin-right: 10px;
-}
-
-.crypto-layer {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 2;
-}
-
-.crypto-letter {
-  position: absolute;
-  font-size: clamp(60px, 10vw, 140px);
-  font-weight: bold;
-  color: rgba(255,255,255,0.15);
-  animation: floatOut 5s ease-out forwards;
-}
-
-@keyframes floatOut {
-  from { transform: scale(0.6) rotate(0deg); opacity: 0.9; }
-  to { transform: scale(1.2) rotate(360deg); opacity: 0; }
-}
-
-.video {
-  margin-top: 40px;
-  max-width: 90%;
-}
-
-.caption {
-  margin-top: 12px;
-  font-size: 18px;
-}
-
-.merch {
-  margin-top: 10px;
-  color: #ffe600;
-}
-</style>
+    .updates-text {
+      color: purple;
+      font-size: 1.6rem;
+      font-weight: bold;
+      letter-spacing: 0.08em;
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="crypto-layer" id="crypto"></div>
+  <div class="page">
+    <header class="site-header">
+      <img src="capture.png" alt="Wiz@rd Shit logo" class="logo">
+    </header>
 
-<!-- HOME -->
-<section id="home">
-  <img src="capture.png" class="logo" id="logo">
-  <button onclick="enterSite()">Enter</button>
-</section>
-
-<!-- CONTENT -->
-<section id="content" class="hidden">
-
-  <h2>Updates</h2>
-
-  <div class="video">
-    <a href="https://www.youtube.com/watch?v=H6cNCTofnrs" target="_blank">
-      <img src="https://img.youtube.com/vi/H6cNCTofnrs/hqdefault.jpg" width="360">
-    </a>
-    <div class="caption">Christmas In Wizard City</div>
-    <div class="merch">Merchandise coming soon!</div>
+    <main class="site-main">
+      <p class="updates-text">Future updates</p>
+    </main>
   </div>
-
-  <form action="https://formspree.io/f/mrelgwzp" method="POST" style="margin-top:40px;">
-    <input type="email" name="email" placeholder="Enter email for updates" required>
-    <button type="submit">Submit</button>
-  </form>
-
-</section>
-
-<script>
-const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-const crypto = document.getElementById("crypto");
-let quadrant = 0;
-
-// balanced chaos
-function balancedPosition() {
-  const w = window.innerWidth;
-  const h = window.innerHeight;
-
-  const zones = [
-    [0, w/2, 0, h/2],
-    [w/2, w, 0, h/2],
-    [0, w/2, h/2, h],
-    [w/2, w, h/2, h]
-  ];
-
-  const z = zones[quadrant];
-  quadrant = (quadrant + 1) % zones.length;
-
-  return {
-    x: z[0] + Math.random() * (z[1] - z[0]),
-    y: z[2] + Math.random() * (z[3] - z[2])
-  };
-}
-
-function spawnLetter(char) {
-  if (crypto.children.length > (isMobile ? 12 : 24)) return;
-
-  const el = document.createElement("div");
-  el.className = "crypto-letter";
-  el.textContent = char;
-
-  const p = balancedPosition();
-  el.style.left = p.x + "px";
-  el.style.top = p.y + "px";
-  el.style.transform += Math.random() > 0.7 ? " rotate(180deg)" : "";
-
-  crypto.appendChild(el);
-  setTimeout(() => el.remove(), isMobile ? 4000 : 6000);
-}
-
-document.addEventListener("keydown", e => {
-  if (document.activeElement.type === "email" && /^[a-zA-Z]$/.test(e.key)) {
-    spawnLetter(e.key.toUpperCase());
-  }
-});
-
-if (!isMobile) {
-  document.addEventListener("mousemove", e => {
-    document.body.style.setProperty("--mx", e.clientX + "px");
-    document.body.style.setProperty("--my", e.clientY + "px");
-    document.getElementById("logo").style.transform =
-      `scale(1.05) translate(${(e.clientX/window.innerWidth-0.5)*10}px,
-      ${(e.clientY/window.innerHeight-0.5)*10}px)`;
-  });
-}
-
-function enterSite() {
-  document.getElementById("home").classList.add("hidden");
-  document.getElementById("content").classList.remove("hidden");
-}
-</script>
 
 </body>
 </html>
+
