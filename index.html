@@ -11,90 +11,126 @@ html, body {
   height: 100%;
   overflow: hidden;
   font-family: system-ui, sans-serif;
-  background: #0b0015;
+  background: #0a0014;
 }
 
-/* ===== TRIPPY NEON BACKGROUND ===== */
+/* ===== EDGE NEON LINES ===== */
 body::before,
 body::after {
   content: "";
   position: fixed;
-  inset: -50%;
+  inset: 0;
   pointer-events: none;
 }
 
 body::before {
   background:
+    linear-gradient(90deg,
+      rgba(255,230,120,0.6),
+      transparent 15%,
+      transparent 85%,
+      rgba(180,0,255,0.6)
+    ),
+    linear-gradient(180deg,
+      rgba(180,0,255,0.5),
+      transparent 15%,
+      transparent 85%,
+      rgba(255,230,120,0.5)
+    );
+  mix-blend-mode: screen;
+}
+
+body::after {
+  background:
     repeating-linear-gradient(
       60deg,
-      rgba(200,120,255,0.15) 0px,
-      rgba(200,120,255,0.15) 1px,
+      rgba(255,230,120,0.15) 0px,
+      rgba(255,230,120,0.15) 1px,
       transparent 1px,
-      transparent 80px
+      transparent 90px
     ),
     repeating-linear-gradient(
       -60deg,
-      rgba(0,255,255,0.12) 0px,
-      rgba(0,255,255,0.12) 1px,
+      rgba(180,0,255,0.18) 0px,
+      rgba(180,0,255,0.18) 1px,
       transparent 1px,
       transparent 120px
     );
   transform: translate(
-    calc(var(--mx, 0px) * -0.02),
-    calc(var(--my, 0px) * -0.02)
+    calc(var(--mx, 0px) * -0.025),
+    calc(var(--my, 0px) * -0.025)
   );
 }
 
-body::after {
-  background: radial-gradient(
-    circle at var(--mx, 50%) var(--my, 50%),
-    rgba(180,80,255,0.45),
-    transparent 45%
-  );
-}
-
-/* ===== CENTER LAYOUT ===== */
+/* ===== CENTER CONTENT ===== */
 .screen {
   position: relative;
-  z-index: 5;
+  z-index: 10;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2.2rem;
+  gap: 2.8rem;
+  text-align: center;
 }
 
 /* ===== LOGO ===== */
 .logo {
-  width: 340px;
-  max-width: 80vw;
-  filter: drop-shadow(0 0 60px rgba(200,120,255,0.9));
+  width: 360px;
+  max-width: 85vw;
+  filter: drop-shadow(0 0 70px rgba(200,120,255,1));
   transition: transform 0.12s ease-out;
   will-change: transform;
 }
 
-/* ===== BUTTON ===== */
+/* ===== ENTER BUTTON ===== */
 .btn {
-  padding: 0.9rem 2.6rem;
-  background: linear-gradient(135deg, #ffe066, #b300ff);
+  min-width: 260px;
+  padding: 1.2rem 3rem;
+  background: linear-gradient(135deg, #ffe066, #b000ff);
   color: black;
   border: none;
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   font-weight: 900;
-  letter-spacing: 0.35em;
+  letter-spacing: 0.4em;
   cursor: pointer;
-  box-shadow: 0 0 45px rgba(255,220,100,0.9);
-  transition: transform 0.12s ease-out;
-  will-change: transform;
+  box-shadow:
+    0 0 50px rgba(255,220,120,1),
+    0 0 120px rgba(180,0,255,0.8);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.btn:hover {
+  transform: scale(1.08);
+}
+
+.btn:active {
+  transform: scale(0.96);
+  box-shadow: 0 0 25px rgba(255,220,120,0.6);
+}
+
+/* ===== HIDDEN SECTION ===== */
+#next {
+  position: absolute;
+  inset: 0;
+  background: #0a0014;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  color: #ffdfff;
+  font-size: 1.2rem;
+  letter-spacing: 0.25em;
 }
 </style>
 </head>
 
 <body>
 
-<div class="screen">
+<div class="screen" id="home">
   <img
     src="wizshtlogo_trans.png"
     alt="Logo"
@@ -107,9 +143,15 @@ body::after {
   </button>
 </div>
 
+<div id="next">
+  UPDATES COMING SOON
+</div>
+
 <script>
 const logo = document.getElementById("logo");
 const btn = document.getElementById("enterBtn");
+const home = document.getElementById("home");
+const next = document.getElementById("next");
 
 document.addEventListener("mousemove", e => {
   const mx = e.clientX;
@@ -127,18 +169,18 @@ document.addEventListener("mousemove", e => {
     const dy = my - cy;
     const distance = Math.sqrt(dx * dx + dy * dy);
 
-    const influence = Math.max(0, 1 - distance / 260);
+    const influence = Math.max(0, 1 - distance / 280);
 
-    const scaleX = 1 + influence * 0.35;
-    const scaleY = 1 + influence * 0.18;
-
-    el.style.transform = `scale(${scaleX}, ${scaleY})`;
+    el.style.transform = `
+      scale(${1 + influence * 0.35}, ${1 + influence * 0.2})
+    `;
   });
 });
 
-document.addEventListener("mouseleave", () => {
-  logo.style.transform = "scale(1)";
-  btn.style.transform = "scale(1)";
+/* ENTER BUTTON ACTION */
+btn.addEventListener("click", () => {
+  home.style.display = "none";
+  next.style.display = "flex";
 });
 </script>
 
