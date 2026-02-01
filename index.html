@@ -53,9 +53,9 @@
     }
 
     .logo {
-      max-width: 300px;
+      max-width: 340px;
       margin-bottom: 2rem;
-      filter: drop-shadow(0 0 25px rgba(200,120,255,0.7));
+      filter: drop-shadow(0 0 30px rgba(200,120,255,0.7));
     }
 
     .glitch {
@@ -89,7 +89,6 @@
       box-shadow: 0 0 40px rgba(255,200,0,0.6);
     }
 
-    /* UPDATES */
     .updates-grid {
       display: flex;
       gap: 2.5rem;
@@ -108,142 +107,4 @@
       display: block;
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 0 30px rgba(200,120,255,0.5);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .video-link:hover {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 0 45px rgba(255,200,255,0.9);
-    }
-
-    .video-link img {
-      width: 100%;
-      display: block;
-    }
-
-    .caption {
-      margin-top: 0.75rem;
-      font-size: 0.9rem;
-      letter-spacing: 0.12em;
-      color: #ffccff;
-      transition: color 0.3s ease, text-shadow 0.3s ease;
-    }
-
-    .video-card:hover .caption {
-      color: #fff6a5;
-      text-shadow: 0 0 12px rgba(255,220,120,0.8);
-    }
-
-    .info-box {
-      max-width: 260px;
-      padding: 1.5rem;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(200,120,255,0.4);
-      box-shadow: 0 0 25px rgba(200,120,255,0.3);
-      font-size: 1rem;
-      color: #ffeb8a;
-    }
-
-    /* EMAIL */
-    .email-box {
-      margin-top: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.8rem;
-    }
-
-    .email-box label {
-      font-size: 0.75rem;
-      letter-spacing: 0.25em;
-      color: #d8aaff;
-    }
-
-    .email-box input {
-      padding: 0.75rem 1.1rem;
-      width: 270px;
-      border-radius: 999px;
-      border: 1px solid rgba(200,120,255,0.5);
-      background: rgba(0,0,0,0.45);
-      color: white;
-      text-align: center;
-      outline: none;
-    }
-
-    .email-box input:focus {
-      box-shadow: 0 0 18px rgba(200,120,255,0.8);
-    }
-
-    .email-box input::placeholder {
-      color: rgba(255,255,255,0.4);
-    }
-  </style>
-</head>
-<body>
-
-  <!-- HOME -->
-  <div id="home" class="view active">
-    <img src="capture.png" alt="Wizard Shit logo" class="logo">
-    <div class="glitch">WIZARD SHIT</div>
-    <button class="btn" onclick="enter()">ENTER</button>
-  </div>
-
-  <!-- UPDATES -->
-  <div id="updates" class="view">
-    <div class="glitch">UPDATES</div>
-
-    <div class="updates-grid">
-      <div class="video-card">
-        <a
-          class="video-link"
-          href="https://www.youtube.com/watch?v=H6cNCTofnrs"
-          target="_blank"
-          rel="noopener"
-        >
-          <img
-            src="https://img.youtube.com/vi/H6cNCTofnrs/hqdefault.jpg"
-            alt="YouTube thumbnail"
-          >
-        </a>
-        <div class="caption">Christmas In Wizard City</div>
-      </div>
-
-      <div class="info-box">
-        Merchandise coming soon!
-      </div>
-    </div>
-
-    <form
-      class="email-box"
-      action="https://formspree.io/f/mrelgwzp"
-      method="POST"
-    >
-      <label>ENTER EMAIL FOR FUTURE UPDATES</label>
-      <input
-        type="email"
-        name="email"
-        placeholder="your@email.com"
-        required
-      >
-      <button class="btn" type="submit">SUBMIT</button>
-    </form>
-
-    <button class="btn" onclick="back()">BACK</button>
-  </div>
-
-  <script>
-    function enter() {
-      home.classList.remove('active');
-      updates.classList.add('active');
-    }
-
-    function back() {
-      updates.classList.remove('active');
-      home.classList.add('active');
-    }
-  </script>
-
-</body>
-</html>
+      box-shadow: 0 0 30px rgba(
