@@ -6,125 +6,62 @@
 <title>Wizard Shit</title>
 
 <style>
-* { box-sizing: border-box; }
-
 html, body {
   margin: 0;
   height: 100%;
-  overflow: hidden;
+  background: linear-gradient(120deg, #3a0075, #12001f);
   font-family: system-ui, sans-serif;
-}
-
-/* === BACKGROUND === */
-body {
-  background:
-    repeating-linear-gradient(
-      60deg,
-      rgba(255,255,255,0.05) 0px,
-      rgba(255,255,255,0.05) 1px,
-      transparent 1px,
-      transparent 70px
-    ),
-    repeating-linear-gradient(
-      -60deg,
-      rgba(200,120,255,0.04) 0px,
-      rgba(200,120,255,0.04) 1px,
-      transparent 1px,
-      transparent 90px
-    ),
-    linear-gradient(120deg, #3a0075, #12001f);
-  animation: bgmove 9s linear infinite;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow: hidden;
   color: white;
 }
 
-@keyframes bgmove {
-  from { background-position: 0 0; }
-  to { background-position: 1000px 1000px; }
-}
-
+/* background glow */
 body::before {
   content: "";
   position: fixed;
   inset: -50%;
   background: radial-gradient(
     circle at var(--mx, 50%) var(--my, 50%),
-    rgba(180,80,255,0.35),
+    rgba(180,80,255,0.4),
     transparent 45%
   );
   pointer-events: none;
 }
 
-/* === TRIPPY LETTERS (EMAIL) === */
-#letterField {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
+/* center layout */
+.screen {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 }
 
-.letter {
-  position: absolute;
-  font-size: 18vw;
-  font-weight: 900;
-  color: rgba(200,120,255,0.25);
-  text-shadow:
-    0 0 40px rgba(255,200,255,0.8),
-    0 0 120px rgba(180,80,255,0.6);
-  animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-  0% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-40px) rotate(5deg); }
-  100% { transform: translateY(0) rotate(0deg); }
-}
-
-/* === VIEWS === */
-.view {
-  position: absolute;
-  z-index: 5;
-  text-align: center;
-  opacity: 0;
-  transform: scale(0.95);
-  transition: 0.7s ease;
-  pointer-events: none;
-}
-
-.view.active {
-  opacity: 1;
-  transform: scale(1);
-  pointer-events: auto;
-}
-
-/* === UI === */
+/* logo */
 .logo {
   max-width: 340px;
-  margin-bottom: 2rem;
-  filter: drop-shadow(0 0 50px rgba(200,120,255,0.9));
+  filter: drop-shadow(0 0 40px rgba(200,120,255,0.9));
 }
 
-/* 🔮 OPENING TEXT (SUBTLE STRETCH) */
-.glitch {
-  font-size: 1.8rem;
+/* title */
+.title {
+  display: flex;
+  gap: 0.3em;
+  font-size: 2rem;
   letter-spacing: 0.35em;
   color: #e2b6ff;
-  margin-bottom: 1.5rem;
+  cursor: default;
+}
+
+.title span {
   display: inline-block;
-  transition:
-    transform 0.35s cubic-bezier(.22,1,.36,1),
-    letter-spacing 0.35s ease;
+  transition: transform 0.15s ease-out;
+  will-change: transform;
 }
 
-.glitch:hover {
-  transform: scaleX(1.12) scaleY(1.04);
-  letter-spacing: 0.42em;
-}
-
+/* button */
 .btn {
-  margin-top: 1.5rem;
   padding: 0.9rem 2.4rem;
   background: linear-gradient(135deg, #ffdd55, #b100ff);
   color: black;
@@ -136,152 +73,55 @@ body::before {
   cursor: pointer;
   box-shadow: 0 0 40px rgba(255,200,0,0.7);
 }
-
-/* === UPDATES GRID === */
-.updates-grid {
-  display: flex;
-  gap: 2.5rem;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 2rem;
-}
-
-.video-card { max-width: 320px; }
-
-.video-link {
-  display: block;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 0 40px rgba(200,120,255,0.6);
-  transition: transform 0.3s ease;
-}
-
-.video-link:hover { transform: scale(1.04); }
-
-.video-link img {
-  width: 100%;
-  display: block;
-}
-
-.caption {
-  margin-top: 0.75rem;
-  letter-spacing: 0.12em;
-  color: #ffd8ff;
-}
-
-.info-box {
-  max-width: 260px;
-  padding: 1.5rem;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(200,120,255,0.5);
-  box-shadow: 0 0 35px rgba(200,120,255,0.4);
-  color: #fff2a8;
-}
-
-/* email */
-.email-box {
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-.email-box label {
-  font-size: 0.75rem;
-  letter-spacing: 0.25em;
-  color: #e6b6ff;
-}
-
-.email-box input {
-  padding: 0.75rem 1.1rem;
-  width: 270px;
-  border-radius: 999px;
-  border: 1px solid rgba(200,120,255,0.6);
-  background: rgba(0,0,0,0.45);
-  color: white;
-  text-align: center;
-  outline: none;
-}
 </style>
 </head>
 
 <body>
 
-<div id="letterField"></div>
+<div class="screen">
+  <img src="wizshtlogo_trans.png" class="logo" alt="Wizard Shit logo">
 
-<!-- HOME -->
-<div id="home" class="view active">
-  <img src="wizshtlogo_trans.png" class="logo">
-  <div class="glitch">WIZARD SHIT</div>
-  <button class="btn" onclick="enterSite()">ENTER</button>
-</div>
-
-<!-- UPDATES -->
-<div id="updates" class="view">
-  <div class="glitch">UPDATES</div>
-
-  <div class="updates-grid">
-    <div class="video-card">
-      <a class="video-link" href="https://www.youtube.com/watch?v=H6cNCTofnrs" target="_blank">
-        <img src="https://img.youtube.com/vi/H6cNCTofnrs/hqdefault.jpg">
-      </a>
-      <div class="caption">Christmas In Wizard City</div>
-    </div>
-
-    <div class="info-box">
-      Merchandise coming soon!
-    </div>
+  <div class="title" id="title">
+    <span>W</span><span>I</span><span>Z</span><span>A</span><span>R</span><span>D</span>
+    <span>&nbsp;</span>
+    <span>S</span><span>H</span><span>I</span><span>T</span>
   </div>
 
-  <form class="email-box" action="https://formspree.io/f/mrelgwzp" method="POST">
-    <label>ENTER EMAIL FOR FUTURE UPDATES</label>
-    <input id="emailInput" type="email" name="email" required>
-    <button class="btn" type="submit">SUBMIT</button>
-  </form>
-
-  <button class="btn" onclick="goBack()">BACK</button>
+  <button class="btn">ENTER</button>
 </div>
 
 <script>
-const home = document.getElementById("home");
-const updates = document.getElementById("updates");
-const field = document.getElementById("letterField");
-
-function enterSite() {
-  home.classList.remove("active");
-  updates.classList.add("active");
-}
-
-function goBack() {
-  updates.classList.remove("active");
-  home.classList.add("active");
-  field.innerHTML = "";
-}
+const letters = document.querySelectorAll(".title span");
 
 document.addEventListener("mousemove", e => {
-  document.body.style.setProperty("--mx", e.clientX + "px");
-  document.body.style.setProperty("--my", e.clientY + "px");
+  const mx = e.clientX;
+  const my = e.clientY;
+
+  document.body.style.setProperty("--mx", mx + "px");
+  document.body.style.setProperty("--my", my + "px");
+
+  letters.forEach(letter => {
+    const rect = letter.getBoundingClientRect();
+    const lx = rect.left + rect.width / 2;
+    const ly = rect.top + rect.height / 2;
+
+    const dx = mx - lx;
+    const dy = my - ly;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    // control how strong the effect is
+    const influence = Math.max(0, 1 - distance / 220);
+
+    const scaleX = 1 + influence * 0.6;
+    const scaleY = 1 + influence * 0.25;
+
+    letter.style.transform = `scale(${scaleX}, ${scaleY})`;
+  });
 });
 
-document.getElementById("emailInput").addEventListener("input", e => {
-  field.innerHTML = "";
-
-  [...e.target.value].slice(-6).forEach(char => {
-    if (char === "@") char = "✦";
-    if (char === ".") char = "●";
-
-    const el = document.createElement("div");
-    el.className = "letter";
-    el.textContent = char;
-    el.style.left = Math.random() * 80 + "%";
-    el.style.top = Math.random() * 70 + "%";
-    el.style.transform =
-      `rotate(${Math.random()*12-6}deg) scale(${1+Math.random()*0.6})`;
-
-    field.appendChild(el);
+document.addEventListener("mouseleave", () => {
+  letters.forEach(letter => {
+    letter.style.transform = "scale(1,1)";
   });
 });
 </script>
