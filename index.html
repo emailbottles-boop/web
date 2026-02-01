@@ -54,7 +54,7 @@ body::after {
   );
 }
 
-/* ===== EDGE LINES (THINNER) ===== */
+/* ===== EDGE LINES ===== */
 .edge {
   position: fixed;
   inset: 0;
@@ -69,13 +69,38 @@ body::after {
 }
 
 .edge::before {
-  border-left: 2px solid rgba(255,220,120,0.6);
-  border-right: 2px solid rgba(180,0,255,0.6);
+  border-left: 2px solid rgba(255,220,120,0.5);
+  border-right: 2px solid rgba(180,0,255,0.5);
 }
 
 .edge::after {
-  border-top: 2px solid rgba(180,0,255,0.5);
-  border-bottom: 2px solid rgba(255,220,120,0.5);
+  border-top: 2px solid rgba(180,0,255,0.4);
+  border-bottom: 2px solid rgba(255,220,120,0.4);
+}
+
+/* ===== FLOATING LETTERS (UPDATES PAGE ONLY) ===== */
+#glyphs {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.glyph {
+  position: absolute;
+  font-size: 18vw;
+  font-weight: 900;
+  color: rgba(200,120,255,0.18);
+  text-shadow:
+    0 0 40px rgba(255,200,255,0.6),
+    0 0 120px rgba(180,80,255,0.4);
+  animation: drift 10s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%   { transform: translateY(0) rotate(0deg); }
+  50%  { transform: translateY(-40px) rotate(6deg); }
+  100% { transform: translateY(0) rotate(0deg); }
 }
 
 /* ===== SCREENS ===== */
@@ -87,7 +112,7 @@ body::after {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2.5rem;
+  gap: 2.2rem;
   text-align: center;
 }
 
@@ -121,11 +146,7 @@ body::after {
     0 0 100px rgba(180,0,255,0.7);
 }
 
-/* ===== UPDATES ===== */
-.updates {
-  gap: 2rem;
-}
-
+/* ===== UPDATES CONTENT ===== */
 .video-card {
   max-width: 280px;
 }
@@ -153,12 +174,12 @@ body::after {
   font-size: 0.85rem;
 }
 
-/* ===== EMAIL ===== */
+/* ===== EMAIL FORM (SPACED) ===== */
 form {
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
-  margin-top: 1.2rem;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
 }
 
 form label {
@@ -169,7 +190,7 @@ form label {
 
 form input {
   width: 260px;
-  padding: 0.7rem;
+  padding: 0.75rem;
   border-radius: 999px;
   border: 1px solid rgba(200,120,255,0.6);
   background: rgba(0,0,0,0.45);
@@ -182,6 +203,7 @@ form input {
 <body>
 
 <div class="edge"></div>
+<div id="glyphs"></div>
 
 <!-- HOME -->
 <div class="screen" id="home">
@@ -190,7 +212,7 @@ form input {
 </div>
 
 <!-- UPDATES -->
-<div class="screen updates hidden" id="updates">
+<div class="screen hidden" id="updates">
   <div class="video-card">
     <a href="https://www.youtube.com/watch?v=H6cNCTofnrs" target="_blank">
       <img src="https://img.youtube.com/vi/H6cNCTofnrs/hqdefault.jpg">
@@ -214,34 +236,48 @@ const logo = document.getElementById("logo");
 const btn = document.getElementById("enterBtn");
 const home = document.getElementById("home");
 const updates = document.getElementById("updates");
+const glyphs = document.getElementById("glyphs");
 
 document.addEventListener("mousemove", e => {
   const mx = e.clientX;
   const my = e.clientY;
-
   document.body.style.setProperty("--mx", mx + "px");
   document.body.style.setProperty("--my", my + "px");
 
   [logo, btn].forEach(el => {
     const r = el.getBoundingClientRect();
-    const dx = mx - (r.left + r.width / 2);
-    const dy = my - (r.top + r.height / 2);
-    const d = Math.sqrt(dx*dx + dy*dy);
-
+    const d = Math.hypot(mx - (r.left + r.width/2), my - (r.top + r.height/2));
     const i = Math.max(0, 1 - d / 300);
     el.style.transform = `scale(${1 + i * 0.3}, ${1 + i * 0.18})`;
   });
 });
 
+/* glyphs only on updates */
 btn.onclick = () => {
   home.classList.add("hidden");
   updates.classList.remove("hidden");
+  spawnGlyphs();
 };
 
 document.getElementById("backBtn").onclick = () => {
   updates.classList.add("hidden");
   home.classList.remove("hidden");
+  glyphs.innerHTML = "";
 };
+
+function spawnGlyphs() {
+  glyphs.innerHTML = "";
+  const chars = ["✦","☽","✶","⌁","⟁","✷","✹"];
+
+  for (let i = 0; i < 6; i++) {
+    const g = document.createElement("div");
+    g.className = "glyph";
+    g.textContent = chars[Math.floor(Math.random() * chars.length)];
+    g.style.left = Math.random() * 80 + "%";
+    g.style.top = Math.random() * 70 + "%";
+    glyphs.appendChild(g);
+  }
+}
 </script>
 
 </body>
