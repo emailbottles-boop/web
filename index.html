@@ -57,7 +57,7 @@ body::before {
   pointer-events: none;
 }
 
-/* === TRIPPY LETTERS === */
+/* === TRIPPY LETTERS (EMAIL) === */
 #letterField {
   position: fixed;
   inset: 0;
@@ -106,20 +106,21 @@ body::before {
   filter: drop-shadow(0 0 50px rgba(200,120,255,0.9));
 }
 
+/* 🔮 OPENING TEXT (SUBTLE STRETCH) */
 .glitch {
   font-size: 1.8rem;
   letter-spacing: 0.35em;
   color: #e2b6ff;
   margin-bottom: 1.5rem;
-  animation: glitch 1.8s infinite;
+  display: inline-block;
+  transition:
+    transform 0.35s cubic-bezier(.22,1,.36,1),
+    letter-spacing 0.35s ease;
 }
 
-@keyframes glitch {
-  50% {
-    text-shadow:
-      3px 0 #ff00ff,
-      -3px 0 #00ffff;
-  }
+.glitch:hover {
+  transform: scaleX(1.12) scaleY(1.04);
+  letter-spacing: 0.42em;
 }
 
 .btn {
@@ -146,9 +147,7 @@ body::before {
   margin-bottom: 2rem;
 }
 
-.video-card {
-  max-width: 320px;
-}
+.video-card { max-width: 320px; }
 
 .video-link {
   display: block;
@@ -158,9 +157,7 @@ body::before {
   transition: transform 0.3s ease;
 }
 
-.video-link:hover {
-  transform: scale(1.04);
-}
+.video-link:hover { transform: scale(1.04); }
 
 .video-link img {
   width: 100%;
@@ -279,7 +276,6 @@ document.getElementById("emailInput").addEventListener("input", e => {
     const el = document.createElement("div");
     el.className = "letter";
     el.textContent = char;
-
     el.style.left = Math.random() * 80 + "%";
     el.style.top = Math.random() * 70 + "%";
     el.style.transform =
