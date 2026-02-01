@@ -3,90 +3,85 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wizard Site</title>
+<title>Wizard</title>
 
 <style>
 html, body {
   margin: 0;
   height: 100%;
   overflow: hidden;
-  font-family: system-ui, sans-serif;
   background: #090012;
+  font-family: system-ui, sans-serif;
   color: white;
 }
 
-/* ===== MULTI-LAYER TRIPPY BACKGROUND ===== */
-body::before,
-body::after {
+/* ===== TRIPPY BACKGROUND ===== */
+body::before {
   content: "";
   position: fixed;
-  inset: -50%;
+  inset: -80%;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,220,120,0.15) 0px,
+      rgba(255,220,120,0.15) 1px,
+      transparent 1px,
+      transparent 70px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(180,0,255,0.2) 0px,
+      rgba(180,0,255,0.2) 1px,
+      transparent 1px,
+      transparent 100px
+    );
+  transform: translate(
+    calc(var(--mx, 0px) * -0.06),
+    calc(var(--my, 0px) * -0.06)
+  );
   pointer-events: none;
 }
 
-body::before {
-  background:
-    repeating-linear-gradient(
-      60deg,
-      rgba(255,220,120,0.12) 0px,
-      rgba(255,220,120,0.12) 1px,
-      transparent 1px,
-      transparent 90px
-    ),
-    repeating-linear-gradient(
-      -60deg,
-      rgba(180,0,255,0.15) 0px,
-      rgba(180,0,255,0.15) 1px,
-      transparent 1px,
-      transparent 120px
-    );
-  transform: translate(
-    calc(var(--mx, 0px) * -0.05),
-    calc(var(--my, 0px) * -0.05)
-  );
-}
-
-body::after {
-  background: radial-gradient(
-    circle at var(--mx, 50%) var(--my, 50%),
-    rgba(180,80,255,0.45),
-    transparent 40%
-  );
-}
-
-/* ===== EDGE ENERGY ===== */
+/* ===== NEON EDGES ===== */
 .edge {
   position: fixed;
   inset: 0;
+  border-left: 2px solid rgba(255,220,120,0.6);
+  border-right: 2px solid rgba(180,0,255,0.6);
+  border-top: 2px solid rgba(180,0,255,0.5);
+  border-bottom: 2px solid rgba(255,220,120,0.5);
   pointer-events: none;
-  border-left: 2px solid rgba(255,220,120,0.5);
-  border-right: 2px solid rgba(180,0,255,0.5);
-  border-top: 2px solid rgba(180,0,255,0.4);
-  border-bottom: 2px solid rgba(255,220,120,0.4);
 }
 
-/* ===== FLOATING TYPE (EMAIL REACTIVE) ===== */
-#letterField {
+/* ===== CRYPTO LETTER FIELD ===== */
+#cryptoField {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 2;
 }
 
-.letter {
+.crypto {
   position: absolute;
-  font-size: 16vw;
   font-weight: 900;
-  color: rgba(200,120,255,0.25);
+  opacity: 0.85;
+  color: rgba(220,150,255,0.4);
   text-shadow:
-    0 0 40px rgba(255,200,255,0.9),
-    0 0 120px rgba(180,80,255,0.7);
-  animation: float 7s ease-in-out forwards;
+    0 0 40px rgba(255,220,255,1),
+    0 0 120px rgba(180,80,255,0.9),
+    0 0 200px rgba(255,220,120,0.6);
+  animation: drift 9s ease-out forwards;
 }
 
-@keyframes float {
-  0% { transform: translateY(20px) rotate(0deg); opacity: 0.8; }
-  100% { transform: translateY(-80px) rotate(8deg); opacity: 0; }
+@keyframes drift {
+  from {
+    transform: translateY(60px) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-260px) rotate(18deg) scale(1.4);
+    opacity: 0;
+  }
 }
 
 /* ===== SCREENS ===== */
@@ -108,9 +103,8 @@ body::after {
 .logo {
   width: 360px;
   max-width: 85vw;
-  filter: drop-shadow(0 0 70px rgba(200,120,255,1));
-  transition: transform 0.12s ease-out;
-  will-change: transform;
+  filter: drop-shadow(0 0 80px rgba(200,120,255,1));
+  transition: transform 0.15s ease-out;
 }
 
 /* ===== BUTTON ===== */
@@ -121,7 +115,7 @@ body::after {
   color: black;
   border: none;
   border-radius: 999px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 900;
   letter-spacing: 0.4em;
   cursor: pointer;
@@ -131,39 +125,33 @@ body::after {
 }
 
 /* ===== UPDATES ===== */
-.video-card {
-  max-width: 280px;
-}
-
 .video-card img {
-  width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 0 35px rgba(200,120,255,0.7);
+  width: 280px;
+  border-radius: 14px;
+  box-shadow: 0 0 40px rgba(200,120,255,0.8);
 }
 
 .caption {
-  margin-top: 0.7rem;
+  margin-top: 0.6rem;
   font-size: 0.8rem;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
   color: #ffdfff;
 }
 
 .merch {
-  padding: 1.3rem;
+  padding: 1.2rem;
   border-radius: 14px;
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(200,120,255,0.4);
-  box-shadow: 0 0 30px rgba(200,120,255,0.5);
   color: #fff2a8;
-  font-size: 0.85rem;
 }
 
 /* ===== EMAIL FORM ===== */
 form {
   display: flex;
   flex-direction: column;
-  gap: 1.4rem;
-  margin-top: 1.6rem;
+  gap: 1.6rem;
+  margin-top: 1.5rem;
 }
 
 form label {
@@ -174,7 +162,7 @@ form label {
 
 form input {
   width: 260px;
-  padding: 0.8rem;
+  padding: 0.85rem;
   border-radius: 999px;
   border: 1px solid rgba(200,120,255,0.6);
   background: rgba(0,0,0,0.45);
@@ -187,15 +175,15 @@ form input {
 <body>
 
 <div class="edge"></div>
-<div id="letterField"></div>
+<div id="cryptoField"></div>
 
-<!-- HOME -->
+<!-- HOME SCREEN -->
 <div class="screen" id="home">
   <img src="wizshtlogo_trans.png" class="logo" id="logo">
   <button class="btn" id="enterBtn">ENTER</button>
 </div>
 
-<!-- UPDATES -->
+<!-- UPDATES SCREEN -->
 <div class="screen hidden" id="updates">
   <div class="video-card">
     <a href="https://www.youtube.com/watch?v=H6cNCTofnrs" target="_blank">
@@ -217,27 +205,28 @@ form input {
 
 <script>
 const logo = document.getElementById("logo");
-const btn = document.getElementById("enterBtn");
+const enterBtn = document.getElementById("enterBtn");
 const home = document.getElementById("home");
 const updates = document.getElementById("updates");
-const field = document.getElementById("letterField");
+const cryptoField = document.getElementById("cryptoField");
 const emailInput = document.getElementById("emailInput");
 
+/* Mouse-reactive background + logo */
 document.addEventListener("mousemove", e => {
-  const mx = e.clientX;
-  const my = e.clientY;
-  document.body.style.setProperty("--mx", mx + "px");
-  document.body.style.setProperty("--my", my + "px");
+  document.body.style.setProperty("--mx", e.clientX + "px");
+  document.body.style.setProperty("--my", e.clientY + "px");
 
-  [logo, btn].forEach(el => {
-    const r = el.getBoundingClientRect();
-    const d = Math.hypot(mx - (r.left + r.width/2), my - (r.top + r.height/2));
-    const i = Math.max(0, 1 - d / 280);
-    el.style.transform = `scale(${1 + i * 0.35}, ${1 + i * 0.2})`;
-  });
+  const r = logo.getBoundingClientRect();
+  const d = Math.hypot(
+    e.clientX - (r.left + r.width / 2),
+    e.clientY - (r.top + r.height / 2)
+  );
+  const i = Math.max(0, 1 - d / 300);
+  logo.style.transform = `scale(${1 + i * 0.35})`;
 });
 
-btn.onclick = () => {
+/* Page switching */
+enterBtn.onclick = () => {
   home.classList.add("hidden");
   updates.classList.remove("hidden");
 };
@@ -245,22 +234,24 @@ btn.onclick = () => {
 document.getElementById("backBtn").onclick = () => {
   updates.classList.add("hidden");
   home.classList.remove("hidden");
-  field.innerHTML = "";
+  cryptoField.innerHTML = "";
 };
 
-/* EMAIL REACTIVE MAGIC */
-emailInput.addEventListener("input", e => {
-  const chars = [...e.target.value].slice(-2);
-  chars.forEach(c => {
+/* ===== GIANT LETTER SPAWN (LETTERS ONLY) ===== */
+emailInput.addEventListener("keydown", e => {
+  if (e.key.length !== 1 || !/[a-zA-Z@._-]/.test(e.key)) return;
+
+  for (let i = 0; i < 3; i++) {
     const el = document.createElement("div");
-    el.className = "letter";
-    el.textContent = c === "@" ? "✦" : c === "." ? "●" : c;
-    el.style.left = Math.random() * 80 + "%";
-    el.style.top = Math.random() * 70 + "%";
-    el.style.transform = `rotate(${Math.random()*10-5}deg)`;
-    field.appendChild(el);
-    setTimeout(() => el.remove(), 7000);
-  });
+    el.className = "crypto";
+    el.textContent = e.key.toUpperCase();
+    el.style.left = Math.random() * 85 + "%";
+    el.style.top = Math.random() * 75 + "%";
+    el.style.fontSize = (12 + Math.random() * 14) + "vw";
+    el.style.transform = `rotate(${Math.random() * 30 - 15}deg)`;
+    cryptoField.appendChild(el);
+    setTimeout(() => el.remove(), 9000);
+  }
 });
 </script>
 
