@@ -3,263 +3,207 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wizard</title>
+<title>Wizard City</title>
 
 <style>
 html, body {
   margin: 0;
+  padding: 0;
+  width: 100%;
   height: 100%;
-  overflow: hidden;
-  background: #07000f;
-  font-family: system-ui, sans-serif;
-  color: white;
+  overflow-x: hidden;
+  background: radial-gradient(circle at var(--mx,50%) var(--my,50%), #3b0066, #120018);
+  font-family: Arial, sans-serif;
+  color: #d6b3ff;
 }
 
-/* ===== DEVICE MODES ===== */
-body.mobile {
-  --bg-strength: 0.02;
-  --letter-max: 4;
-  --letter-size: 16vw;
-  --letter-life: 4200ms;
-}
-body.desktop {
-  --bg-strength: 0.07;
-  --letter-max: 7;
-  --letter-size: 32vw;
-  --letter-life: 9000ms;
-}
-
-/* ===== BACKGROUND ===== */
 body::before {
   content: "";
   position: fixed;
-  inset: -120%;
+  inset: 0;
   background:
-    repeating-linear-gradient(
-      60deg,
-      rgba(255,220,120,0.15) 0px,
-      rgba(255,220,120,0.15) 1px,
-      transparent 1px,
-      transparent 70px
-    ),
-    repeating-linear-gradient(
-      -60deg,
-      rgba(180,0,255,0.2) 0px,
-      rgba(180,0,255,0.2) 1px,
-      transparent 1px,
-      transparent 100px
-    );
-  transform: translate(
-    calc(var(--mx, 0px) * -1 * var(--bg-strength)),
-    calc(var(--my, 0px) * -1 * var(--bg-strength))
-  );
+    repeating-linear-gradient(45deg, rgba(255,255,0,0.05) 0 2px, transparent 2px 20px),
+    repeating-linear-gradient(-45deg, rgba(160,0,255,0.05) 0 2px, transparent 2px 25px);
   pointer-events: none;
+  z-index: 0;
 }
 
-/* ===== NEON EDGES ===== */
-.edge {
-  position: fixed;
-  inset: 0;
-  border-left: 2px solid rgba(255,220,120,0.5);
-  border-right: 2px solid rgba(180,0,255,0.5);
-  pointer-events: none;
+section {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
 }
 
-/* ===== CRYPTO FIELD ===== */
-#cryptoField {
+.logo {
+  width: 260px;
+  max-width: 70vw;
+  transition: transform 0.2s ease;
+}
+
+button {
+  margin-top: 40px;
+  padding: 18px 40px;
+  font-size: 18px;
+  border-radius: 40px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(90deg, #ffe600, #b300ff);
+  color: #000;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.hidden {
+  display: none;
+}
+
+input {
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  width: 260px;
+  margin-right: 10px;
+}
+
+.crypto-layer {
   position: fixed;
   inset: 0;
   pointer-events: none;
+  overflow: hidden;
   z-index: 2;
 }
 
-.crypto {
+.crypto-letter {
   position: absolute;
-  font-weight: 900;
-  opacity: 0.85;
-  color: rgba(230,160,255,0.4);
-  text-shadow:
-    0 0 30px rgba(255,220,255,0.9),
-    0 0 90px rgba(180,80,255,0.8),
-    0 0 140px rgba(255,220,120,0.6);
-  animation: drift var(--letter-life) ease-out forwards;
+  font-size: clamp(60px, 10vw, 140px);
+  font-weight: bold;
+  color: rgba(255,255,255,0.15);
+  animation: floatOut 5s ease-out forwards;
 }
 
-@keyframes drift {
-  from {
-    transform: translateY(40px) scale(1);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(-180px) scale(1.3);
-    opacity: 0;
-  }
+@keyframes floatOut {
+  from { transform: scale(0.6) rotate(0deg); opacity: 0.9; }
+  to { transform: scale(1.2) rotate(360deg); opacity: 0; }
 }
 
-/* ===== SCREENS ===== */
-.screen {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 2.2rem;
-  text-align: center;
-}
-.hidden { display: none; }
-
-/* ===== LOGO ===== */
-.logo {
-  width: 340px;
-  max-width: 85vw;
-  filter: drop-shadow(0 0 70px rgba(200,120,255,0.9));
-  transition: transform 0.15s ease-out;
-}
-
-/* ===== BUTTON ===== */
-.btn {
-  min-width: 240px;
-  padding: 1.1rem 2.8rem;
-  background: linear-gradient(135deg, #ffe066, #b000ff);
-  color: black;
-  border: none;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 900;
-  letter-spacing: 0.35em;
-  cursor: pointer;
-}
-
-/* ===== UPDATES ===== */
-.video-card img {
-  width: 260px;
-  border-radius: 14px;
+.video {
+  margin-top: 40px;
+  max-width: 90%;
 }
 
 .caption {
-  margin-top: 0.5rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
+  margin-top: 12px;
+  font-size: 18px;
 }
 
 .merch {
-  padding: 1.1rem;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.08);
-  color: #fff2a8;
-}
-
-/* ===== EMAIL ===== */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-form input {
-  width: 250px;
-  padding: 0.85rem;
-  border-radius: 999px;
-  border: 1px solid rgba(200,120,255,0.6);
-  background: rgba(0,0,0,0.45);
-  color: white;
-  text-align: center;
+  margin-top: 10px;
+  color: #ffe600;
 }
 </style>
 </head>
 
 <body>
 
-<div class="edge"></div>
-<div id="cryptoField"></div>
+<div class="crypto-layer" id="crypto"></div>
 
-<div class="screen" id="home">
-  <img src="wizshtlogo_trans.png" class="logo" id="logo">
-  <button class="btn" id="enterBtn">ENTER</button>
-</div>
+<!-- HOME -->
+<section id="home">
+  <img src="capture.png" class="logo" id="logo">
+  <button onclick="enterSite()">Enter</button>
+</section>
 
-<div class="screen hidden" id="updates">
-  <div class="video-card">
+<!-- CONTENT -->
+<section id="content" class="hidden">
+
+  <h2>Updates</h2>
+
+  <div class="video">
     <a href="https://www.youtube.com/watch?v=H6cNCTofnrs" target="_blank">
-      <img src="https://img.youtube.com/vi/H6cNCTofnrs/hqdefault.jpg">
+      <img src="https://img.youtube.com/vi/H6cNCTofnrs/hqdefault.jpg" width="360">
     </a>
     <div class="caption">Christmas In Wizard City</div>
+    <div class="merch">Merchandise coming soon!</div>
   </div>
 
-  <div class="merch">Merchandise coming soon!</div>
-
-  <form action="https://formspree.io/f/mrelgwzp" method="POST">
-    <input id="emailInput" type="email" name="email" placeholder="EMAIL FOR UPDATES" required>
-    <button class="btn" type="submit">SUBMIT</button>
+  <form action="https://formspree.io/f/mrelgwzp" method="POST" style="margin-top:40px;">
+    <input type="email" name="email" placeholder="Enter email for updates" required>
+    <button type="submit">Submit</button>
   </form>
 
-  <button class="btn" id="backBtn">BACK</button>
-</div>
+</section>
 
 <script>
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-document.body.classList.add(isMobile ? "mobile" : "desktop");
+const crypto = document.getElementById("crypto");
+let quadrant = 0;
 
-const home = document.getElementById("home");
-const updates = document.getElementById("updates");
-const enterBtn = document.getElementById("enterBtn");
-const backBtn = document.getElementById("backBtn");
-const cryptoField = document.getElementById("cryptoField");
-const emailInput = document.getElementById("emailInput");
-const logo = document.getElementById("logo");
+// balanced chaos
+function balancedPosition() {
+  const w = window.innerWidth;
+  const h = window.innerHeight;
 
-/* Mouse effects ONLY on desktop */
+  const zones = [
+    [0, w/2, 0, h/2],
+    [w/2, w, 0, h/2],
+    [0, w/2, h/2, h],
+    [w/2, w, h/2, h]
+  ];
+
+  const z = zones[quadrant];
+  quadrant = (quadrant + 1) % zones.length;
+
+  return {
+    x: z[0] + Math.random() * (z[1] - z[0]),
+    y: z[2] + Math.random() * (z[3] - z[2])
+  };
+}
+
+function spawnLetter(char) {
+  if (crypto.children.length > (isMobile ? 12 : 24)) return;
+
+  const el = document.createElement("div");
+  el.className = "crypto-letter";
+  el.textContent = char;
+
+  const p = balancedPosition();
+  el.style.left = p.x + "px";
+  el.style.top = p.y + "px";
+  el.style.transform += Math.random() > 0.7 ? " rotate(180deg)" : "";
+
+  crypto.appendChild(el);
+  setTimeout(() => el.remove(), isMobile ? 4000 : 6000);
+}
+
+document.addEventListener("keydown", e => {
+  if (document.activeElement.type === "email" && /^[a-zA-Z]$/.test(e.key)) {
+    spawnLetter(e.key.toUpperCase());
+  }
+});
+
 if (!isMobile) {
   document.addEventListener("mousemove", e => {
     document.body.style.setProperty("--mx", e.clientX + "px");
     document.body.style.setProperty("--my", e.clientY + "px");
-
-    const r = logo.getBoundingClientRect();
-    const d = Math.hypot(
-      e.clientX - (r.left + r.width / 2),
-      e.clientY - (r.top + r.height / 2)
-    );
-    const i = Math.max(0, 1 - d / 320);
-    logo.style.transform = `scale(${1 + i * 0.3})`;
+    document.getElementById("logo").style.transform =
+      `scale(1.05) translate(${(e.clientX/window.innerWidth-0.5)*10}px,
+      ${(e.clientY/window.innerHeight-0.5)*10}px)`;
   });
 }
 
-/* Page switching */
-enterBtn.onclick = () => {
-  home.classList.add("hidden");
-  updates.classList.remove("hidden");
-};
-backBtn.onclick = () => {
-  updates.classList.add("hidden");
-  home.classList.remove("hidden");
-  cryptoField.innerHTML = "";
-};
-
-/* SAFE LETTER SPAWN */
-emailInput.addEventListener("keydown", e => {
-  if (e.key.length !== 1 || !/[a-zA-Z@._-]/.test(e.key)) return;
-  if (cryptoField.children.length > 18) return;
-
-  const count = Math.min(
-    parseInt(getComputedStyle(document.body).getPropertyValue("--letter-max")),
-    3
-  );
-
-  for (let i = 0; i < count; i++) {
-    const el = document.createElement("div");
-    el.className = "crypto";
-    el.textContent = e.key.toUpperCase();
-    el.style.left = Math.random() * 100 + "vw";
-    el.style.top = Math.random() * 100 + "vh";
-    el.style.fontSize =
-      Math.random() * parseFloat(getComputedStyle(document.body).getPropertyValue("--letter-size")) + "vw";
-    el.style.transform = `rotate(${Math.random() < 0.3 ? 180 : Math.random() * 360}deg)`;
-    cryptoField.appendChild(el);
-    setTimeout(() => el.remove(), parseInt(getComputedStyle(document.body).getPropertyValue("--letter-life")));
-  }
-});
+function enterSite() {
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById("content").classList.remove("hidden");
+}
 </script>
 
 </body>
