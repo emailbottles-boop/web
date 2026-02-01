@@ -12,28 +12,49 @@
       height: 100%;
       margin: 0;
       font-family: system-ui, sans-serif;
+      overflow: hidden;
     }
 
     body {
       background:
         repeating-linear-gradient(
-          135deg,
-          rgba(255,255,255,0.035) 0px,
-          rgba(255,255,255,0.035) 1px,
+          60deg,
+          rgba(255,255,255,0.05) 0px,
+          rgba(255,255,255,0.05) 1px,
           transparent 1px,
-          transparent 80px
+          transparent 70px
         ),
-        radial-gradient(circle at top, #2b0055, #05000c 70%);
-      animation: bgmove 30s linear infinite;
+        repeating-linear-gradient(
+          -60deg,
+          rgba(200,120,255,0.04) 0px,
+          rgba(200,120,255,0.04) 1px,
+          transparent 1px,
+          transparent 90px
+        ),
+        linear-gradient(120deg, #3a0075, #12001f);
+      animation: bgmove 12s linear infinite;
       display: flex;
       justify-content: center;
       align-items: center;
       color: white;
     }
 
+    body::before {
+      content: "";
+      position: absolute;
+      inset: -50%;
+      background: radial-gradient(
+        circle at var(--mx, 50%) var(--my, 50%),
+        rgba(180,80,255,0.35),
+        transparent 45%
+      );
+      transition: background 0.1s;
+      pointer-events: none;
+    }
+
     @keyframes bgmove {
       from { background-position: 0 0; }
-      to { background-position: 600px 600px; }
+      to { background-position: 800px 800px; }
     }
 
     .view {
@@ -54,30 +75,33 @@
     .logo {
       max-width: 340px;
       margin-bottom: 2rem;
-      filter: drop-shadow(0 0 30px rgba(200,120,255,0.7));
+      filter:
+        drop-shadow(0 0 40px rgba(200,120,255,0.9))
+        drop-shadow(0 0 80px rgba(255,200,0,0.4));
     }
 
     .glitch {
       font-size: 1.8rem;
       letter-spacing: 0.35em;
-      color: #d08bff;
+      color: #e2b6ff;
       margin-bottom: 1.5rem;
-      animation: glitch 2.5s infinite;
+      animation: glitch 1.8s infinite;
     }
 
     @keyframes glitch {
-      0%, 100% { text-shadow: none; }
+      0% { text-shadow: none; }
       50% {
         text-shadow:
-          2px 0 #ff00ff,
-          -2px 0 #00ffff;
+          3px 0 #ff00ff,
+          -3px 0 #00ffff;
       }
+      100% { text-shadow: none; }
     }
 
     .btn {
       margin-top: 1.5rem;
       padding: 0.9rem 2.4rem;
-      background: linear-gradient(135deg, purple, #ffcc00);
+      background: linear-gradient(135deg, #ffdd55, #b100ff);
       color: black;
       border: none;
       border-radius: 999px;
@@ -85,7 +109,12 @@
       font-weight: 800;
       letter-spacing: 0.3em;
       cursor: pointer;
-      box-shadow: 0 0 40px rgba(255,200,0,0.6);
+      box-shadow: 0 0 40px rgba(255,200,0,0.7);
+      transition: transform 0.25s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.08) rotate(-1deg);
     }
 
     .updates-grid {
@@ -106,12 +135,12 @@
       display: block;
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 0 30px rgba(200,120,255,0.5);
-      transition: transform 0.3s ease;
+      box-shadow: 0 0 40px rgba(200,120,255,0.6);
+      transition: transform 0.35s ease;
     }
 
     .video-link:hover {
-      transform: translateY(-6px) scale(1.02);
+      transform: translateY(-8px) scale(1.04) rotate(-1deg);
     }
 
     .video-link img {
@@ -123,18 +152,23 @@
       margin-top: 0.75rem;
       font-size: 0.9rem;
       letter-spacing: 0.12em;
-      color: #ffccff;
+      color: #ffd8ff;
+      transition: transform 0.3s ease;
+    }
+
+    .video-card:hover .caption {
+      transform: translateY(-4px);
     }
 
     .info-box {
       max-width: 260px;
       padding: 1.5rem;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(200,120,255,0.4);
-      box-shadow: 0 0 25px rgba(200,120,255,0.3);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(200,120,255,0.5);
+      box-shadow: 0 0 35px rgba(200,120,255,0.4);
       font-size: 1rem;
-      color: #ffeb8a;
+      color: #fff2a8;
     }
 
     .email-box {
@@ -148,14 +182,14 @@
     .email-box label {
       font-size: 0.75rem;
       letter-spacing: 0.25em;
-      color: #d8aaff;
+      color: #e6b6ff;
     }
 
     .email-box input {
       padding: 0.75rem 1.1rem;
       width: 270px;
       border-radius: 999px;
-      border: 1px solid rgba(200,120,255,0.5);
+      border: 1px solid rgba(200,120,255,0.6);
       background: rgba(0,0,0,0.45);
       color: white;
       text-align: center;
@@ -167,7 +201,7 @@
 
   <!-- HOME -->
   <div id="home" class="view active">
-    <img src="wizshtlogo_trans.png" alt="Wizard Shit logo" class="logo">
+    <img src="wizshtlogo_trans.png" class="logo" alt="Wizard Shit logo">
     <div class="glitch">WIZARD SHIT</div>
     <button class="btn" onclick="enterSite()">ENTER</button>
   </div>
@@ -211,6 +245,11 @@
       updates.classList.remove('active');
       home.classList.add('active');
     }
+
+    document.addEventListener('mousemove', e => {
+      document.body.style.setProperty('--mx', e.clientX + 'px');
+      document.body.style.setProperty('--my', e.clientY + 'px');
+    });
   </script>
 
 </body>
