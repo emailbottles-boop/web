@@ -10,7 +10,7 @@ html, body {
   margin: 0;
   height: 100%;
   overflow: hidden;
-  background: #090012;
+  background: #07000f;
   font-family: system-ui, sans-serif;
   color: white;
 }
@@ -19,35 +19,35 @@ html, body {
 body::before {
   content: "";
   position: fixed;
-  inset: -80%;
+  inset: -100%;
   background:
     repeating-linear-gradient(
-      45deg,
-      rgba(255,220,120,0.15) 0px,
-      rgba(255,220,120,0.15) 1px,
+      60deg,
+      rgba(255,220,120,0.18) 0px,
+      rgba(255,220,120,0.18) 1px,
       transparent 1px,
-      transparent 70px
+      transparent 60px
     ),
     repeating-linear-gradient(
-      -45deg,
-      rgba(180,0,255,0.2) 0px,
-      rgba(180,0,255,0.2) 1px,
+      -60deg,
+      rgba(180,0,255,0.22) 0px,
+      rgba(180,0,255,0.22) 1px,
       transparent 1px,
-      transparent 100px
+      transparent 90px
     );
   transform: translate(
-    calc(var(--mx, 0px) * -0.06),
-    calc(var(--my, 0px) * -0.06)
+    calc(var(--mx, 0px) * -0.08),
+    calc(var(--my, 0px) * -0.08)
   );
   pointer-events: none;
 }
 
-/* ===== NEON EDGES ===== */
+/* ===== NEON EDGE ENERGY ===== */
 .edge {
   position: fixed;
   inset: 0;
-  border-left: 2px solid rgba(255,220,120,0.6);
-  border-right: 2px solid rgba(180,0,255,0.6);
+  border-left: 2px solid rgba(255,220,120,0.7);
+  border-right: 2px solid rgba(180,0,255,0.7);
   border-top: 2px solid rgba(180,0,255,0.5);
   border-bottom: 2px solid rgba(255,220,120,0.5);
   pointer-events: none;
@@ -64,22 +64,22 @@ body::before {
 .crypto {
   position: absolute;
   font-weight: 900;
-  opacity: 0.85;
-  color: rgba(220,150,255,0.4);
+  opacity: 0.9;
+  color: rgba(230,160,255,0.45);
   text-shadow:
     0 0 40px rgba(255,220,255,1),
     0 0 120px rgba(180,80,255,0.9),
-    0 0 200px rgba(255,220,120,0.6);
-  animation: drift 9s ease-out forwards;
+    0 0 220px rgba(255,220,120,0.7);
+  animation: drift 10s ease-out forwards;
 }
 
 @keyframes drift {
   from {
-    transform: translateY(60px) rotate(0deg) scale(1);
+    transform: translateY(80px) scale(1);
     opacity: 1;
   }
   to {
-    transform: translateY(-260px) rotate(18deg) scale(1.4);
+    transform: translateY(-340px) scale(1.6);
     opacity: 0;
   }
 }
@@ -93,7 +93,7 @@ body::before {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2.2rem;
+  gap: 2.4rem;
   text-align: center;
 }
 
@@ -103,7 +103,7 @@ body::before {
 .logo {
   width: 360px;
   max-width: 85vw;
-  filter: drop-shadow(0 0 80px rgba(200,120,255,1));
+  filter: drop-shadow(0 0 90px rgba(200,120,255,1));
   transition: transform 0.15s ease-out;
 }
 
@@ -120,27 +120,27 @@ body::before {
   letter-spacing: 0.4em;
   cursor: pointer;
   box-shadow:
-    0 0 50px rgba(255,220,120,1),
-    0 0 120px rgba(180,0,255,0.8);
+    0 0 60px rgba(255,220,120,1),
+    0 0 140px rgba(180,0,255,0.9);
 }
 
 /* ===== UPDATES ===== */
 .video-card img {
   width: 280px;
-  border-radius: 14px;
-  box-shadow: 0 0 40px rgba(200,120,255,0.8);
+  border-radius: 16px;
+  box-shadow: 0 0 50px rgba(200,120,255,0.9);
 }
 
 .caption {
   margin-top: 0.6rem;
   font-size: 0.8rem;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.25em;
   color: #ffdfff;
 }
 
 .merch {
-  padding: 1.2rem;
-  border-radius: 14px;
+  padding: 1.3rem;
+  border-radius: 16px;
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(200,120,255,0.4);
   color: #fff2a8;
@@ -150,19 +150,19 @@ body::before {
 form {
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
-  margin-top: 1.5rem;
+  gap: 1.8rem;
+  margin-top: 1.6rem;
 }
 
 form label {
   font-size: 0.7rem;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.3em;
   color: #e6b6ff;
 }
 
 form input {
   width: 260px;
-  padding: 0.85rem;
+  padding: 0.9rem;
   border-radius: 999px;
   border: 1px solid rgba(200,120,255,0.6);
   background: rgba(0,0,0,0.45);
@@ -177,13 +177,13 @@ form input {
 <div class="edge"></div>
 <div id="cryptoField"></div>
 
-<!-- HOME SCREEN -->
+<!-- HOME -->
 <div class="screen" id="home">
   <img src="wizshtlogo_trans.png" class="logo" id="logo">
   <button class="btn" id="enterBtn">ENTER</button>
 </div>
 
-<!-- UPDATES SCREEN -->
+<!-- UPDATES -->
 <div class="screen hidden" id="updates">
   <div class="video-card">
     <a href="https://www.youtube.com/watch?v=H6cNCTofnrs" target="_blank">
@@ -221,7 +221,7 @@ document.addEventListener("mousemove", e => {
     e.clientX - (r.left + r.width / 2),
     e.clientY - (r.top + r.height / 2)
   );
-  const i = Math.max(0, 1 - d / 300);
+  const i = Math.max(0, 1 - d / 320);
   logo.style.transform = `scale(${1 + i * 0.35})`;
 });
 
@@ -237,20 +237,30 @@ document.getElementById("backBtn").onclick = () => {
   cryptoField.innerHTML = "";
 };
 
-/* ===== GIANT LETTER SPAWN (LETTERS ONLY) ===== */
+/* ===== GIANT LETTER SPAWN ===== */
 emailInput.addEventListener("keydown", e => {
   if (e.key.length !== 1 || !/[a-zA-Z@._-]/.test(e.key)) return;
 
-  for (let i = 0; i < 3; i++) {
+  const count = 4 + Math.floor(Math.random() * 4); // 4–7 per key
+
+  for (let i = 0; i < count; i++) {
     const el = document.createElement("div");
     el.className = "crypto";
     el.textContent = e.key.toUpperCase();
-    el.style.left = Math.random() * 85 + "%";
-    el.style.top = Math.random() * 75 + "%";
-    el.style.fontSize = (12 + Math.random() * 14) + "vw";
-    el.style.transform = `rotate(${Math.random() * 30 - 15}deg)`;
+
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.top = Math.random() * 100 + "vh";
+
+    el.style.fontSize = (16 + Math.random() * 30) + "vw";
+
+    const rotation = Math.random() < 0.35
+      ? 180 + Math.random() * 90
+      : Math.random() * 360 - 180;
+
+    el.style.transform = `rotate(${rotation}deg)`;
+
     cryptoField.appendChild(el);
-    setTimeout(() => el.remove(), 9000);
+    setTimeout(() => el.remove(), 10000);
   }
 });
 </script>
