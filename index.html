@@ -107,7 +107,7 @@ body::before {
   transition: transform 0.15s ease-out;
 }
 
-/* ===== BUTTONS (FIXED + REACTIVE) ===== */
+/* ===== BUTTONS ===== */
 .btn {
   min-width: 240px;
   padding: 1.1rem 2.8rem;
@@ -126,12 +126,9 @@ body::before {
   transform: scale(1.06);
   box-shadow: 0 0 35px rgba(255,220,120,0.8);
 }
+.btn:active { transform: scale(0.96); }
 
-.btn:active {
-  transform: scale(0.96);
-}
-
-/* ===== UPDATES GRID (FIXED SPACING) ===== */
+/* ===== UPDATES GRID ===== */
 .updates-grid {
   width: min(1200px, 92vw);
   display: grid;
@@ -166,17 +163,11 @@ body::before {
   border-radius: 18px;
   background: rgba(255,255,255,0.08);
   backdrop-filter: blur(8px);
-  box-shadow:
-    0 0 45px rgba(180,80,255,0.35),
-    inset 0 0 20px rgba(255,220,120,0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .merch-feature:hover {
   transform: translateY(-6px) scale(1.03);
-  box-shadow:
-    0 0 70px rgba(200,120,255,0.8),
-    inset 0 0 26px rgba(255,220,120,0.35);
 }
 
 .merch-img {
@@ -201,11 +192,30 @@ body::before {
   letter-spacing: 0.3em;
   font-size: 0.7rem;
   text-align: center;
-  transition: transform 0.18s ease;
 }
 
-.buy-btn:hover { transform: scale(1.06); }
-.buy-btn:active { transform: scale(0.96); }
+/* ===== GLOW VARIANTS ===== */
+.glow-gold {
+  box-shadow:
+    0 0 45px rgba(255,220,120,0.45),
+    inset 0 0 22px rgba(255,220,120,0.25);
+}
+.glow-gold:hover {
+  box-shadow:
+    0 0 80px rgba(255,220,120,0.85),
+    inset 0 0 28px rgba(255,220,120,0.35);
+}
+
+.glow-violet {
+  box-shadow:
+    0 0 45px rgba(180,80,255,0.45),
+    inset 0 0 22px rgba(180,80,255,0.25);
+}
+.glow-violet:hover {
+  box-shadow:
+    0 0 80px rgba(200,120,255,0.85),
+    inset 0 0 28px rgba(200,120,255,0.35);
+}
 
 /* ===== FORM ===== */
 form {
@@ -222,6 +232,14 @@ form input {
   color: white;
   text-align: center;
 }
+
+/* ===== MOBILE ===== */
+@media (max-width: 900px) {
+  .updates-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
 </style>
 </head>
 
@@ -229,7 +247,6 @@ form input {
 <div class="edge"></div>
 <div id="cryptoField"></div>
 
-<!-- HOME -->
 <div class="screen" id="home">
   <div class="home-stack">
     <img src="wizshtlogo_trans.png" class="logo" id="logo">
@@ -237,18 +254,15 @@ form input {
   </div>
 </div>
 
-<!-- UPDATES -->
 <div class="screen hidden" id="updates">
   <div class="updates-grid">
 
-    <!-- LEFT MERCH -->
-    <a class="merch-feature" href="https://wizard.printful.me/product/unisex-hoodie" target="_blank">
-      <img src="hoodie-front.png" class="merch-img" alt="Wizard Hoodie">
+    <a class="merch-feature glow-gold" href="https://wizard.printful.me/product/unisex-hoodie" target="_blank">
+      <img src="hoodie-front.png" class="merch-img">
       <div class="merch-title">WIZARD HOODIE</div>
       <div class="buy-btn">BUY NOW</div>
     </a>
 
-    <!-- CENTER -->
     <div class="center-col">
       <div class="video-card">
         <a href="https://www.youtube.com/watch?v=H6cNCTofnrs" target="_blank">
@@ -265,8 +279,11 @@ form input {
       <button class="btn" id="backBtn">BACK</button>
     </div>
 
-    <!-- RIGHT EMPTY SLOT -->
-    <div></div>
+    <a class="merch-feature glow-violet" href="https://wizard.printful.me/product/hoodie" target="_blank">
+      <img src="hoodie-2.png" class="merch-img">
+      <div class="merch-title">WIZARD HOODIE II</div>
+      <div class="buy-btn">BUY NOW</div>
+    </a>
 
   </div>
 </div>
@@ -323,4 +340,3 @@ emailInput.addEventListener("keydown", e => {
 
 </body>
 </html>
-
