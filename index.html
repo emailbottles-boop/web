@@ -27,7 +27,7 @@ body.desktop {
   --letter-life: 9000ms;
 }
 
-/* ===== BACKGROUND ===== */
+/* ===== BASE BACKGROUND ===== */
 body::before {
   content: "";
   position: fixed;
@@ -40,6 +40,37 @@ body::before {
     calc(var(--my, 0px) * -1 * var(--bg-strength))
   );
   pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== WATER VIDEO ===== */
+.water-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 1.6s ease;
+  pointer-events: none;
+}
+
+.water-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(0,0,0,0.15), rgba(0,0,0,0.8) 75%);
+}
+
+.water-layer video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6) saturate(1.15) blur(1.2px);
+  animation: waterBreath 14s ease-in-out infinite;
+}
+
+@keyframes waterBreath {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.035); }
 }
 
 /* ===== NEON EDGES ===== */
@@ -49,6 +80,7 @@ body::before {
   border-left: 2px solid rgba(255,220,120,0.5);
   border-right: 2px solid rgba(180,0,255,0.5);
   pointer-events: none;
+  z-index: 4;
 }
 
 /* ===== CRYPTO FIELD ===== */
@@ -56,7 +88,7 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 2;
+  z-index: 3;
 }
 
 .crypto {
@@ -128,7 +160,7 @@ body::before {
 
 .btn:hover { transform: scale(1.06); }
 
-/* ===== GLOBAL DONATE ===== */
+/* ===== DONATE ===== */
 .donate-wrap {
   position: fixed;
   bottom: 32px;
@@ -168,11 +200,12 @@ body::before {
   gap: 2.2rem;
 }
 
-/* ===== VIDEO ===== */
+/* ===== VIDEO CARD ===== */
 .video-card img {
   width: 260px;
   border-radius: 14px;
 }
+
 .caption {
   font-size: 0.75rem;
   letter-spacing: 0.2em;
@@ -224,17 +257,21 @@ form input {
 </head>
 
 <body>
+
+<!-- WATER -->
+<div class="water-layer" id="waterLayer">
+  <video id="waterVideo" src="water.mp4" autoplay muted loop playsinline></video>
+</div>
+
 <div class="edge"></div>
 <div id="cryptoField"></div>
 
-<!-- GLOBAL DONATE -->
 <div class="donate-wrap">
   <a class="donate-btn" href="https://donorbox.org/wiz-rd-shit?" target="_blank">
     <img src="https://donorbox.org/images/white_logo.svg" height="14"> DONATE
   </a>
 </div>
 
-<!-- HOME -->
 <div class="screen active" id="home">
   <div class="home-stack">
     <img src="wizshtlogo_trans.png" class="logo" id="logo">
@@ -242,7 +279,6 @@ form input {
   </div>
 </div>
 
-<!-- UPDATES -->
 <div class="screen" id="updates">
   <div class="updates-grid">
 
@@ -286,8 +322,13 @@ const backBtn = document.getElementById("backBtn");
 const cryptoField = document.getElementById("cryptoField");
 const emailInput = document.getElementById("emailInput");
 const logo = document.getElementById("logo");
+const waterLayer = document.getElementById("waterLayer");
+const waterVideo = document.getElementById("waterVideo");
 
-/* ===== LOGO + BG REACTIVITY ===== */
+/* slow water */
+waterVideo.playbackRate = 0.55;
+
+/* logo + bg react */
 if (!isMobile) {
   document.addEventListener("mousemove", e => {
     document.body.style.setProperty("--mx", e.clientX + "px");
@@ -304,19 +345,21 @@ if (!isMobile) {
   });
 }
 
-/* ===== SCREEN SWAP ===== */
+/* screen swap */
 enterBtn.onclick = () => {
   home.classList.remove("active");
   updates.classList.add("active");
+  waterLayer.style.opacity = 1;
 };
 
 backBtn.onclick = () => {
   updates.classList.remove("active");
   home.classList.add("active");
+  waterLayer.style.opacity = 0;
   cryptoField.innerHTML = "";
 };
 
-/* ===== CRYPTO LETTERS ===== */
+/* crypto letters */
 emailInput.addEventListener("keydown", e => {
   if (e.key.length !== 1 || !/[a-zA-Z@._-]/.test(e.key)) return;
   if (cryptoField.children.length > 18) return;
@@ -333,7 +376,7 @@ emailInput.addEventListener("keydown", e => {
   }
 });
 </script>
+
 </body>
 </html>
-
 
