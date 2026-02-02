@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Wizard</title>
+
+<!-- FAVICON -->
+<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
 <style>
 html, body {
@@ -17,6 +20,23 @@ html, body {
 
 a { text-decoration: none; color: inherit; }
 
+/* ===== WATER VIDEO BACKGROUND ===== */
+#water-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+#water-bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.25;
+  filter: blur(2px) saturate(1.2);
+  pointer-events: none;
+}
+
 /* ===== DEVICE MODES ===== */
 body.mobile {
   --bg-strength: 0.02;
@@ -27,7 +47,7 @@ body.desktop {
   --letter-life: 9000ms;
 }
 
-/* ===== BASE BACKGROUND ===== */
+/* ===== BACKGROUND PATTERN ===== */
 body::before {
   content: "";
   position: fixed;
@@ -40,37 +60,7 @@ body::before {
     calc(var(--my, 0px) * -1 * var(--bg-strength))
   );
   pointer-events: none;
-  z-index: 0;
-}
-
-/* ===== WATER VIDEO ===== */
-.water-layer {
-  position: fixed;
-  inset: 0;
   z-index: 1;
-  opacity: 0;
-  transition: opacity 1.6s ease;
-  pointer-events: none;
-}
-
-.water-layer::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle, rgba(0,0,0,0.15), rgba(0,0,0,0.8) 75%);
-}
-
-.water-layer video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.6) saturate(1.15) blur(1.2px);
-  animation: waterBreath 14s ease-in-out infinite;
-}
-
-@keyframes waterBreath {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.035); }
 }
 
 /* ===== NEON EDGES ===== */
@@ -80,7 +70,7 @@ body::before {
   border-left: 2px solid rgba(255,220,120,0.5);
   border-right: 2px solid rgba(180,0,255,0.5);
   pointer-events: none;
-  z-index: 4;
+  z-index: 2;
 }
 
 /* ===== CRYPTO FIELD ===== */
@@ -98,8 +88,7 @@ body::before {
   color: rgba(230,160,255,0.4);
   text-shadow:
     0 0 30px rgba(255,220,255,0.9),
-    0 0 90px rgba(180,80,255,0.8),
-    0 0 140px rgba(255,220,120,0.6);
+    0 0 90px rgba(180,80,255,0.8);
   animation: drift var(--letter-life) ease-out forwards;
 }
 
@@ -136,7 +125,6 @@ body::before {
   gap: 2.5rem;
 }
 
-/* ===== LOGO ===== */
 .logo {
   width: 340px;
   max-width: 85vw;
@@ -200,37 +188,6 @@ body::before {
   gap: 2.2rem;
 }
 
-/* ===== VIDEO CARD ===== */
-.video-card img {
-  width: 260px;
-  border-radius: 14px;
-}
-
-.caption {
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-align: center;
-}
-
-/* ===== MERCH ===== */
-.merch-feature {
-  padding: 1.6rem;
-  border-radius: 18px;
-  background: rgba(255,255,255,0.08);
-}
-
-.merch-img {
-  width: 100%;
-  border-radius: 14px;
-  margin-bottom: 1.2rem;
-}
-
-.merch-title {
-  text-align: center;
-  font-weight: 900;
-  letter-spacing: 0.15em;
-}
-
 /* ===== FORM ===== */
 form {
   display: flex;
@@ -258,9 +215,11 @@ form input {
 
 <body>
 
-<!-- WATER -->
-<div class="water-layer" id="waterLayer">
-  <video id="waterVideo" src="water.mp4" autoplay muted loop playsinline></video>
+<!-- WATER VIDEO -->
+<div id="water-bg">
+  <video autoplay muted loop playsinline>
+    <source src="water.mp4" type="video/mp4">
+  </video>
 </div>
 
 <div class="edge"></div>
@@ -281,25 +240,16 @@ form input {
 
 <div class="screen" id="updates">
   <div class="updates-grid">
-
     <a class="merch-feature" href="https://wizard.printful.me/product/unisex-hoodie" target="_blank">
       <img src="hoodie-front.png" class="merch-img">
       <div class="merch-title">WIZARD HOODIE</div>
     </a>
 
     <div class="center-col">
-      <div class="video-card">
-        <a href="https://www.youtube.com/watch?v=H6cNCTofnrs" target="_blank">
-          <img src="https://img.youtube.com/vi/H6cNCTofnrs/hqdefault.jpg">
-        </a>
-        <div class="caption">Christmas In Wizard City</div>
-      </div>
-
       <form action="https://formspree.io/f/mrelgwzp" method="POST">
         <input id="emailInput" type="email" name="email" placeholder="EMAIL FOR UPDATES" required>
         <button class="btn" type="submit">SUBMIT</button>
       </form>
-
       <button class="btn" id="backBtn">BACK</button>
     </div>
 
@@ -307,7 +257,6 @@ form input {
       <img src="hoodie-2.png" class="merch-img">
       <div class="merch-title">WIZARD HOODIE II</div>
     </a>
-
   </div>
 </div>
 
@@ -322,48 +271,20 @@ const backBtn = document.getElementById("backBtn");
 const cryptoField = document.getElementById("cryptoField");
 const emailInput = document.getElementById("emailInput");
 const logo = document.getElementById("logo");
-const waterLayer = document.getElementById("waterLayer");
-const waterVideo = document.getElementById("waterVideo");
 
-/* slow water */
-waterVideo.playbackRate = 0.55;
-
-/* logo + bg react */
-if (!isMobile) {
-  document.addEventListener("mousemove", e => {
-    document.body.style.setProperty("--mx", e.clientX + "px");
-    document.body.style.setProperty("--my", e.clientY + "px");
-
-    const r = logo.getBoundingClientRect();
-    const d = Math.hypot(
-      e.clientX - (r.left + r.width / 2),
-      e.clientY - (r.top + r.height / 2)
-    );
-
-    const influence = Math.max(0, 1 - d / 320);
-    logo.style.transform = `scale(${1 + influence * 0.3})`;
-  });
-}
-
-/* screen swap */
 enterBtn.onclick = () => {
   home.classList.remove("active");
   updates.classList.add("active");
-  waterLayer.style.opacity = 1;
 };
 
 backBtn.onclick = () => {
   updates.classList.remove("active");
   home.classList.add("active");
-  waterLayer.style.opacity = 0;
   cryptoField.innerHTML = "";
 };
 
-/* crypto letters */
 emailInput.addEventListener("keydown", e => {
-  if (e.key.length !== 1 || !/[a-zA-Z@._-]/.test(e.key)) return;
-  if (cryptoField.children.length > 18) return;
-
+  if (e.key.length !== 1) return;
   for (let i = 0; i < 3; i++) {
     const el = document.createElement("div");
     el.className = "crypto";
@@ -379,4 +300,3 @@ emailInput.addEventListener("keydown", e => {
 
 </body>
 </html>
-
