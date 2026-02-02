@@ -20,14 +20,10 @@ a { text-decoration: none; color: inherit; }
 /* ===== DEVICE MODES ===== */
 body.mobile {
   --bg-strength: 0.02;
-  --letter-max: 4;
-  --letter-size: 16vw;
   --letter-life: 4200ms;
 }
 body.desktop {
   --bg-strength: 0.07;
-  --letter-max: 7;
-  --letter-size: 32vw;
   --letter-life: 9000ms;
 }
 
@@ -88,28 +84,16 @@ body::before {
   display: flex;
   justify-content: center;
   align-items: center;
-
   opacity: 0;
   pointer-events: none;
   transform: translateY(12px) scale(0.98);
-  transition:
-    opacity 700ms ease,
-    transform 700ms cubic-bezier(.2,.7,.2,1),
-    filter 700ms ease;
+  transition: opacity 700ms ease, transform 700ms ease;
 }
 
 .screen.active {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0) scale(1);
-}
-
-/* subtle trippy fade */
-.screen.fade-out {
-  filter: blur(10px) saturate(160%);
-}
-.screen.fade-in {
-  filter: blur(0) saturate(120%);
 }
 
 /* ===== HOME ===== */
@@ -140,14 +124,33 @@ body::before {
   font-weight: 900;
   letter-spacing: 0.35em;
   cursor: pointer;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
-.btn:hover {
-  transform: scale(1.06);
-  box-shadow: 0 0 35px rgba(255,220,120,0.8);
+.btn:hover { transform: scale(1.06); }
+
+/* ===== GLOBAL DONATE ===== */
+.donate-wrap {
+  position: fixed;
+  bottom: 32px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 6;
 }
-.btn:active { transform: scale(0.96); }
+
+.donate-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(180,80,255,0.45);
+  backdrop-filter: blur(10px);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  font-weight: 800;
+}
 
 /* ===== UPDATES GRID ===== */
 .updates-grid {
@@ -158,7 +161,6 @@ body::before {
   gap: 3rem;
 }
 
-/* ===== CENTER ===== */
 .center-col {
   display: flex;
   flex-direction: column;
@@ -172,7 +174,6 @@ body::before {
   border-radius: 14px;
 }
 .caption {
-  margin-top: 0.5rem;
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-align: center;
@@ -183,35 +184,21 @@ body::before {
   padding: 1.6rem;
   border-radius: 18px;
   background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(8px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.merch-feature:hover {
-  transform: translateY(-6px) scale(1.03);
-}
+
 .merch-img {
   width: 100%;
   border-radius: 14px;
   margin-bottom: 1.2rem;
 }
+
 .merch-title {
+  text-align: center;
   font-weight: 900;
   letter-spacing: 0.15em;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-.buy-btn {
-  padding: 0.9rem 2.2rem;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #ffe066, #b000ff);
-  color: black;
-  font-weight: 900;
-  letter-spacing: 0.3em;
-  font-size: 0.7rem;
-  text-align: center;
 }
 
-/* ===== FORM (FIXED) ===== */
+/* ===== FORM ===== */
 form {
   display: flex;
   flex-direction: column;
@@ -220,37 +207,18 @@ form {
 }
 
 form input {
-  appearance: none;
-  -webkit-appearance: none;
-
   width: 260px;
-  padding: 0.95rem 1.4rem;
+  padding: 0.9rem;
   border-radius: 999px;
   border: 1px solid rgba(200,120,255,0.7);
   background: rgba(0,0,0,0.45);
   color: white;
-
   text-align: center;
-  letter-spacing: 0.18em;
-  font-size: 0.7rem;
-
-  box-shadow:
-    inset 0 0 25px rgba(180,80,255,0.25),
-    0 0 25px rgba(180,80,255,0.25);
-
-  outline: none;
-}
-
-form input::placeholder {
-  color: rgba(220,180,255,0.6);
 }
 
 /* ===== MOBILE ===== */
 @media (max-width: 900px) {
-  .updates-grid {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
+  .updates-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -259,6 +227,14 @@ form input::placeholder {
 <div class="edge"></div>
 <div id="cryptoField"></div>
 
+<!-- GLOBAL DONATE -->
+<div class="donate-wrap">
+  <a class="donate-btn" href="https://donorbox.org/wiz-rd-shit?" target="_blank">
+    <img src="https://donorbox.org/images/white_logo.svg" height="14"> DONATE
+  </a>
+</div>
+
+<!-- HOME -->
 <div class="screen active" id="home">
   <div class="home-stack">
     <img src="wizshtlogo_trans.png" class="logo" id="logo">
@@ -266,13 +242,13 @@ form input::placeholder {
   </div>
 </div>
 
+<!-- UPDATES -->
 <div class="screen" id="updates">
   <div class="updates-grid">
 
     <a class="merch-feature" href="https://wizard.printful.me/product/unisex-hoodie" target="_blank">
       <img src="hoodie-front.png" class="merch-img">
       <div class="merch-title">WIZARD HOODIE</div>
-      <div class="buy-btn">BUY NOW</div>
     </a>
 
     <div class="center-col">
@@ -294,7 +270,6 @@ form input::placeholder {
     <a class="merch-feature" href="https://wizard.printful.me/product/hoodie" target="_blank">
       <img src="hoodie-2.png" class="merch-img">
       <div class="merch-title">WIZARD HOODIE II</div>
-      <div class="buy-btn">BUY NOW</div>
     </a>
 
   </div>
@@ -312,35 +287,36 @@ const cryptoField = document.getElementById("cryptoField");
 const emailInput = document.getElementById("emailInput");
 const logo = document.getElementById("logo");
 
+/* ===== LOGO + BG REACTIVITY ===== */
 if (!isMobile) {
   document.addEventListener("mousemove", e => {
     document.body.style.setProperty("--mx", e.clientX + "px");
     document.body.style.setProperty("--my", e.clientY + "px");
+
     const r = logo.getBoundingClientRect();
-    const d = Math.hypot(e.clientX - (r.left + r.width / 2), e.clientY - (r.top + r.height / 2));
-    const i = Math.max(0, 1 - d / 320);
-    logo.style.transform = `scale(${1 + i * 0.3})`;
+    const d = Math.hypot(
+      e.clientX - (r.left + r.width / 2),
+      e.clientY - (r.top + r.height / 2)
+    );
+
+    const influence = Math.max(0, 1 - d / 320);
+    logo.style.transform = `scale(${1 + influence * 0.3})`;
   });
 }
 
-function swapScreens(from, to) {
-  from.classList.remove("active");
-  from.classList.add("fade-out");
+/* ===== SCREEN SWAP ===== */
+enterBtn.onclick = () => {
+  home.classList.remove("active");
+  updates.classList.add("active");
+};
 
-  to.classList.add("active", "fade-in");
-
-  setTimeout(() => {
-    from.classList.remove("fade-out");
-    to.classList.remove("fade-in");
-  }, 700);
-}
-
-enterBtn.onclick = () => swapScreens(home, updates);
 backBtn.onclick = () => {
-  swapScreens(updates, home);
+  updates.classList.remove("active");
+  home.classList.add("active");
   cryptoField.innerHTML = "";
 };
 
+/* ===== CRYPTO LETTERS ===== */
 emailInput.addEventListener("keydown", e => {
   if (e.key.length !== 1 || !/[a-zA-Z@._-]/.test(e.key)) return;
   if (cryptoField.children.length > 18) return;
@@ -359,4 +335,5 @@ emailInput.addEventListener("keydown", e => {
 </script>
 </body>
 </html>
+
 
