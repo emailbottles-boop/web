@@ -88,8 +88,29 @@ body::before {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px) scale(0.98);
+  transition:
+    opacity 700ms ease,
+    transform 700ms cubic-bezier(.2,.7,.2,1),
+    filter 700ms ease;
 }
-.hidden { display: none; }
+
+.screen.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+/* subtle trippy fade */
+.screen.fade-out {
+  filter: blur(10px) saturate(160%);
+}
+.screen.fade-in {
+  filter: blur(0) saturate(120%);
+}
 
 /* ===== HOME ===== */
 .home-stack {
@@ -165,24 +186,20 @@ body::before {
   backdrop-filter: blur(8px);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .merch-feature:hover {
   transform: translateY(-6px) scale(1.03);
 }
-
 .merch-img {
   width: 100%;
   border-radius: 14px;
   margin-bottom: 1.2rem;
 }
-
 .merch-title {
   font-weight: 900;
   letter-spacing: 0.15em;
   margin-bottom: 1rem;
   text-align: center;
 }
-
 .buy-btn {
   padding: 0.9rem 2.2rem;
   border-radius: 999px;
@@ -194,43 +211,38 @@ body::before {
   text-align: center;
 }
 
-/* ===== GLOW VARIANTS ===== */
-.glow-gold {
-  box-shadow:
-    0 0 45px rgba(255,220,120,0.45),
-    inset 0 0 22px rgba(255,220,120,0.25);
-}
-.glow-gold:hover {
-  box-shadow:
-    0 0 80px rgba(255,220,120,0.85),
-    inset 0 0 28px rgba(255,220,120,0.35);
-}
-
-.glow-violet {
-  box-shadow:
-    0 0 45px rgba(180,80,255,0.45),
-    inset 0 0 22px rgba(180,80,255,0.25);
-}
-.glow-violet:hover {
-  box-shadow:
-    0 0 80px rgba(200,120,255,0.85),
-    inset 0 0 28px rgba(200,120,255,0.35);
-}
-
-/* ===== FORM ===== */
+/* ===== FORM (FIXED) ===== */
 form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  align-items: center;
 }
+
 form input {
-  width: 250px;
-  padding: 0.85rem;
+  appearance: none;
+  -webkit-appearance: none;
+
+  width: 260px;
+  padding: 0.95rem 1.4rem;
   border-radius: 999px;
-  border: 1px solid rgba(200,120,255,0.6);
+  border: 1px solid rgba(200,120,255,0.7);
   background: rgba(0,0,0,0.45);
   color: white;
+
   text-align: center;
+  letter-spacing: 0.18em;
+  font-size: 0.7rem;
+
+  box-shadow:
+    inset 0 0 25px rgba(180,80,255,0.25),
+    0 0 25px rgba(180,80,255,0.25);
+
+  outline: none;
+}
+
+form input::placeholder {
+  color: rgba(220,180,255,0.6);
 }
 
 /* ===== MOBILE ===== */
@@ -247,17 +259,17 @@ form input {
 <div class="edge"></div>
 <div id="cryptoField"></div>
 
-<div class="screen" id="home">
+<div class="screen active" id="home">
   <div class="home-stack">
     <img src="wizshtlogo_trans.png" class="logo" id="logo">
     <button class="btn" id="enterBtn">ENTER</button>
   </div>
 </div>
 
-<div class="screen hidden" id="updates">
+<div class="screen" id="updates">
   <div class="updates-grid">
 
-    <a class="merch-feature glow-gold" href="https://wizard.printful.me/product/unisex-hoodie" target="_blank">
+    <a class="merch-feature" href="https://wizard.printful.me/product/unisex-hoodie" target="_blank">
       <img src="hoodie-front.png" class="merch-img">
       <div class="merch-title">WIZARD HOODIE</div>
       <div class="buy-btn">BUY NOW</div>
@@ -279,7 +291,7 @@ form input {
       <button class="btn" id="backBtn">BACK</button>
     </div>
 
-    <a class="merch-feature glow-violet" href="https://wizard.printful.me/product/hoodie" target="_blank">
+    <a class="merch-feature" href="https://wizard.printful.me/product/hoodie" target="_blank">
       <img src="hoodie-2.png" class="merch-img">
       <div class="merch-title">WIZARD HOODIE II</div>
       <div class="buy-btn">BUY NOW</div>
@@ -311,13 +323,21 @@ if (!isMobile) {
   });
 }
 
-enterBtn.onclick = () => {
-  home.classList.add("hidden");
-  updates.classList.remove("hidden");
-};
+function swapScreens(from, to) {
+  from.classList.remove("active");
+  from.classList.add("fade-out");
+
+  to.classList.add("active", "fade-in");
+
+  setTimeout(() => {
+    from.classList.remove("fade-out");
+    to.classList.remove("fade-in");
+  }, 700);
+}
+
+enterBtn.onclick = () => swapScreens(home, updates);
 backBtn.onclick = () => {
-  updates.classList.add("hidden");
-  home.classList.remove("hidden");
+  swapScreens(updates, home);
   cryptoField.innerHTML = "";
 };
 
@@ -337,6 +357,6 @@ emailInput.addEventListener("keydown", e => {
   }
 });
 </script>
-
 </body>
 </html>
+
