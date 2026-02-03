@@ -8,11 +8,11 @@
 <style>
 html, body {
   margin: 0;
-  height: 100%;
-  overflow: hidden;
+  min-height: 100%;
   background: #07000f;
   font-family: system-ui, sans-serif;
   color: white;
+  -webkit-overflow-scrolling: touch;
 }
 
 a { text-decoration: none; color: inherit; }
@@ -25,6 +25,7 @@ body.mobile {
 body.desktop {
   --bg-strength: 0.07;
   --letter-life: 9000ms;
+  overflow: hidden;
 }
 
 /* ===== BASE BACKGROUND ===== */
@@ -249,16 +250,29 @@ form input {
   text-align: center;
 }
 
-/* ===== MOBILE ===== */
+/* ===== MOBILE SCROLL FIX ===== */
 @media (max-width: 900px) {
+  body { overflow-y: auto; }
+
+  .screen {
+    position: relative;
+    min-height: 100vh;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto;
+  }
+
+  .screen:not(.active) { display: none; }
+
   .updates-grid { grid-template-columns: 1fr; }
+
+  #updates { padding: 120px 0 160px; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- WATER -->
 <div class="water-layer" id="waterLayer">
   <video id="waterVideo" src="water.mp4" autoplay muted loop playsinline></video>
 </div>
@@ -325,10 +339,9 @@ const logo = document.getElementById("logo");
 const waterLayer = document.getElementById("waterLayer");
 const waterVideo = document.getElementById("waterVideo");
 
-/* slow water */
 waterVideo.playbackRate = 0.55;
 
-/* logo + bg react */
+/* logo react (desktop only) */
 if (!isMobile) {
   document.addEventListener("mousemove", e => {
     document.body.style.setProperty("--mx", e.clientX + "px");
@@ -339,13 +352,11 @@ if (!isMobile) {
       e.clientX - (r.left + r.width / 2),
       e.clientY - (r.top + r.height / 2)
     );
-
     const influence = Math.max(0, 1 - d / 320);
     logo.style.transform = `scale(${1 + influence * 0.3})`;
   });
 }
 
-/* screen swap */
 enterBtn.onclick = () => {
   home.classList.remove("active");
   updates.classList.add("active");
