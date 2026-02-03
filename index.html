@@ -250,23 +250,19 @@ form input {
   text-align: center;
 }
 
-/* ===== MOBILE SCROLL FIX ===== */
+.form-success {
+  display: none;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  opacity: 0.85;
+}
+
+/* ===== MOBILE ===== */
 @media (max-width: 900px) {
   body { overflow-y: auto; }
-
-  .screen {
-    position: relative;
-    min-height: 100vh;
-    opacity: 1 !important;
-    transform: none !important;
-    pointer-events: auto;
-  }
-
+  .screen { position: relative; min-height: 100vh; opacity: 1 !important; transform: none !important; }
   .screen:not(.active) { display: none; }
-
   .updates-grid { grid-template-columns: 1fr; }
-
-  #updates { padding: 120px 0 160px; }
 }
 </style>
 </head>
@@ -309,10 +305,12 @@ form input {
         <div class="caption">Christmas In Wizard City</div>
       </div>
 
-      <form action="https://formspree.io/f/mrelgwzp" method="POST">
+      <form id="emailForm">
         <input id="emailInput" type="email" name="email" placeholder="EMAIL FOR UPDATES" required>
         <button class="btn" type="submit">SUBMIT</button>
       </form>
+
+      <div class="form-success" id="formSuccess">SUBSCRIBED ✨</div>
 
       <button class="btn" id="backBtn">BACK</button>
     </div>
@@ -338,24 +336,10 @@ const emailInput = document.getElementById("emailInput");
 const logo = document.getElementById("logo");
 const waterLayer = document.getElementById("waterLayer");
 const waterVideo = document.getElementById("waterVideo");
+const form = document.getElementById("emailForm");
+const successMsg = document.getElementById("formSuccess");
 
 waterVideo.playbackRate = 0.55;
-
-/* logo react (desktop only) */
-if (!isMobile) {
-  document.addEventListener("mousemove", e => {
-    document.body.style.setProperty("--mx", e.clientX + "px");
-    document.body.style.setProperty("--my", e.clientY + "px");
-
-    const r = logo.getBoundingClientRect();
-    const d = Math.hypot(
-      e.clientX - (r.left + r.width / 2),
-      e.clientY - (r.top + r.height / 2)
-    );
-    const influence = Math.max(0, 1 - d / 320);
-    logo.style.transform = `scale(${1 + influence * 0.3})`;
-  });
-}
 
 enterBtn.onclick = () => {
   home.classList.remove("active");
@@ -369,6 +353,23 @@ backBtn.onclick = () => {
   waterLayer.style.opacity = 0;
   cryptoField.innerHTML = "";
 };
+
+/* Formspree AJAX submit */
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const data = new FormData(form);
+
+  const res = await fetch("https://formspree.io/f/mrelgwzp", {
+    method: "POST",
+    body: data,
+    headers: { "Accept": "application/json" }
+  });
+
+  if (res.status === 200 || res.status === 201) {
+    form.style.display = "none";
+    successMsg.style.display = "block";
+  }
+});
 
 /* crypto letters */
 emailInput.addEventListener("keydown", e => {
@@ -390,4 +391,3 @@ emailInput.addEventListener("keydown", e => {
 
 </body>
 </html>
-
