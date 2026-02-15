@@ -414,37 +414,10 @@ form input {
 }
 
 /* ===== MERCH PAGE ===== */
-.merch-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  width: 100%;
-}
-
-.merch-feature {
-  padding: 1.6rem;
-  border-radius: 18px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(180,80,255,0.3);
-  transition: all 0.3s ease;
-}
-
 .merch-feature:hover { 
   transform: scale(1.03) translateY(-5px);
-  border-color: rgba(255,220,120,0.6);
+  border-color: rgba(255,220,120,0.6) !important;
   box-shadow: 0 10px 40px rgba(180,80,255,0.4);
-}
-
-.merch-img {
-  width: 100%;
-  border-radius: 14px;
-  margin-bottom: 1.2rem;
-}
-
-.merch-title {
-  text-align: center;
-  font-weight: 900;
-  letter-spacing: 0.15em;
 }
 
 /* ===== VIDEO CARDS (used on both content and updates screens) ===== */
@@ -468,17 +441,6 @@ form input {
   letter-spacing: 0.2em;
   text-align: center;
   margin-top: 1rem;
-}
-
-/* ===== CREDITS GRID ===== */
-.credits-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 160px);
-  gap: 3rem;
-  width: 100%;
-  max-width: 900px;
-  justify-content: flex-start;
-  margin-top: -0.5rem;
 }
 
 /* ===== FLIP CARD EFFECT ===== */
@@ -619,11 +581,6 @@ form input {
     grid-template-columns: 1fr; 
   }
   
-  .credits-grid { 
-    grid-template-columns: repeat(2, 140px); 
-    gap: 2rem;
-    justify-content: center;
-  }
   .bio-card {
     width: 140px;
     height: 140px;
@@ -703,21 +660,17 @@ form input {
     
     <div class="top-section">
       <div class="content-title">MERCH</div>
-      <div class="right-buttons" style="visibility: hidden;">
-        <div class="nav-box-small">PLACEHOLDER</div>
-        <div class="nav-box-small">PLACEHOLDER</div>
-      </div>
     </div>
     
-    <div class="merch-grid">
-      <a class="merch-feature" href="https://wizard.printful.me/product/unisex-hoodie" target="_blank">
-        <img src="hoodie-front.png" class="merch-img" alt="Wizard Hoodie">
-        <div class="merch-title">WIZARD HOODIE</div>
+    <div class="videos-section" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); max-width: 900px;">
+      <a class="merch-feature" href="https://wizard.printful.me/product/unisex-hoodie" target="_blank" style="padding: 1.6rem; border-radius: 18px; background: rgba(255,255,255,0.08); border: 1px solid rgba(180,80,255,0.3); transition: all 0.3s ease;">
+        <img src="hoodie-front.png" style="width: 100%; border-radius: 14px; margin-bottom: 1.2rem;" alt="Wizard Hoodie">
+        <div style="text-align: center; font-weight: 900; letter-spacing: 0.15em;">WIZARD HOODIE</div>
       </a>
 
-      <a class="merch-feature" href="https://wizard.printful.me/product/hoodie" target="_blank">
-        <img src="hoodie-2.png" class="merch-img" alt="Wizard Hoodie II">
-        <div class="merch-title">WIZARD HOODIE II</div>
+      <a class="merch-feature" href="https://wizard.printful.me/product/hoodie" target="_blank" style="padding: 1.6rem; border-radius: 18px; background: rgba(255,255,255,0.08); border: 1px solid rgba(180,80,255,0.3); transition: all 0.3s ease;">
+        <img src="hoodie-2.png" style="width: 100%; border-radius: 14px; margin-bottom: 1.2rem;" alt="Wizard Hoodie II">
+        <div style="text-align: center; font-weight: 900; letter-spacing: 0.15em;">WIZARD HOODIE II</div>
       </a>
     </div>
 
@@ -750,18 +703,14 @@ form input {
     
     <div class="top-section">
       <div class="content-title">CREDITS</div>
-      <div class="right-buttons" style="visibility: hidden;">
-        <div class="nav-box-small">PLACEHOLDER</div>
-        <div class="nav-box-small">PLACEHOLDER</div>
-      </div>
     </div>
     
-    <div class="credits-grid">
+    <div class="videos-section" style="display: grid; grid-template-columns: repeat(5, 160px); gap: 3rem; max-width: 900px; justify-content: flex-start;">
       
       <div class="bio-card">
         <div class="bio-card-inner">
           <div class="bio-card-front">
-            <img src="wizzy-photo.png" alt="Wizzy" class="bio-photo">
+            <img src="wiz.PNG" alt="Wizzy" class="bio-photo">
             <div class="bio-name">Wizzy</div>
             <div class="bio-role">Producer<br>Director</div>
           </div>
