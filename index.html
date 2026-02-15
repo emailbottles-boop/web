@@ -380,25 +380,6 @@ form input {
   opacity: 0.85;
 }
 
-/* ===== MERCH PAGE ===== */
-.merch-container {
-  width: min(1200px, 92vw);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 3rem;
-  padding: 2rem 0;
-  padding-top: 2rem;
-  padding-bottom: 8rem;
-  margin: 0 auto;
-}
-
-.merch-container .page-title {
-  align-self: flex-start;
-  text-align: left;
-  margin-top: 2rem;
-}
-
 .merch-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -432,25 +413,41 @@ form input {
   letter-spacing: 0.15em;
 }
 
-/* ===== CONTENT PAGE ===== */
-.content-container {
-  width: min(1200px, 92vw);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 3rem;
-  padding: 2rem 0;
-  padding-top: 2rem;
-  padding-bottom: 8rem;
-  margin: 0 auto;
+/* ===== MERCH PAGE ===== */
+.merch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  width: 100%;
 }
 
-.content-container .page-title {
-  align-self: flex-start;
-  text-align: left;
-  margin-top: 2rem;
+.merch-feature {
+  padding: 1.6rem;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(180,80,255,0.3);
+  transition: all 0.3s ease;
 }
 
+.merch-feature:hover { 
+  transform: scale(1.03) translateY(-5px);
+  border-color: rgba(255,220,120,0.6);
+  box-shadow: 0 10px 40px rgba(180,80,255,0.4);
+}
+
+.merch-img {
+  width: 100%;
+  border-radius: 14px;
+  margin-bottom: 1.2rem;
+}
+
+.merch-title {
+  text-align: center;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+}
+
+/* ===== VIDEO CARDS (used on both content and updates screens) ===== */
 .video-card {
   width: 100%;
   max-width: 500px;
@@ -473,33 +470,15 @@ form input {
   margin-top: 1rem;
 }
 
-/* ===== CREDITS PAGE ===== */
-.credits-container {
-  width: min(1200px, 92vw);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 2rem 0;
-  padding-top: 2rem;
-  padding-bottom: 8rem;
-  margin: 0 auto;
-}
-
-.credits-container .page-title {
-  align-self: flex-start;
-  text-align: left;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-
+/* ===== CREDITS GRID ===== */
 .credits-grid {
   display: grid;
   grid-template-columns: repeat(5, 160px);
   gap: 3rem;
   width: 100%;
-  max-width: 100%;
-  justify-content: center;
-  margin-bottom: 3rem;
+  max-width: 900px;
+  justify-content: flex-start;
+  margin-top: -0.5rem;
 }
 
 /* ===== FLIP CARD EFFECT ===== */
@@ -619,11 +598,6 @@ form input {
     padding: 0;
     justify-content: center;
   }
-  .page-title {
-    font-size: 2.5rem;
-    text-align: left;
-    margin-top: 1rem;
-  }
   .right-buttons {
     width: 100%;
   }
@@ -643,11 +617,6 @@ form input {
   
   .merch-grid { 
     grid-template-columns: 1fr; 
-  }
-  
-  .merch-container,
-  .content-container {
-    padding-bottom: 8rem;
   }
   
   .credits-grid { 
@@ -730,8 +699,11 @@ form input {
 
 <!-- MERCH SCREEN -->
 <div class="screen" id="merch">
-  <div class="merch-container">
-    <div class="page-title">MERCH</div>
+  <div class="updates-container">
+    
+    <div class="top-section">
+      <div class="content-title">MERCH</div>
+    </div>
     
     <div class="merch-grid">
       <a class="merch-feature" href="https://wizard.printful.me/product/unisex-hoodie" target="_blank">
@@ -745,7 +717,10 @@ form input {
       </a>
     </div>
 
-    <button class="btn btn-secondary" id="backFromMerchBtn">BACK</button>
+    <div class="email-section">
+      <button class="btn btn-secondary" id="backFromMerchBtn">BACK</button>
+    </div>
+
   </div>
 </div>
 
@@ -767,8 +742,11 @@ form input {
 
 <!-- CREDITS SCREEN -->
 <div class="screen" id="credits">
-  <div class="credits-container">
-    <div class="page-title">CREDITS</div>
+  <div class="updates-container">
+    
+    <div class="top-section">
+      <div class="content-title">CREDITS</div>
+    </div>
     
     <div class="credits-grid">
       
@@ -844,7 +822,10 @@ form input {
 
     </div>
 
-    <button class="btn btn-secondary" id="backFromCreditsBtn">BACK</button>
+    <div class="email-section">
+      <button class="btn btn-secondary" id="backFromCreditsBtn">BACK</button>
+    </div>
+
   </div>
 </div>
 
