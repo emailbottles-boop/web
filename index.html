@@ -257,14 +257,15 @@ body::before {
   margin: 0 auto;
 }
 
+/* THIS IS THE KEY FIX - FORCE TOP SECTION TO LEFT */
 .top-section {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
   width: 100%;
   gap: 2rem;
   margin-top: 2rem;
-  align-self: flex-start;
+  align-self: flex-start !important;
 }
 
 .content-title {
@@ -275,6 +276,7 @@ body::before {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  flex-shrink: 0;
 }
 
 .right-buttons {
@@ -439,7 +441,7 @@ form input {
   margin-top: 1rem;
 }
 
-/* ===== CREDITS CARDS CONTAINER ===== */
+/* ===== CREDITS CARDS - ALL 5 IN ONE ROW ===== */
 .credits-cards-container {
   display: flex;
   flex-wrap: wrap;
@@ -560,6 +562,7 @@ form input {
     flex-direction: column;
     gap: 1.5rem;
     margin-top: 1rem;
+    align-items: flex-start !important;
   }
   .content-title {
     font-size: 2.5rem;
