@@ -459,6 +459,7 @@ form input {
   cursor: pointer;
   position: relative;
   flex-shrink: 0;
+  overflow: visible;
 }
 
 .bio-card-inner {
@@ -493,6 +494,8 @@ form input {
   justify-content: center;
   gap: 0.6rem;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .bio-card:hover .bio-card-front,
@@ -503,11 +506,12 @@ form input {
 
 .bio-card-back {
   transform: rotateY(180deg);
-  font-size: 0.65rem;
-  letter-spacing: 0.08em;
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
   text-align: center;
-  line-height: 1.6;
-  padding: 1.5rem;
+  line-height: 1.5;
+  padding: 1.2rem;
+  word-wrap: break-word;
 }
 
 .bio-photo {
