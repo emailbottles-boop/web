@@ -457,14 +457,19 @@ form input {
   height: 160px;
   perspective: 1000px;
   cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
 }
 
 .bio-card-inner {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   transition: transform 0.6s;
   transform-style: preserve-3d;
+  transform-origin: center center;
 }
 
 .bio-card.flipped .bio-card-inner {
