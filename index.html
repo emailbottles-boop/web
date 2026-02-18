@@ -607,7 +607,295 @@ form input {
     justify-content: center;
   }
 }
+
+/* ===== ROOMS SCREEN ===== */
+.rooms-setup-card {
+  background: rgba(255,255,255,0.07);
+  border: 2px solid rgba(180,80,255,0.35);
+  border-radius: 22px;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.8rem;
+  max-width: 400px;
+  width: 90vw;
+  backdrop-filter: blur(10px);
+}
+
+.rooms-input {
+  width: 100%;
+  padding: 0.9rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(200,120,255,0.6);
+  background: rgba(0,0,0,0.45);
+  color: white;
+  text-align: center;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  box-sizing: border-box;
+}
+
+.rooms-input::placeholder { opacity: 0.5; }
+
+.role-row {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.role-btn {
+  flex: 1;
+  padding: 0.9rem;
+  border-radius: 14px;
+  border: 2px solid rgba(180,80,255,0.3);
+  background: rgba(255,255,255,0.06);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.role-btn:hover,
+.role-btn.selected {
+  border-color: rgba(255,220,120,0.7);
+  background: rgba(255,220,120,0.12);
+  box-shadow: 0 0 30px rgba(255,200,80,0.35);
+}
+
+.room-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(180,80,255,0.3);
+  border-radius: 18px;
+  padding: 1.4rem 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.room-card:hover {
+  border-color: rgba(255,220,120,0.6);
+  box-shadow: 0 8px 35px rgba(180,80,255,0.4);
+  transform: translateY(-3px);
+}
+
+.room-card-left { display: flex; flex-direction: column; gap: 0.4rem; }
+
+.room-name {
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+}
+
+.room-meta {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  opacity: 0.65;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.dm-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,220,120,0.5);
+  color: rgba(255,220,120,0.9);
+}
+
+.dm-indicator .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,220,120,0.9);
+  box-shadow: 0 0 8px rgba(255,200,80,0.8);
+}
+
+.dm-indicator.offline {
+  border-color: rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.35);
+}
+
+.dm-indicator.offline .dot {
+  background: rgba(255,255,255,0.25);
+  box-shadow: none;
+}
+
+.seats-preview {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+}
+
+.seat-pip {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(180,80,255,0.5);
+  background: rgba(255,255,255,0.04);
+}
+
+.seat-pip.occupied {
+  background: rgba(180,80,255,0.7);
+  border-color: rgba(180,80,255,0.9);
+  box-shadow: 0 0 8px rgba(180,80,255,0.6);
+}
+
+.seat-pip.you {
+  background: rgba(255,220,120,0.8);
+  border-color: rgba(255,220,120,1);
+  box-shadow: 0 0 8px rgba(255,200,80,0.8);
+}
+
+.rooms-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.room-detail-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.room-detail-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  background: linear-gradient(135deg, #ffe066, #b000ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dm-zone {
+  background: rgba(255,220,120,0.06);
+  border: 1px solid rgba(255,220,120,0.3);
+  border-radius: 16px;
+  padding: 1.2rem 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dm-zone-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  opacity: 0.6;
+  margin-bottom: 0.3rem;
+}
+
+.dm-zone-name {
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+}
+
+.seats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+.seat-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(180,80,255,0.25);
+  border-radius: 14px;
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 90px;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.seat-card.occupied {
+  border-color: rgba(180,80,255,0.5);
+  background: rgba(180,80,255,0.08);
+}
+
+.seat-card.yours {
+  border-color: rgba(255,220,120,0.6);
+  background: rgba(255,220,120,0.08);
+}
+
+.seat-card:hover:not(.occupied) {
+  border-color: rgba(255,220,120,0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(180,80,255,0.35);
+}
+
+.seat-num {
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  opacity: 0.5;
+}
+
+.seat-player-name {
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-align: center;
+}
+
+.seat-empty-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  opacity: 0.4;
+}
+
+.section-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  opacity: 0.5;
+  text-transform: uppercase;
+  align-self: flex-start;
+}
+
+.firebase-notice {
+  background: rgba(255,100,100,0.08);
+  border: 1px solid rgba(255,100,100,0.3);
+  border-radius: 12px;
+  padding: 1rem 1.4rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  line-height: 1.7;
+  text-align: center;
+  color: rgba(255,180,180,0.9);
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .room-detail-title { font-size: 1.8rem; }
+  .seats-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+}
 </style>
+
+<!-- Firebase SDK (compat - paste your project config below) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 </head>
 
 <body>
@@ -642,6 +930,7 @@ form input {
       <div class="right-buttons">
         <div class="nav-box-small" id="merchBtn">MERCH</div>
         <div class="nav-box-small" id="creditsBtn">CREDITS</div>
+        <div class="nav-box-small" id="roomsBtn">ROOMS</div>
       </div>
     </div>
 
@@ -791,6 +1080,98 @@ form input {
   </div>
 </div>
 
+<!-- ROOMS SCREEN -->
+<div class="screen" id="rooms" style="align-items: flex-start; justify-content: flex-start; overflow-y: auto;">
+  <div class="updates-container" style="padding-top: 0;">
+
+    <div class="top-section" style="margin-top: 2rem;">
+      <div class="content-title">ROOMS</div>
+      <div class="right-buttons">
+        <div class="nav-box-small" id="backFromRoomsBtn">BACK</div>
+      </div>
+    </div>
+
+    <!-- Firebase not configured notice -->
+    <div class="firebase-notice" id="firebaseNotice">
+      ⚠ FIREBASE NOT CONFIGURED — Open <code>index.html</code>, find <code>FIREBASE_CONFIG_PLACEHOLDER</code>, and replace it with your Firebase project config.<br><br>
+      Create a free project at <strong>console.firebase.google.com</strong>, enable Firestore + Anonymous Auth, then paste your config object.
+    </div>
+
+    <!-- ── SETUP VIEW ── -->
+    <div id="setupView" style="display:none; width:100%; display:flex; flex-direction:column; align-items:center; gap:2rem; padding: 1rem 0 4rem;">
+      <div class="rooms-setup-card">
+        <div style="font-size:0.7rem; letter-spacing:0.3em; opacity:0.6;">WHO ARE YOU?</div>
+        <input class="rooms-input" id="displayNameInput" type="text" placeholder="YOUR NAME" maxlength="24">
+        <div class="section-label">YOUR ROLE</div>
+        <div class="role-row">
+          <button class="role-btn" id="rolePlayerBtn" data-role="player">PLAYER</button>
+          <button class="role-btn" id="roleDmBtn" data-role="dm">DM</button>
+        </div>
+        <button class="btn" id="enterRoomsBtn" style="width:100%;">ENTER</button>
+      </div>
+    </div>
+
+    <!-- ── LOBBY VIEW ── -->
+    <div id="lobbyView" style="display:none; width:100%; flex-direction:column; gap:1.5rem; padding-bottom:4rem;">
+      <div style="display:flex; align-items:center; justify-content:space-between; width:100%;">
+        <div style="font-size:0.65rem; letter-spacing:0.25em; opacity:0.55;" id="lobbyWelcome">WELCOME</div>
+        <div style="display:flex; gap:0.8rem; align-items:center;">
+          <button class="btn" id="createRoomBtn" style="min-width:auto; padding:0.7rem 1.6rem; font-size:0.65rem; display:none;">+ CREATE ROOM</button>
+          <button class="btn btn-secondary" id="changeIdentityBtn" style="min-width:auto; padding:0.7rem 1.2rem; font-size:0.6rem; letter-spacing:0.15em;">CHANGE NAME</button>
+        </div>
+      </div>
+
+      <!-- Create room form (DM only, hidden by default) -->
+      <div id="createRoomForm" style="display:none; flex-direction:column; gap:1rem; background:rgba(255,255,255,0.05); border:1px solid rgba(180,80,255,0.3); border-radius:18px; padding:1.4rem;">
+        <div class="section-label">NEW ROOM</div>
+        <input class="rooms-input" id="newRoomName" placeholder="ROOM NAME" maxlength="40" style="width:100%; box-sizing:border-box;">
+        <input class="rooms-input" id="newRoomDesc" placeholder="DESCRIPTION (OPTIONAL)" maxlength="80" style="width:100%; box-sizing:border-box;">
+        <div style="display:flex; gap:0.8rem; align-items:center;">
+          <label style="font-size:0.6rem; letter-spacing:0.15em; opacity:0.6;">SEATS</label>
+          <input class="rooms-input" id="newRoomSeats" type="number" min="2" max="12" value="6" style="width:80px; padding:0.6rem;">
+        </div>
+        <div style="display:flex; gap:0.8rem;">
+          <button class="btn" id="submitCreateRoom" style="flex:1; padding:0.8rem; font-size:0.65rem;">CREATE</button>
+          <button class="btn btn-secondary" id="cancelCreateRoom" style="padding:0.8rem 1.2rem; font-size:0.65rem;">CANCEL</button>
+        </div>
+      </div>
+
+      <div class="section-label">AVAILABLE ROOMS</div>
+      <div class="rooms-list" id="roomsList">
+        <div style="opacity:0.4; font-size:0.7rem; letter-spacing:0.2em; text-align:center; padding:2rem 0;">LOADING...</div>
+      </div>
+    </div>
+
+    <!-- ── ROOM DETAIL VIEW ── -->
+    <div id="roomDetailView" style="display:none; width:100%; flex-direction:column; gap:1.5rem; padding-bottom:4rem;">
+      <div class="room-detail-header">
+        <div>
+          <div class="room-detail-title" id="roomDetailName">ROOM</div>
+          <div style="font-size:0.6rem; letter-spacing:0.2em; opacity:0.5; margin-top:0.4rem;" id="roomDetailDesc"></div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.8rem; align-items:flex-end;">
+          <button class="btn" id="dmJoinLeaveBtn" style="min-width:auto; padding:0.7rem 1.5rem; font-size:0.65rem; display:none;">CLAIM SEAT</button>
+          <button class="btn btn-secondary" id="leaveRoomBtn" style="min-width:auto; padding:0.7rem 1.3rem; font-size:0.6rem; letter-spacing:0.15em;">LEAVE ROOM</button>
+        </div>
+      </div>
+
+      <div class="section-label">DUNGEON MASTER</div>
+      <div class="dm-zone" id="dmZone">
+        <div>
+          <div class="dm-zone-label">DM SEAT</div>
+          <div class="dm-zone-name" id="dmZoneName" style="opacity:0.35;">EMPTY — AWAITING DM</div>
+        </div>
+      </div>
+
+      <div class="section-label">PLAYER SEATS</div>
+      <div class="seats-grid" id="seatsGrid">
+        <!-- seats rendered by JS -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <script>
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 document.body.classList.add(isMobile ? "mobile" : "desktop");
@@ -800,14 +1181,17 @@ const updates = document.getElementById("updates");
 const merch = document.getElementById("merch");
 const content = document.getElementById("content");
 const credits = document.getElementById("credits");
+const rooms = document.getElementById("rooms");
 
 const enterBtn = document.getElementById("enterBtn");
 const backBtn = document.getElementById("backBtn");
 const merchBtn = document.getElementById("merchBtn");
 const creditsBtn = document.getElementById("creditsBtn");
+const roomsBtn = document.getElementById("roomsBtn");
 const backFromMerchBtn = document.getElementById("backFromMerchBtn");
 const backFromContentBtn = document.getElementById("backFromContentBtn");
 const backFromCreditsBtn = document.getElementById("backFromCreditsBtn");
+const backFromRoomsBtn = document.getElementById("backFromRoomsBtn");
 
 const cryptoField = document.getElementById("cryptoField");
 const emailInput = document.getElementById("emailInput");
@@ -819,7 +1203,7 @@ const successMsg = document.getElementById("formSuccess");
 waterVideo.playbackRate = 0.55;
 
 function showScreen(screenToShow) {
-  [home, updates, merch, content, credits].forEach(s => s.classList.remove("active"));
+  [home, updates, merch, content, credits, rooms].forEach(s => s.classList.remove("active"));
   screenToShow.classList.add("active");
 }
 
@@ -840,6 +1224,8 @@ creditsBtn.onclick = () => showScreen(credits);
 backFromMerchBtn.onclick = () => showScreen(updates);
 backFromContentBtn.onclick = () => showScreen(updates);
 backFromCreditsBtn.onclick = () => showScreen(updates);
+roomsBtn.onclick = () => { showScreen(rooms); initRooms(); };
+backFromRoomsBtn.onclick = () => { showScreen(updates); roomsCleanup(); };
 
 /* Flip card functionality for all bio cards */
 const bioCards = document.querySelectorAll('.bio-card');
@@ -881,6 +1267,419 @@ emailInput.addEventListener("keydown", e => {
     cryptoField.appendChild(el);
     setTimeout(() => el.remove(), 6000);
   }
+});
+</script>
+
+<!-- ================================================================
+  FIREBASE ROOMS SYSTEM
+  ================================================================
+  SETUP INSTRUCTIONS:
+  1. Go to console.firebase.google.com and create a project
+  2. Enable Firestore Database (start in production mode)
+  3. Enable Authentication > Anonymous
+  4. Copy your project's config and replace FIREBASE_CONFIG_PLACEHOLDER below
+  5. In Firestore, set Security Rules:
+
+  rules_version = '2';
+  service cloud.firestore {
+    match /databases/{database}/documents {
+      match /rooms/{roomId} {
+        allow read: if true;
+        allow create: if request.auth != null;
+        allow update, delete: if request.auth != null
+          && request.auth.uid == resource.data.createdBy;
+      }
+      match /users/{uid} {
+        allow read: if true;
+        allow write: if request.auth != null && request.auth.uid == uid;
+      }
+    }
+  }
+  ================================================================ -->
+<script>
+// ── FIREBASE CONFIG ──────────────────────────────────────────────
+// Replace the object below with your Firebase project config
+const FIREBASE_CONFIG = "FIREBASE_CONFIG_PLACEHOLDER";
+// Example of what it should look like after you replace it:
+// const FIREBASE_CONFIG = {
+//   apiKey: "AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXX",
+//   authDomain: "your-project.firebaseapp.com",
+//   projectId: "your-project-id",
+//   storageBucket: "your-project.appspot.com",
+//   messagingSenderId: "123456789",
+//   appId: "1:123456789:web:xxxxxxxxxxxxxxxxx"
+// };
+// ────────────────────────────────────────────────────────────────
+
+let db = null;
+let auth = null;
+let currentUser = null;
+let myRole = null; // 'dm' | 'player'
+let myName = null;
+let currentRoomId = null;
+
+// Active Firestore listeners — cleaned up on leave
+let roomsListener = null;
+let roomDetailListener = null;
+
+// DOM refs (rooms screen)
+const setupView        = document.getElementById("setupView");
+const lobbyView        = document.getElementById("lobbyView");
+const roomDetailView   = document.getElementById("roomDetailView");
+const firebaseNotice   = document.getElementById("firebaseNotice");
+const displayNameInput = document.getElementById("displayNameInput");
+const rolePlayerBtn    = document.getElementById("rolePlayerBtn");
+const roleDmBtn        = document.getElementById("roleDmBtn");
+const enterRoomsBtn    = document.getElementById("enterRoomsBtn");
+const lobbyWelcome     = document.getElementById("lobbyWelcome");
+const createRoomBtn    = document.getElementById("createRoomBtn");
+const createRoomForm   = document.getElementById("createRoomForm");
+const newRoomName      = document.getElementById("newRoomName");
+const newRoomDesc      = document.getElementById("newRoomDesc");
+const newRoomSeats     = document.getElementById("newRoomSeats");
+const submitCreateRoom = document.getElementById("submitCreateRoom");
+const cancelCreateRoom = document.getElementById("cancelCreateRoom");
+const roomsList        = document.getElementById("roomsList");
+const changeIdentityBtn= document.getElementById("changeIdentityBtn");
+const roomDetailName   = document.getElementById("roomDetailName");
+const roomDetailDesc   = document.getElementById("roomDetailDesc");
+const dmZone           = document.getElementById("dmZone");
+const dmZoneName       = document.getElementById("dmZoneName");
+const seatsGrid        = document.getElementById("seatsGrid");
+const dmJoinLeaveBtn   = document.getElementById("dmJoinLeaveBtn");
+const leaveRoomBtn     = document.getElementById("leaveRoomBtn");
+
+let selectedRole = null;
+
+function setRole(role) {
+  selectedRole = role;
+  rolePlayerBtn.classList.toggle("selected", role === "player");
+  roleDmBtn.classList.toggle("selected", role === "dm");
+}
+
+rolePlayerBtn.addEventListener("click", () => setRole("player"));
+roleDmBtn.addEventListener("click", () => setRole("dm"));
+
+// ── INIT FIREBASE ─────────────────────────────────────────────────
+function initFirebase() {
+  if (FIREBASE_CONFIG === "FIREBASE_CONFIG_PLACEHOLDER" || typeof FIREBASE_CONFIG !== "object") {
+    firebaseNotice.style.display = "block";
+    return false;
+  }
+  try {
+    if (!firebase.apps.length) {
+      firebase.initializeApp(FIREBASE_CONFIG);
+    }
+    db   = firebase.firestore();
+    auth = firebase.auth();
+    firebaseNotice.style.display = "none";
+    return true;
+  } catch(err) {
+    firebaseNotice.style.display = "block";
+    firebaseNotice.textContent = "Firebase error: " + err.message;
+    return false;
+  }
+}
+
+// ── SHOW / HIDE SUB-VIEWS ─────────────────────────────────────────
+function showSubView(view) {
+  [setupView, lobbyView, roomDetailView].forEach(v => v.style.display = "none");
+  view.style.display = "flex";
+}
+
+// ── INIT ROOMS (called when ROOMS screen opens) ───────────────────
+let roomsInitialized = false;
+
+async function initRooms() {
+  if (!initFirebase()) { showSubView(setupView); return; }
+
+  // Sign in anonymously (persists across sessions via IndexedDB)
+  if (!currentUser) {
+    try {
+      const result = await auth.signInAnonymously();
+      currentUser = result.user;
+    } catch(e) {
+      firebaseNotice.style.display = "block";
+      firebaseNotice.textContent = "Auth error: " + e.message;
+      return;
+    }
+  }
+
+  // Load persisted identity from localStorage
+  const savedName = localStorage.getItem("wiz_rooms_name");
+  const savedRole = localStorage.getItem("wiz_rooms_role");
+
+  if (savedName && savedRole) {
+    myName = savedName;
+    myRole = savedRole;
+    showLobby();
+  } else {
+    showSubView(setupView);
+  }
+}
+
+function roomsCleanup() {
+  if (roomsListener)      { roomsListener();      roomsListener = null; }
+  if (roomDetailListener) { roomDetailListener(); roomDetailListener = null; }
+}
+
+// ── SETUP: enter lobby ────────────────────────────────────────────
+enterRoomsBtn.addEventListener("click", async () => {
+  const name = displayNameInput.value.trim();
+  if (!name) { displayNameInput.focus(); return; }
+  if (!selectedRole) { alert("Please choose PLAYER or DM"); return; }
+
+  myName = name;
+  myRole = selectedRole;
+  localStorage.setItem("wiz_rooms_name", name);
+  localStorage.setItem("wiz_rooms_role", selectedRole);
+
+  // Write/update user doc
+  await db.collection("users").doc(currentUser.uid).set({
+    displayName: myName,
+    role: myRole,
+    roomId: null,
+    seat: null,
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  }, { merge: true });
+
+  showLobby();
+});
+
+changeIdentityBtn.addEventListener("click", () => {
+  localStorage.removeItem("wiz_rooms_name");
+  localStorage.removeItem("wiz_rooms_role");
+  myName = null; myRole = null;
+  displayNameInput.value = "";
+  selectedRole = null;
+  rolePlayerBtn.classList.remove("selected");
+  roleDmBtn.classList.remove("selected");
+  showSubView(setupView);
+});
+
+// ── LOBBY ─────────────────────────────────────────────────────────
+function showLobby() {
+  if (roomsListener) { roomsListener(); roomsListener = null; }
+  currentRoomId = null;
+  lobbyWelcome.textContent = "WELCOME, " + myName.toUpperCase() + " · " + myRole.toUpperCase();
+  createRoomBtn.style.display = myRole === "dm" ? "block" : "none";
+  showSubView(lobbyView);
+  subscribeToRooms();
+}
+
+function subscribeToRooms() {
+  if (roomsListener) roomsListener();
+  roomsListener = db.collection("rooms")
+    .orderBy("createdAt", "desc")
+    .onSnapshot(snap => renderRooms(snap), err => console.error("Rooms error", err));
+}
+
+function renderRooms(snap) {
+  if (snap.empty) {
+    roomsList.innerHTML = '<div style="opacity:0.4;font-size:0.7rem;letter-spacing:0.2em;text-align:center;padding:2rem 0;">NO ROOMS YET' + (myRole === "dm" ? " — CREATE ONE ABOVE" : "") + '</div>';
+    return;
+  }
+
+  // Fetch all user docs to get presence
+  db.collection("users").get().then(userSnap => {
+    const usersInRoom = {}; // roomId -> {players:[], dm: name|null}
+    userSnap.forEach(u => {
+      const d = u.data();
+      if (!d.roomId) return;
+      if (!usersInRoom[d.roomId]) usersInRoom[d.roomId] = { players: [], dm: null };
+      if (d.role === "dm") usersInRoom[d.roomId].dm = d.displayName;
+      else usersInRoom[d.roomId].players.push({ uid: u.id, name: d.displayName, seat: d.seat });
+    });
+
+    roomsList.innerHTML = "";
+    snap.forEach(doc => {
+      const r = doc.data();
+      const rid = doc.id;
+      const presence = usersInRoom[rid] || { players: [], dm: null };
+      const maxSeats = r.maxSeats || 6;
+      const occupied = presence.players.length;
+
+      const card = document.createElement("div");
+      card.className = "room-card";
+
+      const dmHtml = presence.dm
+        ? `<span class="dm-indicator"><span class="dot"></span>${presence.dm.toUpperCase()}</span>`
+        : `<span class="dm-indicator offline"><span class="dot"></span>NO DM</span>`;
+
+      const pips = Array.from({length: maxSeats}, (_, i) => {
+        const p = presence.players.find(pl => pl.seat === i + 1);
+        const isYou = p && p.uid === currentUser.uid;
+        return `<div class="seat-pip${p ? (isYou ? " you" : " occupied") : ""}"></div>`;
+      }).join("");
+
+      card.innerHTML = `
+        <div class="room-card-left">
+          <div class="room-name">${r.name.toUpperCase()}</div>
+          <div class="room-meta">${dmHtml} &nbsp;·&nbsp; ${occupied}/${maxSeats} PLAYERS</div>
+          ${r.description ? `<div class="room-meta" style="margin-top:0.2rem;">${r.description}</div>` : ""}
+        </div>
+        <div class="seats-preview">${pips}</div>`;
+
+      card.addEventListener("click", () => openRoom(rid, r));
+      roomsList.appendChild(card);
+    });
+  });
+}
+
+// ── CREATE ROOM ───────────────────────────────────────────────────
+createRoomBtn.addEventListener("click", () => {
+  createRoomForm.style.display = createRoomForm.style.display === "none" ? "flex" : "none";
+});
+
+cancelCreateRoom.addEventListener("click", () => {
+  createRoomForm.style.display = "none";
+  newRoomName.value = "";
+  newRoomDesc.value = "";
+  newRoomSeats.value = "6";
+});
+
+submitCreateRoom.addEventListener("click", async () => {
+  const name = newRoomName.value.trim();
+  if (!name) { newRoomName.focus(); return; }
+  const seats = Math.min(12, Math.max(2, parseInt(newRoomSeats.value) || 6));
+
+  const ref = await db.collection("rooms").add({
+    name,
+    description: newRoomDesc.value.trim(),
+    maxSeats: seats,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    createdBy: currentUser.uid
+  });
+
+  createRoomForm.style.display = "none";
+  newRoomName.value = "";
+  newRoomDesc.value = "";
+  newRoomSeats.value = "6";
+  openRoom(ref.id, { name, description: "", maxSeats: seats });
+});
+
+// ── OPEN ROOM DETAIL ──────────────────────────────────────────────
+async function openRoom(roomId, roomData) {
+  if (roomDetailListener) { roomDetailListener(); roomDetailListener = null; }
+  currentRoomId = roomId;
+  roomDetailName.textContent = roomData.name.toUpperCase();
+  roomDetailDesc.textContent = roomData.description || "";
+
+  // DMs see "CLAIM/LEAVE DM SEAT" button
+  if (myRole === "dm") {
+    dmJoinLeaveBtn.style.display = "block";
+    dmJoinLeaveBtn.textContent = "CLAIM DM SEAT";
+  } else {
+    dmJoinLeaveBtn.style.display = "none";
+  }
+
+  showSubView(roomDetailView);
+  subscribeToRoomDetail(roomId, roomData.maxSeats || 6);
+}
+
+function subscribeToRoomDetail(roomId, maxSeats) {
+  if (roomDetailListener) roomDetailListener();
+
+  // Listen to users in this room
+  roomDetailListener = db.collection("users")
+    .where("roomId", "==", roomId)
+    .onSnapshot(snap => {
+      let dmData = null;
+      const players = [];
+      snap.forEach(u => {
+        const d = u.data();
+        if (d.role === "dm") dmData = { uid: u.id, name: d.displayName };
+        else players.push({ uid: u.id, name: d.displayName, seat: d.seat });
+      });
+
+      // DM zone
+      if (dmData) {
+        const isMe = dmData.uid === currentUser.uid;
+        dmZoneName.textContent = dmData.name.toUpperCase() + (isMe ? " (YOU)" : "");
+        dmZoneName.style.opacity = "1";
+        if (myRole === "dm") {
+          dmJoinLeaveBtn.textContent = isMe ? "LEAVE DM SEAT" : "CLAIM DM SEAT";
+        }
+      } else {
+        dmZoneName.textContent = "EMPTY — AWAITING DM";
+        dmZoneName.style.opacity = "0.35";
+        if (myRole === "dm") dmJoinLeaveBtn.textContent = "CLAIM DM SEAT";
+      }
+
+      // Seats grid
+      seatsGrid.innerHTML = "";
+      for (let i = 1; i <= maxSeats; i++) {
+        const player = players.find(p => p.seat === i);
+        const isMe = player && player.uid === currentUser.uid;
+        const div = document.createElement("div");
+        div.className = "seat-card" + (player ? (isMe ? " yours" : " occupied") : "");
+        div.innerHTML = `<div class="seat-num">SEAT ${i}</div>
+          ${player
+            ? `<div class="seat-player-name">${player.name.toUpperCase()}${isMe ? "<br><span style='opacity:0.5;font-size:0.55rem;'>(YOU)</span>" : ""}</div>`
+            : `<div class="seat-empty-label">EMPTY</div>`}`;
+
+        // Players can click empty seats to sit, or their own seat to stand
+        if (myRole === "player") {
+          if (!player) {
+            div.title = "Sit here";
+            div.addEventListener("click", () => takeSeat(roomId, i));
+          } else if (isMe) {
+            div.title = "Leave seat";
+            div.addEventListener("click", () => leaveSeat());
+          }
+        }
+
+        seatsGrid.appendChild(div);
+      }
+    }, err => console.error("Room detail error", err));
+}
+
+// ── DM CLAIM / LEAVE SEAT ─────────────────────────────────────────
+dmJoinLeaveBtn.addEventListener("click", async () => {
+  const userRef = db.collection("users").doc(currentUser.uid);
+  const userSnap = await userRef.get();
+  const userData = userSnap.data() || {};
+  const alreadyInThisRoom = userData.roomId === currentRoomId && userData.role === "dm";
+
+  if (alreadyInThisRoom) {
+    // Leave DM seat
+    await userRef.set({ roomId: null, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
+  } else {
+    // Check if another DM is already here
+    const snap = await db.collection("users").where("roomId", "==", currentRoomId).where("role", "==", "dm").get();
+    if (!snap.empty && snap.docs[0].id !== currentUser.uid) {
+      alert("A DM is already in this room.");
+      return;
+    }
+    // Claim seat
+    await userRef.set({ roomId: currentRoomId, role: "dm", seat: null, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
+  }
+});
+
+// ── PLAYER TAKE / LEAVE SEAT ──────────────────────────────────────
+async function takeSeat(roomId, seatNum) {
+  const userRef = db.collection("users").doc(currentUser.uid);
+  await userRef.set({
+    roomId,
+    seat: seatNum,
+    role: "player",
+    displayName: myName,
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  }, { merge: true });
+}
+
+async function leaveSeat() {
+  const userRef = db.collection("users").doc(currentUser.uid);
+  await userRef.set({ roomId: null, seat: null, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
+}
+
+// ── LEAVE ROOM (go back to lobby) ────────────────────────────────
+leaveRoomBtn.addEventListener("click", async () => {
+  // If player, vacate seat but preserve presence so DM can still see them left
+  // If DM, release DM seat
+  const userRef = db.collection("users").doc(currentUser.uid);
+  await userRef.set({ roomId: null, seat: null, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
+  showLobby();
 });
 </script>
 
