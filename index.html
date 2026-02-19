@@ -1155,10 +1155,10 @@ form input {
         </div>
       </div>
 
-      <div class="section-label">DUNGEON MASTERS</div>
+      <div class="section-label">DUNGEON MASTER</div>
       <div class="dm-zone" id="dmZone">
         <div>
-          <div class="dm-zone-label">DM SEATS</div>
+          <div class="dm-zone-label">DM SEAT</div>
           <div class="dm-zone-name" id="dmZoneName" style="opacity:0.35;">EMPTY — AWAITING DM</div>
         </div>
       </div>
@@ -1482,12 +1482,12 @@ function renderRooms(snap) {
 
   // Fetch all user docs to get presence
   db.collection("users").get().then(userSnap => {
-    const usersInRoom = {}; // roomId -> {players:[], dms:[]}
+    const usersInRoom = {}; // roomId -> {players:[], dm: name|null}
     userSnap.forEach(u => {
       const d = u.data();
       if (!d.roomId) return;
-      if (!usersInRoom[d.roomId]) usersInRoom[d.roomId] = { players: [], dms: [] };
-      if (d.role === "dm") usersInRoom[d.roomId].dms.push(d.displayName);
+      if (!usersInRoom[d.roomId]) usersInRoom[d.roomId] = { players: [], dm: null };
+      if (d.role === "dm") usersInRoom[d.roomId].dm = d.displayName;
       else usersInRoom[d.roomId].players.push({ uid: u.id, name: d.displayName, seat: d.seat });
     });
 
@@ -1502,8 +1502,8 @@ function renderRooms(snap) {
       const card = document.createElement("div");
       card.className = "room-card";
 
-      const dmHtml = presence.dms && presence.dms.length > 0
-        ? `<span class="dm-indicator"><span class="dot"></span>${presence.dms.map(n => n.toUpperCase()).join(', ')}</span>`
+      const dmHtml = presence.dm
+        ? `<span class="dm-indicator"><span class="dot"></span>${presence.dm.toUpperCase()}</span>`
         : `<span class="dm-indicator offline"><span class="dot"></span>NO DM</span>`;
 
       const pips = Array.from({length: maxSeats}, (_, i) => {
@@ -1584,28 +1584,26 @@ function subscribeToRoomDetail(roomId, maxSeats) {
   roomDetailListener = db.collection("users")
     .where("roomId", "==", roomId)
     .onSnapshot(snap => {
-      const dms = [];
+      let dmData = null;
       const players = [];
       snap.forEach(u => {
         const d = u.data();
-        if (d.role === "dm") dms.push({ uid: u.id, name: d.displayName });
+        if (d.role === "dm") dmData = { uid: u.id, name: d.displayName };
         else players.push({ uid: u.id, name: d.displayName, seat: d.seat });
       });
 
-      // DM zone — supports multiple DMs
-      const iAmDm = dms.some(d => d.uid === currentUser.uid);
-      if (dms.length > 0) {
-        dmZoneName.innerHTML = dms.map(d => {
-          const isMe = d.uid === currentUser.uid;
-          return `<div>${d.name.toUpperCase()}${isMe ? ' <span style="opacity:0.5;font-size:0.75em;">(YOU)</span>' : ''}</div>`;
-        }).join('');
+      // DM zone
+      if (dmData) {
+        const isMe = dmData.uid === currentUser.uid;
+        dmZoneName.textContent = dmData.name.toUpperCase() + (isMe ? " (YOU)" : "");
         dmZoneName.style.opacity = "1";
+        if (myRole === "dm") {
+          dmJoinLeaveBtn.textContent = isMe ? "LEAVE DM SEAT" : "CLAIM DM SEAT";
+        }
       } else {
-        dmZoneName.innerHTML = "EMPTY — AWAITING DM";
+        dmZoneName.textContent = "EMPTY — AWAITING DM";
         dmZoneName.style.opacity = "0.35";
-      }
-      if (myRole === "dm") {
-        dmJoinLeaveBtn.textContent = iAmDm ? "LEAVE DM SEAT" : "CLAIM DM SEAT";
+        if (myRole === "dm") dmJoinLeaveBtn.textContent = "CLAIM DM SEAT";
       }
 
       // Seats grid
@@ -1647,7 +1645,13 @@ dmJoinLeaveBtn.addEventListener("click", async () => {
     // Leave DM seat
     await userRef.set({ roomId: null, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
   } else {
-    // Multiple DMs allowed — just claim the seat
+    // Check if another DM is already here
+    const snap = await db.collection("users").where("roomId", "==", currentRoomId).where("role", "==", "dm").get();
+    if (!snap.empty && snap.docs[0].id !== currentUser.uid) {
+      alert("A DM is already in this room.");
+      return;
+    }
+    // Claim seat
     await userRef.set({ roomId: currentRoomId, role: "dm", seat: null, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
   }
 });
